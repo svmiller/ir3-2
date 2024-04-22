@@ -2,28 +2,21 @@
   href: "/"
   active: home
 
-- title: "About"
-  href: "/about/"
+- title: "Course Description [PDF]"
+  href: "http://svmiller.com/"
   active: about
 
-- title: "Blog"
-  href: "/blog/"
-  active: blog
+- title: "Course Materials"
+  href: "/course-materials/"
+  active: course-materials
 
-- title: "CV"
-  href: "/cv/"
-  active: cv
+- title: "Lab Scripts"
+  href: "/lab-scripts/"
+  active: lab-scripts
 
-- title: "Research"
-  href: "/research/"
-  active: research
+- title: "Problem Sets"
+  href: "/problem-sets/"
+  active: problem-sets
 
-- title: "Teaching"
-  href: "/teaching/"
-  active: teaching
-  subcategories:
-    - subtitle: "Class 1"
-      subhref: "/teaching/class-1/"
-      active: class-1
-    - subtitle: "Class 2"
-      subhref: "http://posc3410.svmiller.com"
+- title: "Athena"
+  href: "https://athena.itslearning.com/"
