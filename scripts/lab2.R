@@ -15,9 +15,8 @@
 
 #+ setup, include=FALSE
 knitr::opts_chunk$set(collapse = TRUE, comment = "#>",
-                      fig.path = "http://ir3-2.svmiller.com/images/lab-2/",
-                      fig.width = 10,
-                      out.width = "100%"
+                      fig.path = "../images/lab-2/",
+                      fig.width = 10
 )
 #+
 # =========================
