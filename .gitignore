@@ -1,3 +1,8 @@
 _site
 .sass-cache
 !.gitignore
+_ht*
+_vt*
+*.log
+_internal
+_dross
