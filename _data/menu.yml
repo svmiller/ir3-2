@@ -18,6 +18,11 @@
 - title: "Lab Scripts"
   href: "/lab-scripts/"
   active: lab-scripts
+  subcategories:
+    - subtitle: "Lab 1: Getting Started in R and Rstudio"
+      subhref: "/lab-scripts/lab-1/"
+    - subtitle: "Lab 2: Data Visualization"
+      subhref: "/lab-scripts/lab-2/"
 
 - title: "Problem Sets"
   href: "/problem-sets/"
