@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+
+{% include head.html %}
+
+
+  <body>
+<div id="wrap">
+
+<div id="header">
+{% include header.html %}
+
+</div>
+
+<div id="navcontainer">
+
+{% include nav.html %}
+
+
+</div>
+
+<div id="content">
+
+{{ content }}
+
+</div>
+
+<div id="sidebar">
+<h1>{{site.title}}</h1>
+<span>{{site.job}}</span><br />
+<p>
+{{ site.address }}<br /> 
+<a href="mailto:{{site.email}}">{{site.email}}</a></p>
+
+{% if page.class_content %}
+  {% capture class_content %}{% include_relative {{ page.class_content }} %}{% endcapture %}
+{{ class_content | markdownify }}
+{% endif %}
+
+</div>
+
+{% include footer.html %}
+
+</div> <!-- and that's a #wrap -->
+
+
+
+</body>
+</html>

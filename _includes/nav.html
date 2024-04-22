@@ -1,0 +1,31 @@
+<!-- https://stackoverflow.com/questions/8340170/jekyll-automatically-highlight-current-tab-in-menu-bar 
+https://stackoverflow.com/questions/35733044/how-to-add-active-class-to-navigation-link-if-you-are-on-a-single-post-page-i
+-->
+
+
+
+
+<ul class="nav-menu">
+    {% for i in site.data.menu %}
+    {% if i.subcategories != null %}
+    {% if {{page.active}} == {{i.active}} %}
+    <li id="n-active"><a href="{{ i.href }}" class="active">{{ i.title }}</a>
+    {% else %}
+     <li><a href="{{ i.href }}" class="">{{ i.title }}</a>
+    {% endif %}
+    <ul class="sub-menu">
+    {% for subcategory in i.subcategories %}
+    <li><a href="{{ subcategory.subhref }}">{{ subcategory.subtitle }}</a></li>
+    {% endfor %}
+    </ul> </li>
+    {% else %}
+    {% if {{page.active}} == {{i.active}} %}
+    <li id="n-active"><a href="{{ i.href }}" class="active">{{ i.title }}</a>
+    {% else %}
+    <li><a href="{{ i.href }}" class="">{{ i.title }}</a>
+    {% endif %}   </li>
+    {% endif %}
+ 
+    {% endfor %}
+    </ul>
+

@@ -1,0 +1,44 @@
+
+/* general styles for the #content float, so that it's not too ugly */
+
+
+#content p {
+
+text-align: justify;
+
+}
+
+#content {
+	float: left;
+	width: 68.5%;
+	line-height: 1.6em;
+	color: #000;
+	background: #fff;
+	margin-top: 10px;
+}
+
+#content p img {
+	float: right;
+	border: 1px #999 solid;
+	padding: 2px;
+	margin: 8px;
+}
+
+#content span {
+	margin-left: 18px;
+	font-weight: bold;
+	display: inline;
+	border-bottom: 1px dotted #999;
+}
+
+#content ol { 
+	margin-top: 0;
+}
+
+#content ol li { 
+	list-style-type: decimal-leading-zero;
+	margin-left: 10px;
+}
+#content ol span {
+	margin-left: -18px;
+}

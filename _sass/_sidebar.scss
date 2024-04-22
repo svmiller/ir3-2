@@ -1,0 +1,54 @@
+/* general styles for the #sidebar float because, hell, why not? */
+
+#sidebar {
+	float: right;
+	width: 27.5%;
+	line-height: 1.5em;
+	background: $su-sky20;
+	margin-top: 15px;
+	margin-bottom: 10px;
+	padding: 0px 10px 0px 10px;
+}
+
+#sidebar h1 {
+	
+	font-size: 130%;
+	margin-bottom: 0;
+}
+
+#sidebar h2 {
+	
+	font-size: 110%;
+	margin-bottom: 0;
+}
+
+#sidebar a {
+	font-weight: normal;
+	text-decoration: none;
+}
+
+#sidebar a:hover, #sidebar a:active {
+    color: $su-darkgrey;
+	border-bottom: $su-darkgrey 1px solid;
+	
+}
+
+hr.hr { width: 90%; margin-left: auto; margin-right: auto; }
+
+#sidebar ul li { margin-left: -35px; display: inline; }
+
+#sidebar ul li p { margin-top: 0; margin-left: -35px;  }
+
+#sidebar ul li a:link, #sidebar ul li a:visited { border-bottom: 1px #b9c1bd solid; }
+
+#sidebar ul li a:active, #sidebar ul li a:hover { color: #333; background: none; border-bottom: 1px #ccc solid; }
+
+#sidebar ol li { 
+	margin-left: -10px;
+	list-style-type: decimal-leading-zero;
+ }
+
+#sidebar ol li ul li {
+	display: block;
+}
+

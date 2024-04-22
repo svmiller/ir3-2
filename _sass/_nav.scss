@@ -1,0 +1,78 @@
+/* navigation, so for those that do stick around know how to find their way around my crummy site */
+
+#navcontainer {
+	margin-top: 10px;
+}
+
+
+.nav-menu {
+	padding-left: 0;
+	margin: 0;
+	background-color: $su-darkgrey;
+	color: #fff;
+	float: left;
+	width: 100%;
+}
+
+.nav-menu li { 
+    display: inline; 
+    position: relative;
+	padding: 0.75em 1em;
+	float: left;
+    list-style:none;
+	border-right: 1px solid #666;
+    }
+
+.nav-menu li a {
+
+	color: #fff;
+	text-decoration: none;
+	font-weight: normal;
+
+}
+
+#navcontainer ul li:hover, #navcontainer ul li:active
+{
+    background: darken($su-darkgrey, 10%);
+	color: #fff;
+}
+
+
+.nav-menu li#n-active { background: #fff; }
+
+.nav-menu li#n-active a { color: $su-blue; }
+
+
+.nav-menu ul {
+    position:absolute;
+    visibility:hidden;
+
+}
+
+.nav-menu li:hover ul{
+    right: auto;
+    left: 0;
+    visibility:visible
+}
+
+.sub-menu { 
+    background: $su-darkgrey; top: 40px;
+    float: left;
+    padding: 0
+}
+
+.sub-menu li { display: block;
+  float: left;
+  position: relative;
+  min-width: 250px;
+  margin: 0;
+}
+
+
+.nav-menu li#n-active .sub-menu li a { color: #fff; }
+
+
+#navcontainer ul li#n-active:hover, #navcontainer ul li#n-active:active
+{
+    background:  #fff;
+}
