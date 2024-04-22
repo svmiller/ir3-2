@@ -2,13 +2,18 @@
   href: "/"
   active: home
 
-- title: "Course Description [PDF]"
+- title: "Course Description"
   href: "http://svmiller.com/"
   active: about
 
 - title: "Course Materials"
   href: "/course-materials/"
   active: course-materials
+
+- title: "R/RStudio"
+  href: "/r-rstudio/"
+  active: r-rstudio
+
 
 - title: "Lab Scripts"
   href: "/lab-scripts/"
