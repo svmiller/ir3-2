@@ -8,3 +8,11 @@
 }
 
 #article p { text-align: justify }
+
+#article p img {
+	float: right;
+	border: 0px #999 solid;
+	padding: 8px;
+	margin: 8px;
+	background: #e3f4f7;
+}
