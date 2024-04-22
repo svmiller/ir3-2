@@ -62,18 +62,18 @@ tibble(x = rnorm(100),
 
 Example
 #> # A tibble: 100 × 2
-#>         x      y
-#>     <dbl>  <dbl>
-#>  1  0.439  1.39 
-#>  2 -0.490 -0.903
-#>  3 -0.786 -0.417
-#>  4 -0.369 -0.496
-#>  5  0.236 -0.626
-#>  6  1.92   2.06 
-#>  7 -1.09  -0.873
-#>  8 -0.101  1.40 
-#>  9 -0.179  3.05 
-#> 10 -0.770 -1.88 
+#>           x       y
+#>       <dbl>   <dbl>
+#>  1 -0.918   -1.17  
+#>  2 -0.781   -1.96  
+#>  3 -1.45    -1.31  
+#>  4  1.03     1.86  
+#>  5  0.00275  0.150 
+#>  6 -0.313   -0.0484
+#>  7  0.860    1.28  
+#>  8 -1.23     0.0342
+#>  9 -0.143    0.244 
+#> 10  0.373    0.210 
 #> # ℹ 90 more rows
 ```
 
@@ -83,7 +83,7 @@ Now, let’s use this basic information to create a ggplot object.
 ggplot(Example, aes())
 ```
 
-![](../images/lab-2/unnamed-chunk-4-1.png)<!-- -->
+<img src="../images/lab-2/unnamed-chunk-4-1.png" width="100%" />
 
 ^ Alternatively, as I’m inclined to do it for more general jobs.
 
@@ -92,7 +92,7 @@ Example %>% # pipe operator, and...
   ggplot(., aes()) 
 ```
 
-![](../images/lab-2/unnamed-chunk-5-1.png)<!-- -->
+<img src="../images/lab-2/unnamed-chunk-5-1.png" width="100%" />
 
 ^ In the above function, the . there is just the more literal way of
 saying “whatever is is active the command above the current command is
@@ -107,7 +107,7 @@ Observe.
 ggplot(Example, aes(x))
 ```
 
-![](../images/lab-2/unnamed-chunk-6-1.png)<!-- -->
+<img src="../images/lab-2/unnamed-chunk-6-1.png" width="100%" />
 
 If you specify another column after a comma, you get a y-axis. Observe.
 
@@ -115,7 +115,7 @@ If you specify another column after a comma, you get a y-axis. Observe.
 ggplot(Example, aes(x, y))
 ```
 
-![](../images/lab-2/unnamed-chunk-7-1.png)<!-- -->
+<img src="../images/lab-2/unnamed-chunk-7-1.png" width="100%" />
 
 Notice this hasn’t plotted anything yet. It just created the canvas for
 you. What comes next depends on what you want to communicate. In this
@@ -131,7 +131,7 @@ a scatterplot. \## Scatterplot —-
 ggplot(Example, aes(x, y)) + geom_point()
 ```
 
-![](../images/lab-2/unnamed-chunk-8-1.png)<!-- -->
+<img src="../images/lab-2/unnamed-chunk-8-1.png" width="100%" />
 
 Notice you can stack other geoms on top of each other. For example, you
 can illustrate the linear form of the data points with geom_smooth(). Do
@@ -150,7 +150,7 @@ ggplot(Example, aes(x, y)) +
 #> `geom_smooth()` using formula = 'y ~ x'
 ```
 
-![](../images/lab-2/unnamed-chunk-9-1.png)<!-- -->
+<img src="../images/lab-2/unnamed-chunk-9-1.png" width="100%" />
 
 It’s worth saying that these plots come with all sorts of customization
 options, that you’ll either want to use or not use. For example, what if
@@ -164,7 +164,7 @@ ggplot(Example, aes(x, y)) +
 #> `geom_smooth()` using formula = 'y ~ x'
 ```
 
-![](../images/lab-2/unnamed-chunk-10-1.png)<!-- -->
+<img src="../images/lab-2/unnamed-chunk-10-1.png" width="100%" />
 
 Feel free to explore options here. You can see them here: -
 <http://www.sthda.com/english/wiki/ggplot2-point-shapes>
@@ -188,7 +188,7 @@ ggplot(Example, aes(x, y)) +
 #> `geom_smooth()` using formula = 'y ~ x'
 ```
 
-![](../images/lab-2/unnamed-chunk-11-1.png)<!-- -->
+<img src="../images/lab-2/unnamed-chunk-11-1.png" width="100%" />
 
 That’s really it. I’ll only add that if you’re preparing a graph for a
 journal, you’ll want to ignore plot titles and subtitles because that
@@ -212,7 +212,7 @@ ggplot(Example, aes(x, y)) +
 #> `geom_smooth()` using formula = 'y ~ x'
 ```
 
-![](../images/lab-2/unnamed-chunk-12-1.png)<!-- -->
+<img src="../images/lab-2/unnamed-chunk-12-1.png" width="100%" />
 
 I want to add that you may want to explore some of the font options in
 this {stevethemes} package. Type ?how_to_install_fonts() for more
@@ -234,7 +234,7 @@ ggplot(Example, aes(x, y)) +
 #> `geom_smooth()` using formula = 'y ~ x'
 ```
 
-![](../images/lab-2/unnamed-chunk-14-1.png)<!-- -->
+<img src="../images/lab-2/unnamed-chunk-14-1.png" width="100%" />
 
 From here, though, everything else will be a simple matter of showing
 you how to make different kinds of plots. Let’s start with what I think
@@ -284,7 +284,7 @@ ggplot(steves_clothes, aes(origin)) + # Don't need a y-axis. geom_bar() will giv
 #> generated.
 ```
 
-![](../images/lab-2/unnamed-chunk-16-1.png)<!-- -->
+<img src="../images/lab-2/unnamed-chunk-16-1.png" width="100%" />
 
 By default, the x-axis is ordered alphabetically. What if I wanted to
 order it from highest count to lowest? Unfortunately, you will need a
@@ -309,7 +309,7 @@ steves_clothes %>% # start with the data, and...
        x = "Country of Origin", y = "Count")
 ```
 
-![](../images/lab-2/unnamed-chunk-17-1.png)<!-- -->
+<img src="../images/lab-2/unnamed-chunk-17-1.png" width="100%" />
 
 # Histograms and density plots —-
 
@@ -368,7 +368,7 @@ Data %>%
 #> (`stat_bin()`).
 ```
 
-![](../images/lab-2/unnamed-chunk-20-1.png)<!-- -->
+<img src="../images/lab-2/unnamed-chunk-20-1.png" width="100%" />
 
 You can use a histogram to get a basic sense of the shape of the data,
 and you basically get that here. However, there are a few things that
@@ -387,7 +387,7 @@ Data %>%
 #> (`stat_density()`).
 ```
 
-![](../images/lab-2/unnamed-chunk-21-1.png)<!-- -->
+<img src="../images/lab-2/unnamed-chunk-21-1.png" width="100%" />
 
 Because the density plot is simply a smoothed histogram, what you get to
 see is not a function of how many bins you want or are given to you as a
@@ -423,7 +423,7 @@ Data %>%
 #> (`stat_bin()`).
 ```
 
-![](../images/lab-2/unnamed-chunk-22-1.png)<!-- -->
+<img src="../images/lab-2/unnamed-chunk-22-1.png" width="100%" />
 
 You know the variable in question is dollars, but R has no way of
 knowing that. It just sees large nominal numbers and is representing
@@ -442,7 +442,7 @@ Data %>%
 #> (`stat_bin()`).
 ```
 
-![](../images/lab-2/unnamed-chunk-23-1.png)<!-- -->
+<img src="../images/lab-2/unnamed-chunk-23-1.png" width="100%" />
 
 Here is where I’ll impress that a lot of defaults are very American.
 Swedes would prefer something like this.
@@ -456,7 +456,7 @@ Data %>%
 #> (`stat_bin()`).
 ```
 
-![](../images/lab-2/unnamed-chunk-24-1.png)<!-- -->
+<img src="../images/lab-2/unnamed-chunk-24-1.png" width="100%" />
 
 You can also be crazy if you want.
 
@@ -469,7 +469,7 @@ Data %>%
 #> (`stat_bin()`).
 ```
 
-![](../images/lab-2/unnamed-chunk-25-1.png)<!-- -->
+<img src="../images/lab-2/unnamed-chunk-25-1.png" width="100%" />
 
 ^ Don’t do this. I mean, you can. But don’t. Let’s adjust the scale on
 the x-axis to add labels that communicate dollars.
@@ -484,7 +484,7 @@ Data %>%
 #> (`stat_bin()`).
 ```
 
-![](../images/lab-2/unnamed-chunk-26-1.png)<!-- -->
+<img src="../images/lab-2/unnamed-chunk-26-1.png" width="100%" />
 
 Note that there might be some trial and error you want to experiment
 with here, much of which is dependent on what you know about the data.
@@ -504,7 +504,7 @@ Data %>%
 #> (`stat_bin()`).
 ```
 
-![](../images/lab-2/unnamed-chunk-27-1.png)<!-- -->
+<img src="../images/lab-2/unnamed-chunk-27-1.png" width="100%" />
 
 ## A comment on saving what you do.
 
@@ -533,7 +533,7 @@ Data %>%
 #> (`stat_bin()`).
 ```
 
-![](../images/lab-2/unnamed-chunk-28-1.png)<!-- -->
+<img src="../images/lab-2/unnamed-chunk-28-1.png" width="100%" />
 
 Notice your plot? See the “Export” tab there? Click it and go with “Save
 image”, probably because you are not exporting to LaTeX and your Word

@@ -16,7 +16,7 @@
 #+ setup, include=FALSE
 knitr::opts_chunk$set(collapse = TRUE, comment = "#>",
                       fig.path = "../images/lab-2/",
-                      fig.width = 11
+                      out.width = "100%"
 )
 #+
 # =========================
