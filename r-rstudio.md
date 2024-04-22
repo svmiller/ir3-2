@@ -7,14 +7,15 @@ permalink: /r-rstudio/
 
 # {{ page.title }}
 
+![RStudio](/images/rstudio.jpg){:. width="30%"}
+
+
 The lab sessions themselves will take place in rooms with computers in them for the student to use, though there is a (reasonable, implicit) assumption that the student has a personal computer. Tablets are not advised for these purposes as it is difficult to install the required third-party software needed for this course, which would be a major issue no matter the third-party software the student used for statistical analysis. Tablets will also typically lack the kind of memory and processing power for computational uses like this. 
 
 Lab sessions and problem sets (more in the next section) will all be done in the `R` programming language. Students should download this free software programming language at [cran.r-project.org](http://cran.r-project.org) and install it on their personal computer. Binaries are available for Windows and Mac (even Linux, if that is the weapon of choice for the student). The instructor will be teaching around R version 4.1.2. It's fine if you have a more current version that you install. If you have an older version than this, you should really upgrade to a more current version (just in case).
 
 - The `R` scripts I provide are designed to work on the student’s computer with minimal maintenance. This should be clear in each particular script.
-
 - The lab instructor *strongly* encourage students to contact him to learn about the language. He will assume that not discussing `R` with him means the student is fluent with the software and capable of proceeding through the course without additional oversight.
-
 - Though not strictly mandatory for the course, consider getting a graphical user interface (GUI) front-end for `R` to learn it better. The instructor recommends (and will use) RStudio, which is available for free at [`posit.co`](https://posit.co/download/rstudio-desktop/). Do note there is a paid option of Rstudio that you *do **not** want.* The paid version is for servers. You want the basic open source integrated development environment (IDE). *This is **free***. Do not pay for anything related to R or Rstudio since you do not need whatever product is available for purchase.
 
 The lab instructor published a [beginner's guide to using `R`](http://svmiller.com/blog/2014/08/a-beginners-guide-to-using-r/) in 2014 when he first started to teach courses that forced students to use the `R` programming language. He has since streamlined the `R` requirements for this class, making that guide somewhat dated. You will need to install the following packages, which are illustrated here with the `R` commands to install them. 
