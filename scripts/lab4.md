@@ -317,11 +317,9 @@ I encourage students to think of the `LINE` mnemonic for evaluating OLS.
 - `I`: the observations are independent from each other (which is more
   of something you have to know about your data in advance, which we
   won’t belabor here).
-
-``` r
-#  - `N`: the residuals are normally distributed
-#  - `E`: the distribution of residuals is *e*qual across the range of the model.
-```
+- `N`: the residuals are normally distributed
+- `E`: the distribution of residuals is *e*qual across the range of the
+  model.
 
 Most of your assessment here can be visual. One of the most useful
 diagnostics is the fitted-residual plot. For each observation, take the
@@ -373,19 +371,29 @@ Data %>%
 #> `geom_smooth()` using formula = 'y ~ x'
 ```
 
-![](../images/lab-4/unnamed-chunk-11-1.png)<!-- -->
+![](../images/lab-4/unnamed-chunk-10-1.png)<!-- -->
+
+Wooooof, that should not look like that. What you want to see is
+basically featureless, patternless buckshot. Something like this:
 
 ``` r
-
 tibble(x = rnorm(95),
        y = 5 + x + rnorm(95)) -> A
 
 M4 <- lm(y ~ x, A)
+
+broom::augment(M4) %>%
+  ggplot(.,aes(.fitted, .resid)) +
+  geom_point(pch = 21) +
+  theme_steve(style='generic') +
+  geom_hline(yintercept = 0, linetype="dashed", color="red") +
+  geom_smooth(method = "loess")
+#> `geom_smooth()` using formula = 'y ~ x'
 ```
 
-Wooooof, that should not look like that. What you want to see is
-basically featureless, patternless buckshot. What you’re looking at is a
-cry for help.
+![](../images/lab-4/unnamed-chunk-11-1.png)<!-- -->
+
+What you’re looking at is a cry for help.
 
 One limitation of the fitted-residual plot, however, is that it won’t
 tell you where exactly the issue might be. That’s why I wrote the
@@ -401,25 +409,6 @@ linloess_plot(M2, pch=21) +
   theme_steve(style='generic')
 #> `geom_smooth()` using formula = 'y ~ x'
 #> `geom_smooth()` using formula = 'y ~ x'
-#> Warning in simpleLoess(y, x, w, span, degree = degree, parametric = parametric,
-#> : at -0.005
-#> Warning in simpleLoess(y, x, w, span, degree = degree, parametric = parametric,
-#> : radius 2.5e-05
-#> Warning in simpleLoess(y, x, w, span, degree = degree, parametric = parametric,
-#> : all data on boundary of neighborhood. make span bigger
-#> Warning in simpleLoess(y, x, w, span, degree = degree, parametric = parametric,
-#> : pseudoinverse used at -0.005
-#> Warning in simpleLoess(y, x, w, span, degree = degree, parametric = parametric,
-#> : neighborhood radius 0.005
-#> Warning in simpleLoess(y, x, w, span, degree = degree, parametric = parametric,
-#> : reciprocal condition number 1
-#> Warning in simpleLoess(y, x, w, span, degree = degree, parametric = parametric,
-#> : There are other near singularities as well. 1.01
-#> Warning in simpleLoess(y, x, w, span, degree = degree, parametric = parametric,
-#> : zero-width neighborhood. make span bigger
-#> Warning: Computation failed in `stat_smooth()`
-#> Caused by error in `predLoess()`:
-#> ! NA/NaN/Inf in foreign function call (arg 5)
 ```
 
 ![](../images/lab-4/unnamed-chunk-12-1.png)<!-- -->
@@ -549,11 +538,6 @@ Data %>%
                 linetype="dashed", size=1.1) +
   geom_density(size = 1.1) +
   theme_steve(style='generic')
-#> Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
-#> ℹ Please use `linewidth` instead.
-#> This warning is displayed once every 8 hours.
-#> Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
-#> generated.
 ```
 
 ![](../images/lab-4/unnamed-chunk-16-1.png)<!-- -->
@@ -585,52 +569,3 @@ Data %>%
 to be driven by so few observations. It’s possible you may want to
 condense the scale here, even if you have to be mindful about the
 negative values of a log transformation.
-
-``` r
-# Data %>%
-#   mutate(ln_fdi = log(abs(fdi + 1)),
-#          ln_fdi = ifelse(fdi < 0, ln_fdi*-1, ln_fdi),
-#          ln_growth = log(abs(econ_growth + 1)),
-#          ln_growth = ifelse(econ_growth < 0, ln_growth*-1, ln_growth),
-#          ln_size = log(econ_size),
-#          ln_devel = log(econ_devel),
-#          ln_xr = log(xr + 1)) -> Data
-# 
-# M3 <- lm(ln_fdi ~ pcj + ln_devel + ln_size + ln_growth +
-#            kaopen + ln_xr +  lf+ lifeexp,
-#          data = Data)
-# 
-# summary(M3)
-# 
-# library(modelsummary)
-# 
-# modelsummary(list(M2, M3), 
-#              stars = TRUE,
-#              coef_map = c(
-#                "pcj" = "Post-Conflict Justice",
-#                "econ_devel" = "Economic Development",
-#                "ln_devel" = "Economic Development",
-#                "econ_size" = "Economic Size",
-#                "ln_size" = "Economic Size",
-#                "econ_growth" = "Economic Growth",
-#                "ln_growth" = "Economic Growth",
-#                "kaopen" = "Capital Openness",
-#                "xr" = "Exchange Rate",
-#                "ln_xr" = "Exchange Rate",
-#                "lf" = "Labor Force",
-#                "lifeexp" = "Life Expectancy"
-#              ),
-#              gof_map = c("nobs", "adj.r.squared", "bic"))
-# 
-# 
-# a <- sd(residuals(M3))
-# 
-# broom::augment(M3) %>%
-#   ggplot(.,aes(.resid)) +
-#   geom_density(size = 1.1) +
-#   stat_function(fun = dnorm, color="blue",
-#                 args = list(mean = 0, 
-#                             sd = a),
-#                 linetype="dashed", size=1.1) +
-#   theme_steve(style='generic')
-```

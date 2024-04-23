@@ -12,6 +12,7 @@
 #+ setup, include=FALSE
 knitr::opts_chunk$set(collapse = TRUE, comment = "#>",
                       fig.path = "../images/lab-4/",
+                      warning=FALSE,
                       fig.width = 11
 )
 #+
@@ -217,8 +218,8 @@ summary(M2)
 #' - `I`: the observations are independent from each other (which is more of 
 #'    something you have to know about your data in advance, which we won't 
 #'    belabor here).
-#  - `N`: the residuals are normally distributed
-#  - `E`: the distribution of residuals is *e*qual across the range of the model.
+#' - `N`: the residuals are normally distributed
+#' - `E`: the distribution of residuals is *e*qual across the range of the model.
 #'
 #' Most of your assessment here can be visual. One of the most useful 
 #' diagnostics is the fitted-residual plot. For each observation, take the 
@@ -249,13 +250,22 @@ Data %>%
   geom_hline(yintercept = 0, linetype="dashed", color="red") +
   geom_smooth(method = "loess")
 
+#' Wooooof, that should not look like that. What you want to see is basically
+#' featureless, patternless buckshot. Something like this: 
 tibble(x = rnorm(95),
        y = 5 + x + rnorm(95)) -> A
 
 M4 <- lm(y ~ x, A)
 
-#' Wooooof, that should not look like that. What you want to see is basically
-#' featureless, patternless buckshot. What you're looking at is a cry for help.
+broom::augment(M4) %>%
+  ggplot(.,aes(.fitted, .resid)) +
+  geom_point(pch = 21) +
+  theme_steve(style='generic') +
+  geom_hline(yintercept = 0, linetype="dashed", color="red") +
+  geom_smooth(method = "loess")
+
+#' 
+#' What you're looking at is a cry for help.
 #' 
 #' One limitation of the fitted-residual plot, however, is that it won’t tell 
 #' you where exactly the issue might be. That’s why I wrote the `linloess_plot()` 
