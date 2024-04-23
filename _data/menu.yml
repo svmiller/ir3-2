@@ -3,8 +3,8 @@
   active: home
 
 - title: "Course Description"
-  href: "http://svmiller.com/"
-  active: about
+  href: ""
+  active: course-description
 
 - title: "Course Materials"
   href: "/course-materials/"
@@ -16,7 +16,7 @@
 
 
 - title: "Lab Scripts"
-  href: "/lab-scripts/"
+  href: ""
   active: lab-scripts
   subcategories:
     - subtitle: "Lab 1: Getting Started in R and Rstudio"
@@ -31,8 +31,17 @@
       subhref: "/lab-scripts/lab-5/"
 
 - title: "Problem Sets"
-  href: "/problem-sets/"
+  href: ""
   active: problem-sets
+  subcategories:
+    - subtitle: "Problem Set 1"
+      subhref: "/problem-sets/1/eh1903-2-ps1.pdf"
+    - subtitle: "Problem Set 2"
+      subhref: "/problem-sets/2/eh1903-2-ps2.pdf"
+    - subtitle: "Problem Set 3"
+      subhref: "/problem-sets/3/eh1903-2-ps3.pdf"
+    - subtitle: "Problem Set 4"
+      subhref: "/problem-sets/4/eh1903-2-ps4.pdf"
 
 - title: "Athena"
   href: "https://athena.itslearning.com/"
