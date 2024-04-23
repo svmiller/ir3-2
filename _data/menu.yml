@@ -23,6 +23,8 @@
       subhref: "/lab-scripts/lab-1/"
     - subtitle: "Lab 2: Data Visualization"
       subhref: "/lab-scripts/lab-2/"
+    - subtitle: "Lab 3: Bivariate Relations"
+      subhref: "/lab-scripts/lab-3/"
 
 - title: "Problem Sets"
   href: "/problem-sets/"
