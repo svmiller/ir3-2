@@ -25,6 +25,8 @@
       subhref: "/lab-scripts/lab-2/"
     - subtitle: "Lab 3: Bivariate Relations"
       subhref: "/lab-scripts/lab-3/"
+    - subtitle: "Lab 4: Linear Models"
+      subhref: "/lab-scripts/lab-4/"
 
 - title: "Problem Sets"
   href: "/problem-sets/"
