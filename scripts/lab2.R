@@ -15,8 +15,9 @@
 
 #+ setup, include=FALSE
 knitr::opts_chunk$set(collapse = TRUE, comment = "#>",
-                      fig.path = "../images/lab-2/",
-                      fig.width = 10
+                      fig.width = 10,
+                      fig.path = "../images/lab-2/"
+                      
 )
 #+
 # =========================
@@ -43,7 +44,7 @@ library(tidyverse)
 library(stevedata)
 library(stevethemes)
 
-#' ## The Basics of {ggplot2} 
+#' ## The Basics of `{ggplot2}` 
 
 #' Let's start with the basics. Every foundation to a plot you make will look
 #' like this. First, let's create some fake data.
@@ -66,10 +67,11 @@ Example %>% # pipe operator, and...
 #' "whatever is is active the command above the current command is what goes here."
 #' Notice that is just the `Example` data frame.
 
-#' Notice that the ggplot() function takes first an assumed data source (Example),
-#' followed by an aesthetic (aes()) argument contained in it. If you leave this 
-#' blank, you get just a (default gray) canvas. If you specify the name of a 
-#' column contained in the data source, you first get an x-axis. Observe.
+#' Notice that the `ggplot()` function takes first an assumed data source 
+#' (`Example`), followed by an aesthetic (`aes()`) argument contained in it. If 
+#' you leave this blank, you get just a (default gray) canvas. If you specify 
+#' the name of a column contained in the data source, you first get an x-axis. 
+#' Observe.
 
 ggplot(Example, aes(x))
 
@@ -79,22 +81,23 @@ ggplot(Example, aes(x, y))
 
 #' Notice this hasn't plotted anything yet. It just created the canvas for you.
 #' What comes next depends on what you want to communicate. In this simple case,
-#' we have two variables (x and y) that are functionally continuous and y is a 
-#' simple linear function of x. This seems like an easy call for a scatterplot.
+#' we have two variables (`x` and `y`) that are functionally continuous and `y` is a 
+#' simple linear function of `x`. This seems like an easy call for a scatterplot.
 #' If you want to declare what type of plot you want on your ggplot canvas, you
 #' specify it with some relevant "geom", preceded by a plus sign. In this case,
-#' geom_point() creates dots corresponding with the coordinates of x and y. This,
+#' `geom_point()` creates dots corresponding with the coordinates of x and y. This,
 #' minimally, creates a scatterplot.
 
-#' ## Scatterplot ----
+#' ## Scatterplot
 ggplot(Example, aes(x, y)) + geom_point()
 
 #' Notice you can stack other geoms on top of each other. For example, you can
-#' illustrate the linear form of the data points with geom_smooth(). Do note there
-#' is an optional "method" argument in geom_smooth(), which I'm using to tell
-#' ggplot2 that I want a linear smoother. The default is the LOESS smoother, which
-#' is situationally useful for teasing out non-linear relationships. If you want
-#' that default smoother, just don't specify the `method = 'lm'` argument.
+#' illustrate the linear form of the data points with `geom_smooth()`. Do note there
+#' is an optional "method" argument in `geom_smooth()`, which I'm using to tell
+#' `{ggplot2}` that I want a linear smoother. The default is the LOESS smoother, 
+#' which is situationally useful for teasing out non-linear relationships. If 
+#' you want that default smoother, just don't specify the `method = 'lm'` 
+#' argument.
 
 ggplot(Example, aes(x, y)) + 
   geom_point() +
@@ -111,12 +114,13 @@ ggplot(Example, aes(x, y)) +
   geom_smooth(method = "lm")
 
 #' Feel free to explore options here. You can see them here:
+#' 
 #' - http://www.sthda.com/english/wiki/ggplot2-point-shapes
 #' 
 #' This would be a good time to introduce one other thing you should think to
 #' have on all your plots: labels. As a matter of hygiene, I close all my plots
-#' with a labs() argument for specifying useful information about your plots.
-#' labs() takes a whole lot of arguments, some of which are contingent on your
+#' with a `labs()` argument for specifying useful information about your plots.
+#' `labs()` takes a whole lot of arguments, some of which are contingent on your
 #' plot's complexity. For ease of explanation, I'm just going to offer this code
 #' with the idea being you can see what's happening here.
 
@@ -135,8 +139,8 @@ ggplot(Example, aes(x, y)) +
 #' 
 #' I'll close with one plea here: resist the urge to roll out a default ggplot
 #' theme and be done with it. Add a theme. What you choose is up to you, and there
-#' is no shortage of themes out there. My preferred theme is theme_steve() from
-#' my new {stevethemes} package.
+#' is no shortage of themes out there. My preferred theme is `theme_steve()` 
+#' from my `{stevethemes}` package.
 
 ggplot(Example, aes(x, y)) + 
   geom_point() +
@@ -148,9 +152,9 @@ ggplot(Example, aes(x, y)) +
   theme_steve(style='generic')
 
 #' I want to add that you may want to explore some of the font options in this
-#' {stevethemes} package. Type ?how_to_install_fonts() for more information.
+#' `{stevethemes}` package. Type `?how_to_install_fonts()` for more information.
 
-#' I never really think to do this, but you could use the theme_set() function,
+#' I never really think to do this, but you could use the `theme_set()` function,
 #' preferably near the top of your script, to set a default theme. That way,
 #' you can avoid having to manually specify a theme each time.
 
@@ -165,8 +169,8 @@ ggplot(Example, aes(x, y)) +
 #' From here, though, everything else will be a simple matter of showing you
 #' how to make different kinds of plots. Let's start with what I think to be
 #' the most basic: the bar chart. Here, the data are discrete and we just want
-#' a rough estimate of count. Let's use the steves_clothes data frame in 
-#' {stevedata}. This is a simple data set on the country of origin for my dress
+#' a rough estimate of count. Let's use the `steves_clothes` data frame in 
+#' `{stevedata}`. This is a simple data set on the country of origin for my dress
 #' apparel that I used for teaching undergrads in the United States about the
 #' globalization of the garment industry. I can show you that presentation if you
 #' like, but here let's just note the data set.
@@ -207,7 +211,7 @@ steves_clothes %>% # start with the data, and...
   labs(caption = "Data: ?steves_clothes in {stevedata}. Hey, that's me!",
        x = "Country of Origin", y = "Count")
 
-#' # Histograms and density plots ----
+#' # Histograms and density plots
 #' 
 #' Histograms and density plots are communicating the same basic
 #' thing: the shape of the data. The density plot is a smoothed histogram, meaning

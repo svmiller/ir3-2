@@ -6,3 +6,4 @@ _vt*
 *.log
 _internal
 _dross
+.jekyll-cache

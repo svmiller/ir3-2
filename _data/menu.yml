@@ -27,6 +27,8 @@
       subhref: "/lab-scripts/lab-3/"
     - subtitle: "Lab 4: Linear Models"
       subhref: "/lab-scripts/lab-4/"
+    - subtitle: "Lab 5: Model Presentation"
+      subhref: "/lab-scripts/lab-5/"
 
 - title: "Problem Sets"
   href: "/problem-sets/"
