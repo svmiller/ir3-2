@@ -181,15 +181,15 @@ Data %>%
                    notes = "You can put a footnote here.") 
 ```
 
-|                                          | Unique | Missing Pct. | Mean | SD   | Min  | Median | Max  | Histogram                                        |
-|------------------------------------------|--------|--------------|------|------|------|--------|------|--------------------------------------------------|
-| Importance of democracy                  | 11     | 1            | 9.3  | 1.5  | 1.0  | 10.0   | 10.0 | ![](tinytable_assets/idc7t144vtaoetjikp6aee.png) |
-| Justifiable: Divorce                     | 11     | 3            | 8.4  | 2.3  | 1.0  | 10.0   | 10.0 | ![](tinytable_assets/id3q6g9ciwzj3d7yfi3chc.png) |
-| Age                                      | 68     | 0            | 47.3 | 19.4 | 18.0 | 47.0   | 85.0 | ![](tinytable_assets/id1qmvfvkq86nl6we47a8b.png) |
-| sex                                      | 2      | 0            | 0.5  | 0.5  | 0.0  | 1.0    | 1.0  | ![](tinytable_assets/id4un0fb0cn4nzf00n96lu.png) |
-| Scale of incomes                         | 11     | 3            | 5.4  | 1.8  | 1.0  | 5.0    | 10.0 | ![](tinytable_assets/idjfjmjuob1j24wckczrrs.png) |
-| How often to you pray                    | 9      | 1            | 6.4  | 2.3  | 1.0  | 8.0    | 8.0  | ![](tinytable_assets/idupnf3p0xnbsxxke5gl6i.png) |
-| What age did you complete your education | 54     | 2            | 24.1 | 8.3  | 5.0  | 22.0   | 83.0 | ![](tinytable_assets/idhe1ymc6jrjiwm7keplgi.png) |
+|         | Unique | Missing Pct. | Mean | SD   | Min  | Median | Max  | Histogram                                        |
+|---------|--------|--------------|------|------|------|--------|------|--------------------------------------------------|
+| impdem  | 11     | 1            | 9.3  | 1.5  | 1.0  | 10.0   | 10.0 | ![](tinytable_assets/idgwatllmk0knk5v7fupif.png) |
+| justdiv | 11     | 3            | 8.4  | 2.3  | 1.0  | 10.0   | 10.0 | ![](tinytable_assets/idkyj0lg02t5ab2l1pqzed.png) |
+| age     | 68     | 0            | 47.3 | 19.4 | 18.0 | 47.0   | 85.0 | ![](tinytable_assets/iddbdckequlflsoktp80nh.png) |
+| sex     | 2      | 0            | 0.5  | 0.5  | 0.0  | 1.0    | 1.0  | ![](tinytable_assets/id2x0k92hdamu8hfxmmvo6.png) |
+| inc     | 11     | 3            | 5.4  | 1.8  | 1.0  | 5.0    | 10.0 | ![](tinytable_assets/id6v8f6nk0rjwh1ljewynq.png) |
+| pray    | 9      | 1            | 6.4  | 2.3  | 1.0  | 8.0    | 8.0  | ![](tinytable_assets/idle55odoyk49ayg8chvim.png) |
+| educ    | 54     | 2            | 24.1 | 8.3  | 5.0  | 22.0   | 83.0 | ![](tinytable_assets/id4mf85xeleurv6m1rv250.png) |
 
 Be mindful that the data I supplied here are *all* numeric and the data
 has *only* what I want to summarize. This will try to (want to)
@@ -218,15 +218,15 @@ Data %>%
                    notes = "You can put a footnote here.") 
 ```
 
-|                                          | Unique | Missing Pct. | Mean | SD   | Min  | Median | Max  |
-|------------------------------------------|--------|--------------|------|------|------|--------|------|
-| Importance of democracy                  | 11     | 1            | 9.3  | 1.5  | 1.0  | 10.0   | 10.0 |
-| Justifiable: Divorce                     | 11     | 3            | 8.4  | 2.3  | 1.0  | 10.0   | 10.0 |
-| Age                                      | 68     | 0            | 47.3 | 19.4 | 18.0 | 47.0   | 85.0 |
-| Female                                   | 2      | 0            | 0.5  | 0.5  | 0.0  | 1.0    | 1.0  |
-| Scale of incomes                         | 11     | 3            | 5.4  | 1.8  | 1.0  | 5.0    | 10.0 |
-| How often to you pray                    | 9      | 1            | 6.4  | 2.3  | 1.0  | 8.0    | 8.0  |
-| What age did you complete your education | 54     | 2            | 24.1 | 8.3  | 5.0  | 22.0   | 83.0 |
+|                         | Unique | Missing Pct. | Mean | SD   | Min  | Median | Max  |
+|-------------------------|--------|--------------|------|------|------|--------|------|
+| Imp. Dem.               | 11     | 1            | 9.3  | 1.5  | 1.0  | 10.0   | 10.0 |
+| Justif. Divorce         | 11     | 3            | 8.4  | 2.3  | 1.0  | 10.0   | 10.0 |
+| Age                     | 68     | 0            | 47.3 | 19.4 | 18.0 | 47.0   | 85.0 |
+| Female                  | 2      | 0            | 0.5  | 0.5  | 0.0  | 1.0    | 1.0  |
+| Income                  | 11     | 3            | 5.4  | 1.8  | 1.0  | 5.0    | 10.0 |
+| Prayer Frequency        | 9      | 1            | 6.4  | 2.3  | 1.0  | 8.0    | 8.0  |
+| Age at End of Schooling | 54     | 2            | 24.1 | 8.3  | 5.0  | 22.0   | 83.0 |
 
 Looks nice, right? Let’s copy-paste it into a Word document. Some
 cosmetic things you’ll have to do yourself (e.g. potential centering and
