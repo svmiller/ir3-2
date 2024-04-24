@@ -31,19 +31,20 @@ library(tidyverse)
 #> ✖ dplyr::lag()    masks stats::lag()
 #> ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
 library(modelsummary)
-# library(kableExtra)
+# library(kableExtra) # for extra formatting options, in this format.
 options("modelsummary_factory_default" = "kableExtra")
 ```
 
-^ Note: “tinytable” is now default, though previous versions of this
-were written around “kableExtra”. As you develop your skills here (and
-importantly move away from copy-pasting stuff into Word), you may want
-to more fully transition into `{modelsummary}`’s default settings.
-However, we should keep this tractable here. Also note that anyone
-viewing this on the public course website will note that there are
-additional formatting things we should be doing to make this presentable
-in that particular format. However, what’s offered here is fine for the
-intended format. We’ll be doing copy-pasting from RStudio into Word.
+^ Note: “tinytable” (c.f. `{tinytable}`) is now default, though previous
+versions of this were written around “kableExtra” (c.f. `{kableExtra}`).
+As you develop your skills here (and importantly move away from
+copy-pasting stuff into Word), you may want to more fully transition
+into `{modelsummary}`’s default settings. However, we should keep this
+tractable here. Also note that anyone viewing this on the public course
+website will note that there are additional formatting things we should
+be doing to make this presentable in that particular format. However,
+what’s offered here is fine for the intended format. We’ll be doing
+copy-pasting from RStudio into Word.
 
 ## Load the data
 
@@ -183,13 +184,13 @@ Data %>%
 
 |         | Unique | Missing Pct. | Mean | SD   | Min  | Median | Max  | Histogram                                        |
 |---------|--------|--------------|------|------|------|--------|------|--------------------------------------------------|
-| impdem  | 11     | 1            | 9.3  | 1.5  | 1.0  | 10.0   | 10.0 | ![](tinytable_assets/idgwatllmk0knk5v7fupif.png) |
-| justdiv | 11     | 3            | 8.4  | 2.3  | 1.0  | 10.0   | 10.0 | ![](tinytable_assets/idkyj0lg02t5ab2l1pqzed.png) |
-| age     | 68     | 0            | 47.3 | 19.4 | 18.0 | 47.0   | 85.0 | ![](tinytable_assets/iddbdckequlflsoktp80nh.png) |
-| sex     | 2      | 0            | 0.5  | 0.5  | 0.0  | 1.0    | 1.0  | ![](tinytable_assets/id2x0k92hdamu8hfxmmvo6.png) |
-| inc     | 11     | 3            | 5.4  | 1.8  | 1.0  | 5.0    | 10.0 | ![](tinytable_assets/id6v8f6nk0rjwh1ljewynq.png) |
-| pray    | 9      | 1            | 6.4  | 2.3  | 1.0  | 8.0    | 8.0  | ![](tinytable_assets/idle55odoyk49ayg8chvim.png) |
-| educ    | 54     | 2            | 24.1 | 8.3  | 5.0  | 22.0   | 83.0 | ![](tinytable_assets/id4mf85xeleurv6m1rv250.png) |
+| impdem  | 11     | 1            | 9.3  | 1.5  | 1.0  | 10.0   | 10.0 | ![](tinytable_assets/id7o8m0hbtlv3cki4a3y6c.png) |
+| justdiv | 11     | 3            | 8.4  | 2.3  | 1.0  | 10.0   | 10.0 | ![](tinytable_assets/ido5xb82es8y0meo2duinr.png) |
+| age     | 68     | 0            | 47.3 | 19.4 | 18.0 | 47.0   | 85.0 | ![](tinytable_assets/id97pfsdtjve6567kcwqzz.png) |
+| sex     | 2      | 0            | 0.5  | 0.5  | 0.0  | 1.0    | 1.0  | ![](tinytable_assets/idzm17i4ios6vx7o91wytp.png) |
+| inc     | 11     | 3            | 5.4  | 1.8  | 1.0  | 5.0    | 10.0 | ![](tinytable_assets/id39d4vbxtwjczfyi7qw8p.png) |
+| pray    | 9      | 1            | 6.4  | 2.3  | 1.0  | 8.0    | 8.0  | ![](tinytable_assets/idf0iepklsvs9no98cjuph.png) |
+| educ    | 54     | 2            | 24.1 | 8.3  | 5.0  | 22.0   | 83.0 | ![](tinytable_assets/id1q25ieb9o55tmmjgqd4u.png) |
 
 Be mindful that the data I supplied here are *all* numeric and the data
 has *only* what I want to summarize. This will try to (want to)
@@ -203,8 +204,8 @@ what issues you may have, but you should disable it for use.
 Now, we’re going to do a few things. First, we’re going to “uncomment”
 that `setNames()` comment, which is going to quickly rename our
 variables to be something that would be insane for an analysis but easy
-for formatting a table. Next, we’re going to disable that histogram (=
-FALSE) and knock off a “c” from the align argument.
+for formatting a table. Next, we’re going to disable that
+(`histogram = FALSE`) and knock off a “c” from the align argument.
 
 ``` r
 Data %>% 
@@ -431,15 +432,16 @@ modelsummary(list(M1, M2))
 </tbody>
 </table>
 
-Notice here that modelsummary() works best with list types, and lists
+Notice here that `modelsummary()` works best with list types, and lists
 are just super-flexible ways of corralling a diverse set of object types
-in R. Here, we have two regression summaries (M1, M2). We’re wrapping
-them in a list(). modelsummary() will do what it does with them.
+in R. Here, we have two regression summaries (`M1`, `M2`). We’re
+wrapping them in a `list()`. `modelsummary()` will do what it does with
+them.
 
 There’s a lot we should really think about doing here. First, it may be
 useful to so-called “name” your regressions. In my sample paper, M1 is a
 simple bivariate linear model and M2 adds the control variables. I can
-name them within list() like this.
+name them within `list()` like this.
 
 ``` r
 modelsummary(list("Bivariate Regression" = M1,

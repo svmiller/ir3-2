@@ -25,18 +25,19 @@ knitr::opts_chunk$set(collapse = TRUE, comment = "#>",
 
 library(tidyverse)
 library(modelsummary)
-# library(kableExtra)
+# library(kableExtra) # for extra formatting options, in this format.
 options("modelsummary_factory_default" = "kableExtra")
 
-#' ^ Note: "tinytable" is now default, though previous versions of this were
-#' written around "kableExtra". As you develop your skills here (and importantly
-#' move away from copy-pasting stuff into Word), you may want to more fully 
-#' transition into `{modelsummary}`'s default settings. However, we should keep
-#' this tractable here. Also note that anyone viewing this on the public course
-#' website will note that there are additional formatting things we should be
-#' doing to make this presentable in that particular format. However, what's
-#' offered here is fine for the intended format. We'll be doing copy-pasting 
-#' from RStudio into Word.
+#' ^ Note: "tinytable" (c.f. `{tinytable}`) is now default, though previous 
+#' versions of this were written around "kableExtra" (c.f. `{kableExtra}`). As 
+#' you develop your skills here (and importantly move away from copy-pasting 
+#' stuff into Word), you may want to more fully transition into 
+#' `{modelsummary}`'s default settings. However, we should keep this tractable 
+#' here. Also note that anyone viewing this on the public course website will 
+#' note that there are additional formatting things we should be doing to make 
+#' this presentable in that particular format. However, what's offered here is 
+#' fine for the intended format. We'll be doing copy-pasting from RStudio into 
+#' Word.
 #' 
 #' ## Load the data 
 
@@ -113,7 +114,7 @@ Data %>%
 #' Now, we're going to do a few things. First, we're going to "uncomment"
 #' that `setNames()` comment, which is going to quickly rename our variables
 #' to be something that would be insane for an analysis but easy for formatting
-#' a table. Next, we're going to disable that histogram (= FALSE) and knock off
+#' a table. Next, we're going to disable that (`histogram = FALSE`) and knock off
 #' a "c" from the align argument.
 
 
@@ -143,7 +144,8 @@ Data %>%
 #' acknowledge because I can suspect they're going to point me to problems in my
 #' linear model.
 #' 
-#' At the least, I can offer a visual display of these. A bar chart should suffice.
+#' At the least, I can offer a visual display of these. A bar chart should 
+#' suffice.
 
 Data %>%
   select(impdem) %>%
@@ -175,7 +177,7 @@ Data %>%
   scale_y_continuous(limits = c(0,750))
 
 #' Now that you've created a graph that summarizes important features about your
-#' data, save it (in Rstudio) to a PNG file. Then, in your Word document, grab it
+#' data, save it (in RStudio) to a PNG file. Then, in your Word document, grab it
 #' and move it in. You can also---if it pleases and sparkles---zoom into the plot,
 #' right-click, copy image, and paste it into your Word document. Choice is yours.
 #' 
@@ -191,15 +193,15 @@ Data %>%
 modelsummary(list(M1, M2))
 
 
-#' Notice here that modelsummary() works best with list types, and lists are
+#' Notice here that `modelsummary()` works best with list types, and lists are
 #' just super-flexible ways of corralling a diverse set of object types in R.
-#' Here, we have two regression summaries (M1, M2). We're wrapping them in a list().
-#' modelsummary() will do what it does with them.
+#' Here, we have two regression summaries (`M1`, `M2`). We're wrapping them in a 
+#' `list()`. `modelsummary()` will do what it does with them.
 #'
 #' There's a lot we should really think about doing here. First, it may be useful
-#' to so-called "name" your regressions. In my sample paper, M1 is a simple 
-#' bivariate linear model and M2 adds the control variables. I can name them
-#' within list() like this.
+#' to so-called "name" your regressions. In my sample paper, `M1` is a simple 
+#' bivariate linear model and `M2` adds the control variables. I can name them
+#' within `list()` like this.
 
 modelsummary(list("Bivariate Regression" = M1,
                   "Full Model" = M2))
@@ -276,6 +278,6 @@ modelsummary(list("Bivariate Regression" = M1,
              gof_map = c("nobs", "adj.r.squared", "r.squared"),
              caption = "Hi Mom!")
 
-#' Dope, let's put it in our Word document. In Rstudio, click on that viewer of
+#' Dope, let's put it in our Word document. In RStudio, click on that viewer of
 #' the table. Then: Ctrl-A, Ctrl-C, Ctrl-V into your Word document. For you
 #' Mac users, this should be Cmd instead of Ctrl.
