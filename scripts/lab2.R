@@ -3,10 +3,13 @@
 #' layout: lab
 #' permalink: /lab-scripts/lab-2/
 #' active: lab-scripts
-#' abstract: "This is a lab script for [EH6105](http://eh6105.svmiller.com), a graduate-level quantitative 
-#' methods class that I teach at Stockholm University. It will not be the most sophisticated 
-#' R-related write-up of mine---check [my blog](http://svmiller.com/blog) for those---but it should be useful 
-#' for discussion around the associated R script for the week's 'lab' session."
+#' abstract: "This lab script eases students into the use of `{ggplot2}` for
+#' the visualization of data. Along the way, it also introduces students to
+#' how to create data for sake of illustration and how to get the most 
+#' information out of graphs you can create. In the latter case, it means being
+#' aware of `{ggplot2}`'s otherwise sensible defaults and using information the
+#' researcher has about the phenomena being measured to improve a graph's
+#' legibility and clarity."
 #' output:
 #'    md_document:
 #'      variant: gfm
@@ -14,11 +17,11 @@
 #' ---
 
 #+ setup, include=FALSE
-knitr::opts_chunk$set(collapse = TRUE, comment = "#>",
-                      fig.width = 10,
-                      fig.path = "../images/lab-2/"
-                      
-)
+knitr::opts_chunk$set(collapse = TRUE, 
+                      fig.path = "figs/lab-2/",
+                      cache.path = "cache/lab-2/",
+                      fig.width = 11,
+                      comment = "#>")
 #+
 # =========================
 # Lab 2: Data generation, measurement, and visualization

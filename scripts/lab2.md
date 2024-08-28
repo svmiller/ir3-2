@@ -3,10 +3,13 @@ title: "Data generation, measurement, and visualization"
 layout: lab
 permalink: /lab-scripts/lab-2/
 active: lab-scripts
-abstract: "This is a lab script for [EH6105](http://eh6105.svmiller.com), a graduate-level quantitative 
-methods class that I teach at Stockholm University. It will not be the most sophisticated 
-R-related write-up of mine---check [my blog](http://svmiller.com/blog) for those---but it should be useful 
-for discussion around the associated R script for the week's 'lab' session."
+abstract: "This lab script eases students into the use of `{ggplot2}` for
+the visualization of data. Along the way, it also introduces students to
+how to create data for sake of illustration and how to get the most 
+information out of graphs you can create. In the latter case, it means being
+aware of `{ggplot2}`'s otherwise sensible defaults and using information the
+researcher has about the phenomena being measured to improve a graph's
+legibility and clarity."
 output:
    md_document:
      variant: gfm
@@ -38,9 +41,9 @@ If it’s not installed, install it.
 ``` r
 library(tidyverse)
 #> ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-#> ✔ dplyr     1.1.2     ✔ readr     2.1.4
+#> ✔ dplyr     1.1.4     ✔ readr     2.1.4
 #> ✔ forcats   1.0.0     ✔ stringr   1.5.0
-#> ✔ ggplot2   3.5.0     ✔ tibble    3.2.1
+#> ✔ ggplot2   3.5.1     ✔ tibble    3.2.1
 #> ✔ lubridate 1.9.2     ✔ tidyr     1.3.0
 #> ✔ purrr     1.0.2     
 #> ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
@@ -51,7 +54,7 @@ library(stevedata)
 library(stevethemes)
 ```
 
-## The Basics of {ggplot2}
+## The Basics of `{ggplot2}`
 
 Let’s start with the basics. Every foundation to a plot you make will
 look like this. First, let’s create some fake data.
@@ -64,16 +67,16 @@ Example
 #> # A tibble: 100 × 2
 #>          x       y
 #>      <dbl>   <dbl>
-#>  1  0.518   2.69  
-#>  2 -1.21   -1.16  
-#>  3  0.396   1.14  
-#>  4 -0.521   0.0687
-#>  5 -0.0671 -0.778 
-#>  6  1.27   -0.624 
-#>  7  0.848   2.11  
-#>  8  0.686  -0.0578
-#>  9 -0.220  -1.73  
-#> 10  0.405   1.55  
+#>  1 -0.146  -0.474 
+#>  2  0.306   0.881 
+#>  3 -1.50   -1.25  
+#>  4  0.608  -0.322 
+#>  5  0.658   0.436 
+#>  6 -1.52   -1.00  
+#>  7 -0.149  -0.0338
+#>  8 -0.742  -0.257 
+#>  9 -0.0130  0.687 
+#> 10  0.0823  1.86  
 #> # ℹ 90 more rows
 ```
 
@@ -83,7 +86,7 @@ Now, let’s use this basic information to create a ggplot object.
 ggplot(Example, aes())
 ```
 
-![](../images/lab-2/unnamed-chunk-4-1.png)<!-- -->
+![](figs/lab-2/unnamed-chunk-4-1.png)<!-- -->
 
 ^ Alternatively, as I’m inclined to do it for more general jobs.
 
@@ -92,22 +95,22 @@ Example %>% # pipe operator, and...
   ggplot(., aes()) 
 ```
 
-![](../images/lab-2/unnamed-chunk-5-1.png)<!-- -->
+![](figs/lab-2/unnamed-chunk-5-1.png)<!-- -->
 
 ^ In the above function, the . there is just the more literal way of
 saying “whatever is is active the command above the current command is
 what goes here.” Notice that is just the `Example` data frame. Notice
-that the ggplot() function takes first an assumed data source (Example),
-followed by an aesthetic (aes()) argument contained in it. If you leave
-this blank, you get just a (default gray) canvas. If you specify the
-name of a column contained in the data source, you first get an x-axis.
-Observe.
+that the `ggplot()` function takes first an assumed data source
+(`Example`), followed by an aesthetic (`aes()`) argument contained in
+it. If you leave this blank, you get just a (default gray) canvas. If
+you specify the name of a column contained in the data source, you first
+get an x-axis. Observe.
 
 ``` r
 ggplot(Example, aes(x))
 ```
 
-![](../images/lab-2/unnamed-chunk-6-1.png)<!-- -->
+![](figs/lab-2/unnamed-chunk-6-1.png)<!-- -->
 
 If you specify another column after a comma, you get a y-axis. Observe.
 
@@ -115,31 +118,31 @@ If you specify another column after a comma, you get a y-axis. Observe.
 ggplot(Example, aes(x, y))
 ```
 
-![](../images/lab-2/unnamed-chunk-7-1.png)<!-- -->
+![](figs/lab-2/unnamed-chunk-7-1.png)<!-- -->
 
 Notice this hasn’t plotted anything yet. It just created the canvas for
 you. What comes next depends on what you want to communicate. In this
-simple case, we have two variables (x and y) that are functionally
-continuous and y is a simple linear function of x. This seems like an
-easy call for a scatterplot. If you want to declare what type of plot
+simple case, we have two variables (`x` and `y`) that are functionally
+continuous and `y` is a simple linear function of `x`. This seems like
+an easy call for a scatterplot. If you want to declare what type of plot
 you want on your ggplot canvas, you specify it with some relevant
-“geom”, preceded by a plus sign. In this case, geom_point() creates dots
-corresponding with the coordinates of x and y. This, minimally, creates
-a scatterplot. \## Scatterplot —-
+“geom”, preceded by a plus sign. In this case, `geom_point()` creates
+dots corresponding with the coordinates of x and y. This, minimally,
+creates a scatterplot. \## Scatterplot
 
 ``` r
 ggplot(Example, aes(x, y)) + geom_point()
 ```
 
-![](../images/lab-2/unnamed-chunk-8-1.png)<!-- -->
+![](figs/lab-2/unnamed-chunk-8-1.png)<!-- -->
 
 Notice you can stack other geoms on top of each other. For example, you
-can illustrate the linear form of the data points with geom_smooth(). Do
-note there is an optional “method” argument in geom_smooth(), which I’m
-using to tell ggplot2 that I want a linear smoother. The default is the
-LOESS smoother, which is situationally useful for teasing out non-linear
-relationships. If you want that default smoother, just don’t specify the
-`method = 'lm'` argument.
+can illustrate the linear form of the data points with `geom_smooth()`.
+Do note there is an optional “method” argument in `geom_smooth()`, which
+I’m using to tell `{ggplot2}` that I want a linear smoother. The default
+is the LOESS smoother, which is situationally useful for teasing out
+non-linear relationships. If you want that default smoother, just don’t
+specify the `method = 'lm'` argument.
 
 ``` r
 ggplot(Example, aes(x, y)) + 
@@ -150,7 +153,7 @@ ggplot(Example, aes(x, y)) +
 #> `geom_smooth()` using formula = 'y ~ x'
 ```
 
-![](../images/lab-2/unnamed-chunk-9-1.png)<!-- -->
+![](figs/lab-2/unnamed-chunk-9-1.png)<!-- -->
 
 It’s worth saying that these plots come with all sorts of customization
 options, that you’ll either want to use or not use. For example, what if
@@ -164,17 +167,18 @@ ggplot(Example, aes(x, y)) +
 #> `geom_smooth()` using formula = 'y ~ x'
 ```
 
-![](../images/lab-2/unnamed-chunk-10-1.png)<!-- -->
+![](figs/lab-2/unnamed-chunk-10-1.png)<!-- -->
 
-Feel free to explore options here. You can see them here: -
-<http://www.sthda.com/english/wiki/ggplot2-point-shapes>
+Feel free to explore options here. You can see them here:
+
+- <http://www.sthda.com/english/wiki/ggplot2-point-shapes>
 
 This would be a good time to introduce one other thing you should think
 to have on all your plots: labels. As a matter of hygiene, I close all
-my plots with a labs() argument for specifying useful information about
-your plots. labs() takes a whole lot of arguments, some of which are
-contingent on your plot’s complexity. For ease of explanation, I’m just
-going to offer this code with the idea being you can see what’s
+my plots with a `labs()` argument for specifying useful information
+about your plots. `labs()` takes a whole lot of arguments, some of which
+are contingent on your plot’s complexity. For ease of explanation, I’m
+just going to offer this code with the idea being you can see what’s
 happening here.
 
 ``` r
@@ -188,7 +192,7 @@ ggplot(Example, aes(x, y)) +
 #> `geom_smooth()` using formula = 'y ~ x'
 ```
 
-![](../images/lab-2/unnamed-chunk-11-1.png)<!-- -->
+![](figs/lab-2/unnamed-chunk-11-1.png)<!-- -->
 
 That’s really it. I’ll only add that if you’re preparing a graph for a
 journal, you’ll want to ignore plot titles and subtitles because that
@@ -198,7 +202,7 @@ document side of things and not the plot side of things.
 I’ll close with one plea here: resist the urge to roll out a default
 ggplot theme and be done with it. Add a theme. What you choose is up to
 you, and there is no shortage of themes out there. My preferred theme is
-theme_steve() from my new {stevethemes} package.
+`theme_steve()` from my `{stevethemes}` package.
 
 ``` r
 ggplot(Example, aes(x, y)) + 
@@ -212,12 +216,12 @@ ggplot(Example, aes(x, y)) +
 #> `geom_smooth()` using formula = 'y ~ x'
 ```
 
-![](../images/lab-2/unnamed-chunk-12-1.png)<!-- -->
+![](figs/lab-2/unnamed-chunk-12-1.png)<!-- -->
 
 I want to add that you may want to explore some of the font options in
-this {stevethemes} package. Type ?how_to_install_fonts() for more
+this `{stevethemes}` package. Type `?how_to_install_fonts()` for more
 information. I never really think to do this, but you could use the
-theme_set() function, preferably near the top of your script, to set a
+`theme_set()` function, preferably near the top of your script, to set a
 default theme. That way, you can avoid having to manually specify a
 theme each time.
 
@@ -234,16 +238,17 @@ ggplot(Example, aes(x, y)) +
 #> `geom_smooth()` using formula = 'y ~ x'
 ```
 
-![](../images/lab-2/unnamed-chunk-14-1.png)<!-- -->
+![](figs/lab-2/unnamed-chunk-14-1.png)<!-- -->
 
 From here, though, everything else will be a simple matter of showing
 you how to make different kinds of plots. Let’s start with what I think
 to be the most basic: the bar chart. Here, the data are discrete and we
-just want a rough estimate of count. Let’s use the steves_clothes data
-frame in {stevedata}. This is a simple data set on the country of origin
-for my dress apparel that I used for teaching undergrads in the United
-States about the globalization of the garment industry. I can show you
-that presentation if you like, but here let’s just note the data set.
+just want a rough estimate of count. Let’s use the `steves_clothes` data
+frame in `{stevedata}`. This is a simple data set on the country of
+origin for my dress apparel that I used for teaching undergrads in the
+United States about the globalization of the garment industry. I can
+show you that presentation if you like, but here let’s just note the
+data set.
 
 ``` r
 steves_clothes
@@ -284,7 +289,7 @@ ggplot(steves_clothes, aes(origin)) + # Don't need a y-axis. geom_bar() will giv
 #> generated.
 ```
 
-![](../images/lab-2/unnamed-chunk-16-1.png)<!-- -->
+![](figs/lab-2/unnamed-chunk-16-1.png)<!-- -->
 
 By default, the x-axis is ordered alphabetically. What if I wanted to
 order it from highest count to lowest? Unfortunately, you will need a
@@ -309,9 +314,9 @@ steves_clothes %>% # start with the data, and...
        x = "Country of Origin", y = "Count")
 ```
 
-![](../images/lab-2/unnamed-chunk-17-1.png)<!-- -->
+![](figs/lab-2/unnamed-chunk-17-1.png)<!-- -->
 
-# Histograms and density plots —-
+# Histograms and density plots
 
 Histograms and density plots are communicating the same basic thing: the
 shape of the data. The density plot is a smoothed histogram, meaning
@@ -368,7 +373,7 @@ Data %>%
 #> (`stat_bin()`).
 ```
 
-![](../images/lab-2/unnamed-chunk-20-1.png)<!-- -->
+![](figs/lab-2/unnamed-chunk-20-1.png)<!-- -->
 
 You can use a histogram to get a basic sense of the shape of the data,
 and you basically get that here. However, there are a few things that
@@ -387,7 +392,7 @@ Data %>%
 #> (`stat_density()`).
 ```
 
-![](../images/lab-2/unnamed-chunk-21-1.png)<!-- -->
+![](figs/lab-2/unnamed-chunk-21-1.png)<!-- -->
 
 Because the density plot is simply a smoothed histogram, what you get to
 see is not a function of how many bins you want or are given to you as a
@@ -423,7 +428,7 @@ Data %>%
 #> (`stat_bin()`).
 ```
 
-![](../images/lab-2/unnamed-chunk-22-1.png)<!-- -->
+![](figs/lab-2/unnamed-chunk-22-1.png)<!-- -->
 
 You know the variable in question is dollars, but R has no way of
 knowing that. It just sees large nominal numbers and is representing
@@ -442,7 +447,7 @@ Data %>%
 #> (`stat_bin()`).
 ```
 
-![](../images/lab-2/unnamed-chunk-23-1.png)<!-- -->
+![](figs/lab-2/unnamed-chunk-23-1.png)<!-- -->
 
 Here is where I’ll impress that a lot of defaults are very American.
 Swedes would prefer something like this.
@@ -456,7 +461,7 @@ Data %>%
 #> (`stat_bin()`).
 ```
 
-![](../images/lab-2/unnamed-chunk-24-1.png)<!-- -->
+![](figs/lab-2/unnamed-chunk-24-1.png)<!-- -->
 
 You can also be crazy if you want.
 
@@ -469,7 +474,7 @@ Data %>%
 #> (`stat_bin()`).
 ```
 
-![](../images/lab-2/unnamed-chunk-25-1.png)<!-- -->
+![](figs/lab-2/unnamed-chunk-25-1.png)<!-- -->
 
 ^ Don’t do this. I mean, you can. But don’t. Let’s adjust the scale on
 the x-axis to add labels that communicate dollars.
@@ -484,7 +489,7 @@ Data %>%
 #> (`stat_bin()`).
 ```
 
-![](../images/lab-2/unnamed-chunk-26-1.png)<!-- -->
+![](figs/lab-2/unnamed-chunk-26-1.png)<!-- -->
 
 Note that there might be some trial and error you want to experiment
 with here, much of which is dependent on what you know about the data.
@@ -504,7 +509,7 @@ Data %>%
 #> (`stat_bin()`).
 ```
 
-![](../images/lab-2/unnamed-chunk-27-1.png)<!-- -->
+![](figs/lab-2/unnamed-chunk-27-1.png)<!-- -->
 
 ## A comment on saving what you do.
 
@@ -533,7 +538,7 @@ Data %>%
 #> (`stat_bin()`).
 ```
 
-![](../images/lab-2/unnamed-chunk-28-1.png)<!-- -->
+![](figs/lab-2/unnamed-chunk-28-1.png)<!-- -->
 
 Notice your plot? See the “Export” tab there? Click it and go with “Save
 image”, probably because you are not exporting to LaTeX and your Word

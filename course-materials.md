@@ -1,14 +1,16 @@
 ---
 title: Course Materials
-layout: default-nsb
+layout: default
 active: course-materials
 permalink: /course-materials/
 ---
 
 # {{ page.title }}
 
-![Statistics for the Social Sciences: A General Linear Model Approach](/images/warne2018sss.jpg){:. width="30%"}
+<!-- ![Statistics for the Social Sciences: A General Linear Model Approach](/images/warne2018sss.jpg){:. width="30%"} -->
 
+
+{% include image.html url="/images/warne2018sss.jpg" caption="Statistics for the Social Sciences: A General Linear Model Approach" width=300 align="right" %}
 
 The main textbook for the course is Russell T. Warne's (2018) *Statistics for the Social Sciences: A General Linear Model Approach*. The book is available for purchase at Akademibokhandeln and can also be borrowed from the library. The class makes additional use of a selection of journal articles that should be available from [the university library](https://www.su.se/stockholm-university-library/). Students who are unfamiliar with how to use the library, but know how to Google things, may find the following link to be useful.
 

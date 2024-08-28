@@ -1,23 +1,26 @@
-- title: "Home"
-  href: "/"
-  active: home
+#- title: "Home"
+#  href: "/"
+#  active: home
 
-- title: "Course Description"
-  href: ""
-  active: course-description
+#- title: "Course Description"
+#  href: ""
+#  active: course-description
 
 - title: "Course Materials"
   href: "/course-materials/"
   active: course-materials
+  icons: "fas fa-list-ul fa-lg"
 
 - title: "R/RStudio"
   href: "/r-rstudio/"
   active: r-rstudio
+  icons: "fab fa-r-project"
 
 
 - title: "Lab Scripts"
   href: ""
   active: lab-scripts
+  icons: "fas fa-flask"
   subcategories:
     - subtitle: "Lab 1: Getting Started in R and Rstudio"
       subhref: "/lab-scripts/lab-1/"
@@ -33,6 +36,7 @@
 - title: "Problem Sets"
   href: ""
   active: problem-sets
+  icons: "fas fa-laptop-code"
   subcategories:
     - subtitle: "Problem Set 1"
       subhref: "/problem-sets/1/eh1903-2-ps1.pdf"
@@ -45,3 +49,4 @@
 
 - title: "Athena"
   href: "https://athena.itslearning.com/"
+  icons: "fas fa-leaf"

@@ -1,17 +1,25 @@
-<!-- https://stackoverflow.com/questions/8340170/jekyll-automatically-highlight-current-tab-in-menu-bar 
-https://stackoverflow.com/questions/35733044/how-to-add-active-class-to-navigation-link-if-you-are-on-a-single-post-page-i
--->
+<!-- <ul class="menu">
+
+
+<li><a class="page-link" href="{{ site.syllabus }}"><i class="fa fa-list-ul fa-lg"></i> Syllabus</a></li>
+<li><a class="page-link" href="/course-materials/"><i class="fas fa-book"></i> Course Materials</a></li>
+<li><a class="page-link" href="/lectures/"><i class="fas fa-book-reader"></i> Lectures</a></li>
+<li><a class="page-link" href="/lab-scripts-problem-sets/"><i class="fas fa-flask"></i> Lab Scripts/Problem Sets</a></li>
+<li><a class="page-link" href="https://github.com/{{ site.githubdir }}"><i class="fab fa-github"></i></a></li>
+<li><a class="page-link" href="{{ site.authorurl }}"><i class="fa fa-user fa-lg"></i></a></li> 
+    </ul> -->
 
 
 
+<ul class="menu">
+<!--  <li><a class="page-link" href="{{ site.syllabus }}"><i class="fa fa-list-ul fa-lg"></i> Course Description</a></li> -->
 
-<ul class="nav-menu">
     {% for i in site.data.menu %}
     {% if i.subcategories != null %}
     {% if {{page.active}} == {{i.active}} %}
-    <li id="n-active"><a href="{{ i.href }}" class="active">{{ i.title }}</a>
+    <li id="n-active"><a href="{{ i.href }}" class="active"><i class="{{i.icons}}"></i> {{ i.title }}</a>
     {% else %}
-     <li><a href="{{ i.href }}" class="">{{ i.title }}</a>
+     <li><a href="{{ i.href }}" class=""><i class="{{i.icons}}"></i> {{ i.title }}</a>
     {% endif %}
     <ul class="sub-menu">
     {% for subcategory in i.subcategories %}
@@ -20,12 +28,14 @@ https://stackoverflow.com/questions/35733044/how-to-add-active-class-to-navigati
     </ul> </li>
     {% else %}
     {% if {{page.active}} == {{i.active}} %}
-    <li id="n-active"><a href="{{ i.href }}" class="active">{{ i.title }}</a>
+    <li id="n-active"><a href="{{ i.href }}" class="active"><i class="{{i.icons}}"></i> {{ i.title }}</a>
     {% else %}
-    <li><a href="{{ i.href }}" class="">{{ i.title }}</a>
+    <li><a href="{{ i.href }}" class=""><i class="{{i.icons}}"></i> {{ i.title }}</a>
     {% endif %}   </li>
     {% endif %}
  
     {% endfor %}
+    
+    <li><a class="page-link" href="https://github.com/{{ site.githubdir }}"><i class="fab fa-github"></i></a></li>
+<li><a class="page-link" href="{{ site.authorurl }}"><i class="fa fa-user fa-lg"></i></a></li> 
     </ul>
-

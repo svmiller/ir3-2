@@ -1,12 +1,17 @@
 ---
-title: "Getting Started in R and Rstudio"
+title: "An Intro to R, RStudio, and {tidyverse}"
 layout: lab
 permalink: /lab-scripts/lab-1/
 active: lab-scripts
-abstract: "This is a lab script for [EH6105](http://eh6105.svmiller.com), a graduate-level quantitative 
-methods class that I teach at Stockholm University. It will not be the most sophisticated 
-R-related write-up of mine---check [my blog](http://svmiller.com/blog) for those---but it should be useful 
-for discussion around the associated R script for the week's 'lab' session."
+abstract: "This lab scripts offers what I think to be a gentle introduction
+to R and RStudio. It will try to acclimate students with R as programming 
+language and RStudio as IDE for the R programming language. There will be
+a few recurring themes here that are subtle but deceptively critical. 1) You
+really must know where you are on your computer without referencing to icons
+you can push (i.e. know your working directory and the path to it). 2) You 
+can push any number of buttons in RStudio, but everything is still a command
+in a terminal/console. Pay careful attention to that information as it's
+communicated to you."
 output:
    md_document:
      variant: gfm
@@ -89,9 +94,9 @@ downstream in this script.
 ``` r
 library(tidyverse)
 #> ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-#> ✔ dplyr     1.1.2     ✔ readr     2.1.4
+#> ✔ dplyr     1.1.4     ✔ readr     2.1.4
 #> ✔ forcats   1.0.0     ✔ stringr   1.5.0
-#> ✔ ggplot2   3.5.0     ✔ tibble    3.2.1
+#> ✔ ggplot2   3.5.1     ✔ tibble    3.2.1
 #> ✔ lubridate 1.9.2     ✔ tidyr     1.3.0
 #> ✔ purrr     1.0.2     
 #> ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──

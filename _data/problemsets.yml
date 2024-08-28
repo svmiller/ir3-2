@@ -1,0 +1,40 @@
+- title: "Problem Set #1"
+  filename: 1/eh6127-ps1
+  description: "The first problem set makes use of the 
+  [Systemic Banking Crises Database II](http://svmiller.com/stevedata/reference/SBCD.html) in 
+  [`{stevedata}`](http://svmiller.com/stevedata) to learn about basic data summary, 
+  data exploration, and data manipulation."
+
+- title: "Problem Set #2"
+  filename: 2/eh6127-ps2
+  description: "The second problem set makes use of the 
+  [`african_coups`](http://svmiller.com/stevedata/reference/african_coups.html) 
+  data set in [`{stevedata}`](http://svmiller.com/stevedata) to learn about 
+  basic descriptive statistics, recoding things, and, importantly, how you 
+  should always read the codebook and the fine print of articles you read."
+  
+- title: "Problem Set #3"
+  filename: 3/eh6127-ps3
+  description: "The third problem introduces students to simple bivariate 
+  linear regression by way of a classic chicken-and-egg problem in 
+  political science/IR: the relationship between democracy and economic 
+  development. The data---[`Lipset59`](http://svmiller.com/stevedata/reference/Lipset59.html)
+  in [`{stevedata}`](http://svmiller.com/stevedata)---will be an homage to 
+  [Lipset's (1959)](https://www.jstor.org/stable/1951731) modernization thesis."
+  
+- title: "Problem Set #4"
+  filename: 4/eh6127-ps4
+  description: "The fourth problem set makes use of 
+  [replication data of Ghobarah et. al (2004)](http://svmiller.com/stevedata/reference/GHR04.html) to 
+  prompt students to replicate a published analysis in the field of 
+  international relations."
+  
+- title: "Problem Set #5"
+  filename: 5/eh6127-ps5
+  description: "The final problem set makes use of [`USFAHR`](http://svmiller.com/stevedata/reference/USFAHR.html) 
+  in [`{stevedata}`](http://svmiller.com/stevedata) to learn about linear model 
+  diagnostics. The topic will be an analysis of the kind that occupied considerable
+  attention for scholars on human rights and U.S. foreign aid allocation in 
+  the 1980s and 1990s: whether the U.S. is serious about human rights records
+  when it makes economic aid obligations to target countries. Legally, it's
+  supposed to be. But let's be real..."

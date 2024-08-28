@@ -1,14 +1,15 @@
 ---
 title: R/RStudio
-layout: default-nsb
+layout: default
 active: r-rstudio
 permalink: /r-rstudio/
 ---
 
 # {{ page.title }}
 
-![RStudio](/images/rstudio.jpg){:. width="30%"}
+<!-- ![RStudio](/images/rstudio.jpg){:. width="30%"} -->
 
+{% include image.html url="/images/rstudio.jpg" caption="RStudio" width=350 align="right" %}
 
 The lab sessions themselves will take place in rooms with computers in them for the student to use, though there is a (reasonable, implicit) assumption that the student has a personal computer. Tablets are not advised for these purposes as it is difficult to install the required third-party software needed for this course, which would be a major issue no matter the third-party software the student used for statistical analysis. Tablets will also typically lack the kind of memory and processing power for computational uses like this. 
 
