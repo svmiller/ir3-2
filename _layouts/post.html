@@ -1,26 +1,7 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
-
-{% include head.html %}
-
-
-  <body>
-<div id="wrap">
-
-<div id="header">
-
-{% include header.html %}
-
-</div>
-
-<div id="navcontainer">
-
-{% include nav.html %}
-
-</div>
-
-<div id="article">
-
+---
+layout: default
+---
+<div class="post">
 
   <header class="post-header">
     <h1 class="post-title">{{ page.title }}</h1>
@@ -35,17 +16,8 @@
 </p>
   </header>
 
+  <article class="post-content">
+    {{ content }}
+  </article>
 
-
-{{ content }}
 </div>
-
-
-{% include footer.html %}
-
-</div> <!-- and that's a #wrap -->
-
-
-
-</body>
-</html>

@@ -1,49 +1,20 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<!DOCTYPE html>
+<html>
 
-{% include head.html %}
-
+  {% include head.html %}
 
   <body>
-<div id="wrap">
 
-<div id="header">
-{% include header.html %}
+    {% include header.html %}
 
-</div>
+    <div class="page-content">
+      <div class="wrapper">
+        {{ content }}
+      </div>
+    </div>
 
-<div id="navcontainer">
+    {% include footer.html %}
+  </body>
 
-{% include nav.html %}
-
-
-</div>
-
-<div id="content">
-
-{{ content }}
-
-</div>
-
-<div id="sidebar">
-<h1>{{site.title}}</h1>
-<span>{{site.subtitle}}</span><br />
-<p>
-{{ site.address }}<br /> 
-<a href="mailto:{{site.email}}">{{site.email}}</a></p>
-
-{% if page.class_content %}
-  {% capture class_content %}{% include_relative {{ page.class_content }} %}{% endcapture %}
-{{ class_content | markdownify }}
-{% endif %}
-
-</div>
-
-{% include footer.html %}
-
-</div> <!-- and that's a #wrap -->
-
-
-
-</body>
 </html>
+<!-- d.s.m.s.050600.062508.030515.080516.030818 | "Baby, I'm Yours" -->
