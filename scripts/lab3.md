@@ -3,10 +3,12 @@ title: "Bivariate Relations"
 layout: lab
 permalink: /lab-scripts/lab-3/
 active: lab-scripts
-abstract: "This is a lab script for [EH6105](http://eh6105.svmiller.com), a graduate-level quantitative 
-methods class that I teach at Stockholm University. It will not be the most sophisticated 
-R-related write-up of mine---check [my blog](http://svmiller.com/blog) for those---but it should be useful 
-for discussion around the associated R script for the week's 'lab' session."
+abstract: "This lab script is a basic tutorial on making statements about how
+two variables correlate with/relate to each other. The language we use will
+be deliberately broad and focus on one of the biggest chicken-and-egg 
+problems in political science. Does democracy 'cause' economic development, or
+does economic development 'cause' democracy? We won't answer that question,
+other than to note the two things clearly correlate."
 output:
    md_document:
      variant: gfm
@@ -30,9 +32,9 @@ output:
 ``` r
 library(tidyverse)
 #> ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-#> ✔ dplyr     1.1.1     ✔ readr     2.1.4
+#> ✔ dplyr     1.1.4     ✔ readr     2.1.4
 #> ✔ forcats   1.0.0     ✔ stringr   1.5.0
-#> ✔ ggplot2   3.4.2     ✔ tibble    3.2.1
+#> ✔ ggplot2   3.5.1     ✔ tibble    3.2.1
 #> ✔ lubridate 1.9.2     ✔ tidyr     1.3.0
 #> ✔ purrr     1.0.1     
 #> ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
@@ -350,7 +352,7 @@ ggplot(Data, aes(cat, gdppc)) +
        caption = "Data: Lipset (1959) [for categories/countries], Anders et al. [for GDP per capita estimates]")
 ```
 
-![](../images/lab-3/unnamed-chunk-8-1.png)<!-- -->
+![](figs/lab-3/unnamed-chunk-8-1.png)<!-- -->
 
 Box plots are kind of blech, but you’re seeing basically what Lipset
 (1959) saw. Democracies are almost always richer than non-democracies in
@@ -530,7 +532,7 @@ ggplot(Data, aes(demest, gdppc)) +
 #> `geom_smooth()` using formula = 'y ~ x'
 ```
 
-![](../images/lab-3/unnamed-chunk-12-1.png)<!-- -->
+![](figs/lab-3/unnamed-chunk-12-1.png)<!-- -->
 
 This is effectively breaking our bivariate data into quadrants. The
 bottom-left and top-right quadrants are so-called positive correlation

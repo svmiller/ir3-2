@@ -3,10 +3,12 @@
 #' layout: lab
 #' permalink: /lab-scripts/lab-3/
 #' active: lab-scripts
-#' abstract: "This is a lab script for [EH6105](http://eh6105.svmiller.com), a graduate-level quantitative 
-#' methods class that I teach at Stockholm University. It will not be the most sophisticated 
-#' R-related write-up of mine---check [my blog](http://svmiller.com/blog) for those---but it should be useful 
-#' for discussion around the associated R script for the week's 'lab' session."
+#' abstract: "This lab script is a basic tutorial on making statements about how
+#' two variables correlate with/relate to each other. The language we use will
+#' be deliberately broad and focus on one of the biggest chicken-and-egg 
+#' problems in political science. Does democracy 'cause' economic development, or
+#' does economic development 'cause' democracy? We won't answer that question,
+#' other than to note the two things clearly correlate."
 #' output:
 #'    md_document:
 #'      variant: gfm
@@ -14,10 +16,11 @@
 #' ---
 
 #+ setup, include=FALSE
-knitr::opts_chunk$set(collapse = TRUE, comment = "#>",
-                      fig.path = "../images/lab-3/",
-                      fig.width = 11
-                      )
+knitr::opts_chunk$set(collapse = TRUE, 
+                      fig.path = "figs/lab-3/",
+                      cache.path = "cache/lab-3/",
+                      fig.width = 11,
+                      comment = "#>")
 #+
 
 #   ____
