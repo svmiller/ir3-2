@@ -3,6 +3,11 @@
 #' layout: lab
 #' permalink: /lab-scripts/lab-4/
 #' active: lab-scripts
+#' abstract: "This lab script teaches the implementation and interpretation of
+#' the basic linear model by reference to Appell and Loyle's (2012) analysis
+#' of the apparent economic benefits of justice. Students should read that
+#' article to understand the context of what we're doing. This lab script will
+#' just implement one of their basic models and unpack its contents."
 #' output:
 #'    md_document:
 #'      variant: gfm
@@ -10,11 +15,11 @@
 #' ---
 
 #+ setup, include=FALSE
-knitr::opts_chunk$set(collapse = TRUE, comment = "#>",
-                      fig.path = "../images/lab-4/",
-                      warning=FALSE,
-                      fig.width = 11
-)
+knitr::opts_chunk$set(collapse = TRUE, 
+                      fig.path = "figs/lab-4/",
+                      cache.path = "cache/lab-4/",
+                      fig.width = 11,
+                      comment = "#>")
 #+
 #
 #   |\      _,,,---,,_

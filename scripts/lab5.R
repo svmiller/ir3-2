@@ -2,6 +2,12 @@
 #' title: "Model Presentation"
 #' layout: lab
 #' permalink: /lab-scripts/lab-5/
+#' abstract: "It's never sufficient to spam R console output into a formal 
+#' document. Instead, the student should invest energy into presenting 
+#' important console output into a narrative format. In the context of the 
+#' regression model, this is the regression table. `{modelsummary}` is going
+#' to be doing some heavy-lifting here with respect to a silly sample analysis
+#' I did around which students can pattern their final papers."
 #' active: lab-scripts
 #' output:
 #'    md_document:
@@ -10,12 +16,12 @@
 #' ---
 
 #+ setup, include=FALSE
-knitr::opts_chunk$set(collapse = TRUE, comment = "#>",
-                      fig.path = "../images/lab-5/",
-                      warning=FALSE,
-                      fig.width = 11
-)
-#'
+knitr::opts_chunk$set(collapse = TRUE, 
+                      fig.path = "figs/lab-5/",
+                      cache.path = "cache/lab-5/",
+                      fig.width = 11,
+                      comment = "#>")
+#+
 #     /\_/\           ___
 #    = o_o =_______    \ \  -Model Presentation-
 #     __^      __(  \.__) )

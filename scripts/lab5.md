@@ -2,6 +2,12 @@
 title: "Model Presentation"
 layout: lab
 permalink: /lab-scripts/lab-5/
+abstract: "It's never sufficient to spam R console output into a formal 
+document. Instead, the student should invest energy into presenting 
+important console output into a narrative format. In the context of the 
+regression model, this is the regression table. `{modelsummary}` is going
+to be doing some heavy-lifting here with respect to a silly sample analysis
+I did around which students can pattern their final papers."
 active: lab-scripts
 output:
    md_document:
@@ -21,9 +27,9 @@ output:
 ``` r
 library(tidyverse)
 #> ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-#> ✔ dplyr     1.1.1     ✔ readr     2.1.4
+#> ✔ dplyr     1.1.4     ✔ readr     2.1.4
 #> ✔ forcats   1.0.0     ✔ stringr   1.5.0
-#> ✔ ggplot2   3.4.2     ✔ tibble    3.2.1
+#> ✔ ggplot2   3.5.1     ✔ tibble    3.2.1
 #> ✔ lubridate 1.9.2     ✔ tidyr     1.3.0
 #> ✔ purrr     1.0.1     
 #> ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
@@ -184,13 +190,13 @@ Data %>%
 
 |         | Unique | Missing Pct. | Mean | SD   | Min  | Median | Max  | Histogram                                        |
 |---------|--------|--------------|------|------|------|--------|------|--------------------------------------------------|
-| impdem  | 11     | 1            | 9.3  | 1.5  | 1.0  | 10.0   | 10.0 | ![](tinytable_assets/id7o8m0hbtlv3cki4a3y6c.png) |
-| justdiv | 11     | 3            | 8.4  | 2.3  | 1.0  | 10.0   | 10.0 | ![](tinytable_assets/ido5xb82es8y0meo2duinr.png) |
-| age     | 68     | 0            | 47.3 | 19.4 | 18.0 | 47.0   | 85.0 | ![](tinytable_assets/id97pfsdtjve6567kcwqzz.png) |
-| sex     | 2      | 0            | 0.5  | 0.5  | 0.0  | 1.0    | 1.0  | ![](tinytable_assets/idzm17i4ios6vx7o91wytp.png) |
-| inc     | 11     | 3            | 5.4  | 1.8  | 1.0  | 5.0    | 10.0 | ![](tinytable_assets/id39d4vbxtwjczfyi7qw8p.png) |
-| pray    | 9      | 1            | 6.4  | 2.3  | 1.0  | 8.0    | 8.0  | ![](tinytable_assets/idf0iepklsvs9no98cjuph.png) |
-| educ    | 54     | 2            | 24.1 | 8.3  | 5.0  | 22.0   | 83.0 | ![](tinytable_assets/id1q25ieb9o55tmmjgqd4u.png) |
+| impdem  | 11     | 1            | 9.3  | 1.5  | 1.0  | 10.0   | 10.0 | ![](tinytable_assets/idi2ylx92k9u63ob43gssy.png) |
+| justdiv | 11     | 3            | 8.4  | 2.3  | 1.0  | 10.0   | 10.0 | ![](tinytable_assets/id3l4vseeq6bzr5su6h9o9.png) |
+| age     | 68     | 0            | 47.3 | 19.4 | 18.0 | 47.0   | 85.0 | ![](tinytable_assets/idwjcul0h0ur8m5x8ddzsw.png) |
+| sex     | 2      | 0            | 0.5  | 0.5  | 0.0  | 1.0    | 1.0  | ![](tinytable_assets/id9rs5pz571lcujxjvfafl.png) |
+| inc     | 11     | 3            | 5.4  | 1.8  | 1.0  | 5.0    | 10.0 | ![](tinytable_assets/idl5yy9wptprkftrz34vxm.png) |
+| pray    | 9      | 1            | 6.4  | 2.3  | 1.0  | 8.0    | 8.0  | ![](tinytable_assets/idpwtkgbnteblyvol41ccm.png) |
+| educ    | 54     | 2            | 24.1 | 8.3  | 5.0  | 22.0   | 83.0 | ![](tinytable_assets/idv04ah30kjkygwedjn9w1.png) |
 
 Be mindful that the data I supplied here are *all* numeric and the data
 has *only* what I want to summarize. This will try to (want to)
@@ -217,6 +223,7 @@ Data %>%
                    align = c("lccccccc"),
                    histogram = F,
                    notes = "You can put a footnote here.") 
+#> Warning: The `histogram` argument is deprecated. Use `fun_numeric` instead.
 ```
 
 |                         | Unique | Missing Pct. | Mean | SD   | Min  | Median | Max  |
@@ -262,9 +269,14 @@ Data %>%
        x = "Values of the Importance of Democracy",
        y = "Count of Observations") +
   scale_y_continuous(limits = c(0,1000))
+#> Warning: The dot-dot notation (`..count..`) was deprecated in ggplot2 3.4.0.
+#> ℹ Please use `after_stat(count)` instead.
+#> This warning is displayed once every 8 hours.
+#> Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+#> generated.
 ```
 
-![](../images/lab-5/unnamed-chunk-10-1.png)<!-- -->
+![](figs/lab-5/unnamed-chunk-10-1.png)<!-- -->
 
 Issues in the dependent variable will typically be the ones you should
 think about first and the most, but you can see these issues manifest
@@ -285,10 +297,10 @@ Data %>%
   scale_y_continuous(limits = c(0,750))
 ```
 
-![](../images/lab-5/unnamed-chunk-11-1.png)<!-- -->
+![](figs/lab-5/unnamed-chunk-11-1.png)<!-- -->
 
 Now that you’ve created a graph that summarizes important features about
-your data, save it (in Rstudio) to a PNG file. Then, in your Word
+your data, save it (in RStudio) to a PNG file. Then, in your Word
 document, grab it and move it in. You can also—if it pleases and
 sparkles—zoom into the plot, right-click, copy image, and paste it into
 your Word document. Choice is yours.
@@ -439,9 +451,9 @@ wrapping them in a `list()`. `modelsummary()` will do what it does with
 them.
 
 There’s a lot we should really think about doing here. First, it may be
-useful to so-called “name” your regressions. In my sample paper, M1 is a
-simple bivariate linear model and M2 adds the control variables. I can
-name them within `list()` like this.
+useful to so-called “name” your regressions. In my sample paper, `M1` is
+a simple bivariate linear model and `M2` adds the control variables. I
+can name them within `list()` like this.
 
 ``` r
 modelsummary(list("Bivariate Regression" = M1,
@@ -921,6 +933,8 @@ modelsummary(list("Bivariate Regression" = M1,
                           "(Intercept)" = "Intercept"),
              gof_map = c("nobs", "adj.r.squared", "r.squared"),
              caption = "Hi Mom!")
+#> Warning: The `caption` argument is not supported by `modelsummary`. Try `title`
+#>   instead.
 ```
 
 <table style="width:89%;">
@@ -1031,6 +1045,6 @@ modelsummary(list("Bivariate Regression" = M1,
 </tfoot>
 &#10;</table>
 
-Dope, let’s put it in our Word document. In Rstudio, click on that
+Dope, let’s put it in our Word document. In RStudio, click on that
 viewer of the table. Then: Ctrl-A, Ctrl-C, Ctrl-V into your Word
 document. For you Mac users, this should be Cmd instead of Ctrl.

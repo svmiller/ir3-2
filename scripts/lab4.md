@@ -3,6 +3,11 @@ title: "Linear Models"
 layout: lab
 permalink: /lab-scripts/lab-4/
 active: lab-scripts
+abstract: "This lab script teaches the implementation and interpretation of
+the basic linear model by reference to Appell and Loyle's (2012) analysis
+of the apparent economic benefits of justice. Students should read that
+article to understand the context of what we're doing. This lab script will
+just implement one of their basic models and unpack its contents."
 output:
    md_document:
      variant: gfm
@@ -24,9 +29,9 @@ output:
 ``` r
 library(tidyverse)
 #> ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-#> ✔ dplyr     1.1.1     ✔ readr     2.1.4
+#> ✔ dplyr     1.1.4     ✔ readr     2.1.4
 #> ✔ forcats   1.0.0     ✔ stringr   1.5.0
-#> ✔ ggplot2   3.4.2     ✔ tibble    3.2.1
+#> ✔ ggplot2   3.5.1     ✔ tibble    3.2.1
 #> ✔ lubridate 1.9.2     ✔ tidyr     1.3.0
 #> ✔ purrr     1.0.1     
 #> ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
@@ -371,7 +376,7 @@ Data %>%
 #> `geom_smooth()` using formula = 'y ~ x'
 ```
 
-![](../images/lab-4/unnamed-chunk-10-1.png)<!-- -->
+![](figs/lab-4/unnamed-chunk-10-1.png)<!-- -->
 
 Wooooof, that should not look like that. What you want to see is
 basically featureless, patternless buckshot. Something like this:
@@ -391,7 +396,7 @@ broom::augment(M4) %>%
 #> `geom_smooth()` using formula = 'y ~ x'
 ```
 
-![](../images/lab-4/unnamed-chunk-11-1.png)<!-- -->
+![](figs/lab-4/unnamed-chunk-11-1.png)<!-- -->
 
 What you’re looking at is a cry for help.
 
@@ -409,9 +414,28 @@ linloess_plot(M2, pch=21) +
   theme_steve(style='generic')
 #> `geom_smooth()` using formula = 'y ~ x'
 #> `geom_smooth()` using formula = 'y ~ x'
+#> Warning in simpleLoess(y, x, w, span, degree = degree, parametric = parametric,
+#> : at -0.005
+#> Warning in simpleLoess(y, x, w, span, degree = degree, parametric = parametric,
+#> : radius 2.5e-05
+#> Warning in simpleLoess(y, x, w, span, degree = degree, parametric = parametric,
+#> : all data on boundary of neighborhood. make span bigger
+#> Warning in simpleLoess(y, x, w, span, degree = degree, parametric = parametric,
+#> : pseudoinverse used at -0.005
+#> Warning in simpleLoess(y, x, w, span, degree = degree, parametric = parametric,
+#> : neighborhood radius 0.005
+#> Warning in simpleLoess(y, x, w, span, degree = degree, parametric = parametric,
+#> : reciprocal condition number 1
+#> Warning in simpleLoess(y, x, w, span, degree = degree, parametric = parametric,
+#> : There are other near singularities as well. 1.01
+#> Warning in simpleLoess(y, x, w, span, degree = degree, parametric = parametric,
+#> : zero-width neighborhood. make span bigger
+#> Warning: Failed to fit group -1.
+#> Caused by error in `predLoess()`:
+#> ! NA/NaN/Inf in foreign function call (arg 5)
 ```
 
-![](../images/lab-4/unnamed-chunk-12-1.png)<!-- -->
+![](figs/lab-4/unnamed-chunk-12-1.png)<!-- -->
 
 ^ A couple of things stand out here to me: 1) the model is so offended
 by the presence of the exchange rate variable that it’s making anything
@@ -430,7 +454,7 @@ Data %>%
   theme_steve(style='generic')
 ```
 
-![](../images/lab-4/unnamed-chunk-13-1.png)<!-- -->
+![](figs/lab-4/unnamed-chunk-13-1.png)<!-- -->
 
 Iiiiiinteresting. You’re free to play around with this, but use your
 head a bit. It implies there are a few categories of “growth”. Some are
@@ -514,7 +538,7 @@ to look.
 plot(M2, which=2)
 ```
 
-![](../images/lab-4/unnamed-chunk-15-1.png)<!-- -->
+![](figs/lab-4/unnamed-chunk-15-1.png)<!-- -->
 
 The Q-Q plots the theoretical quantiles of the residuals against the
 standardized residuals. Ideally, they all fall on a nice line. Here,
@@ -538,9 +562,14 @@ Data %>%
                 linetype="dashed", size=1.1) +
   geom_density(size = 1.1) +
   theme_steve(style='generic')
+#> Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+#> ℹ Please use `linewidth` instead.
+#> This warning is displayed once every 8 hours.
+#> Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+#> generated.
 ```
 
-![](../images/lab-4/unnamed-chunk-16-1.png)<!-- -->
+![](figs/lab-4/unnamed-chunk-16-1.png)<!-- -->
 
 ^ wooof. Kill this with fire.
 
@@ -563,7 +592,7 @@ Data %>%
   theme_steve(style='generic')
 ```
 
-![](../images/lab-4/unnamed-chunk-17-1.png)<!-- -->
+![](figs/lab-4/unnamed-chunk-17-1.png)<!-- -->
 
 ^ it’s one thing for there to be this kind of tail. It’s another for it
 to be driven by so few observations. It’s possible you may want to
