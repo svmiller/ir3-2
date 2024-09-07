@@ -31,7 +31,7 @@ library(tidyverse)
 #> ✔ forcats   1.0.0     ✔ stringr   1.5.0
 #> ✔ ggplot2   3.5.1     ✔ tibble    3.2.1
 #> ✔ lubridate 1.9.2     ✔ tidyr     1.3.0
-#> ✔ purrr     1.0.1     
+#> ✔ purrr     1.0.2     
 #> ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 #> ✖ dplyr::filter() masks stats::filter()
 #> ✖ dplyr::lag()    masks stats::lag()
@@ -188,15 +188,15 @@ Data %>%
                    notes = "You can put a footnote here.") 
 ```
 
-|         | Unique | Missing Pct. | Mean | SD   | Min  | Median | Max  | Histogram                                        |
-|---------|--------|--------------|------|------|------|--------|------|--------------------------------------------------|
-| impdem  | 11     | 1            | 9.3  | 1.5  | 1.0  | 10.0   | 10.0 | ![](tinytable_assets/idi2ylx92k9u63ob43gssy.png) |
-| justdiv | 11     | 3            | 8.4  | 2.3  | 1.0  | 10.0   | 10.0 | ![](tinytable_assets/id3l4vseeq6bzr5su6h9o9.png) |
-| age     | 68     | 0            | 47.3 | 19.4 | 18.0 | 47.0   | 85.0 | ![](tinytable_assets/idwjcul0h0ur8m5x8ddzsw.png) |
-| sex     | 2      | 0            | 0.5  | 0.5  | 0.0  | 1.0    | 1.0  | ![](tinytable_assets/id9rs5pz571lcujxjvfafl.png) |
-| inc     | 11     | 3            | 5.4  | 1.8  | 1.0  | 5.0    | 10.0 | ![](tinytable_assets/idl5yy9wptprkftrz34vxm.png) |
-| pray    | 9      | 1            | 6.4  | 2.3  | 1.0  | 8.0    | 8.0  | ![](tinytable_assets/idpwtkgbnteblyvol41ccm.png) |
-| educ    | 54     | 2            | 24.1 | 8.3  | 5.0  | 22.0   | 83.0 | ![](tinytable_assets/idv04ah30kjkygwedjn9w1.png) |
+|         | Unique | Missing Pct. | Mean | SD   | Min  | Median | Max  | Histogram                                                             |
+|---------|--------|--------------|------|------|------|--------|------|-----------------------------------------------------------------------|
+| impdem  | 11     | 1            | 9.3  | 1.5  | 1.0  | 10.0   | 10.0 | <img src="tinytable_assets/idwhu8253say8qriwm1ymj.png" height="16" /> |
+| justdiv | 11     | 3            | 8.4  | 2.3  | 1.0  | 10.0   | 10.0 | <img src="tinytable_assets/idmyb0hom83zn2b9c4js2x.png" height="16" /> |
+| age     | 68     | 0            | 47.3 | 19.4 | 18.0 | 47.0   | 85.0 | <img src="tinytable_assets/idfuxgmpdurgvxz0of1za7.png" height="16" /> |
+| sex     | 2      | 0            | 0.5  | 0.5  | 0.0  | 1.0    | 1.0  | <img src="tinytable_assets/idi02jfp4wna9tfhpsb6ra.png" height="16" /> |
+| inc     | 11     | 3            | 5.4  | 1.8  | 1.0  | 5.0    | 10.0 | <img src="tinytable_assets/id6sx7nbl9gk189i1jhmtp.png" height="16" /> |
+| pray    | 9      | 1            | 6.4  | 2.3  | 1.0  | 8.0    | 8.0  | <img src="tinytable_assets/idouiokow6o94s1flhqid9.png" height="16" /> |
+| educ    | 54     | 2            | 24.1 | 8.3  | 5.0  | 22.0   | 83.0 | <img src="tinytable_assets/idbg4uqdycz0o574jhg3vf.png" height="16" /> |
 
 Be mindful that the data I supplied here are *all* numeric and the data
 has *only* what I want to summarize. This will try to (want to)
@@ -932,12 +932,11 @@ modelsummary(list("Bivariate Regression" = M1,
                           "inc" = "Scale of Incomes",
                           "(Intercept)" = "Intercept"),
              gof_map = c("nobs", "adj.r.squared", "r.squared"),
-             caption = "Hi Mom!")
-#> Warning: The `caption` argument is not supported by `modelsummary`. Try `title`
-#>   instead.
+             title = "Hi Mom!")
 ```
 
 <table style="width:89%;">
+<caption>Hi Mom!</caption>
 <colgroup>
 <col style="width: 38%" />
 <col style="width: 31%" />
@@ -1044,6 +1043,8 @@ modelsummary(list("Bivariate Regression" = M1,
 </tr>
 </tfoot>
 &#10;</table>
+
+Hi Mom!
 
 Dope, let’s put it in our Word document. In RStudio, click on that
 viewer of the table. Then: Ctrl-A, Ctrl-C, Ctrl-V into your Word

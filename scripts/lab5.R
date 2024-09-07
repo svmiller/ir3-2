@@ -282,7 +282,7 @@ modelsummary(list("Bivariate Regression" = M1,
                           "inc" = "Scale of Incomes",
                           "(Intercept)" = "Intercept"),
              gof_map = c("nobs", "adj.r.squared", "r.squared"),
-             caption = "Hi Mom!")
+             title = "Hi Mom!")
 
 #' Dope, let's put it in our Word document. In RStudio, click on that viewer of
 #' the table. Then: Ctrl-A, Ctrl-C, Ctrl-V into your Word document. For you
