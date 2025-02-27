@@ -89,7 +89,13 @@ In my case: this did nothing. Ideally in your case it did nothing too.
 That would be because you already have these packages installed. If you
 don’t have one or more of these packages installed, it will install
 them. I’m going to load {tidyverse} because I’m going to use it
-downstream in this script.
+downstream in this script. In anything you do, whether for a problem set
+in this course or for your own projects, you’ll typically be loading
+your libraries like this at the top of your script. Be mindful of that
+too when you’re working interactively in a given lab session with me,
+but then need to do an assignment where I have to assume you’re starting
+from scratch. Be explicit; load your libraries, and typically at the
+very top of your script.
 
 ``` r
 library(tidyverse)
@@ -98,7 +104,7 @@ library(tidyverse)
 #> ✔ forcats   1.0.0     ✔ stringr   1.5.0
 #> ✔ ggplot2   3.5.1     ✔ tibble    3.2.1
 #> ✔ lubridate 1.9.2     ✔ tidyr     1.3.0
-#> ✔ purrr     1.0.2     
+#> ✔ purrr     1.0.1     
 #> ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 #> ✖ dplyr::filter() masks stats::filter()
 #> ✖ dplyr::lag()    masks stats::lag()
@@ -193,7 +199,7 @@ this_Is_a_long_AND_WEIRD_objEct_name_and_yOu_shoUld_not_do_this <- 5
 pi # notice there are a few built-in functions/objects
 #> [1] 3.141593
 d <- pi # you can assign one built-in object to a new object.
-# pi <- 3.14 # don't do this....
+pi <- 3.14 # don't do this....
 ```
 
 If you do something dumb (like overwrite `TRUE` with something), all
@@ -233,59 +239,69 @@ These wrappers are also flexible with files on the internet. For
 example, this will work. Just remember to assign them to an object.
 
 ``` r
-# Note: hypothetical data
-# Source: https://stats.oarc.ucla.edu/stata/dae/ordered-logistic-regression/
-Apply <- haven::read_dta("https://stats.idre.ucla.edu/stat/data/ologit.dta")
+Data <- haven::read_dta("http://svmiller.com/extdata/eu2019.dta")
+# Data <- readRDS(url("http://svmiller.com/extdata/eu2019.rds"))
+# ^ this will work too, but readRDS() requires url() for wrapping the location of the file.
 ```
 
-Because we loaded these data and assigned it to an object, we can ask
-for it using default methods available in R and look at what we just
-loaded.
+As a quick aside, I want you to use this as an opportunity to be sure
+you’ve read [a recent guide I put on my
+blog](https://svmiller.com/blog/2024/10/make-simple-cross-sectional-world-bank-data-wdi/)
+about how to use the `{WDI}` package to access [World Bank Open
+Data](https://data.worldbank.org/). I won’t belabor these data in too
+great a detail, but these are all European Union states in 2019 by
+various metrics. These are income inequality (`gini`), FDI net inflows
+as a percentage of GDP (`fdipgdp`), exports as a percentage of GDP
+(`exppgdp`), the real effective exchange rate (`reer`), tax revenue as a
+percentage of GDP (`taxrevpgdp`), GDP in constant 2015 USD (`gdp`), and
+population size (`pop`). The `wp` variable communicates whether the
+European Union state was in the Warsaw Pact or not. Former republics of
+the Soviet Union (e.g. Estonia) and Poland, for example, would both be
+1s. France and the United Kingdom would both be 0. Because we loaded
+these data and assigned it to an object, we can ask for it using default
+methods available in R and look at what we just loaded.
 
 ``` r
-Apply
-#> # A tibble: 400 × 4
-#>    apply               pared public   gpa
-#>    <dbl+lbl>           <dbl>  <dbl> <dbl>
-#>  1 2 [very likely]         0      0  3.26
-#>  2 1 [somewhat likely]     1      0  3.21
-#>  3 0 [unlikely]            1      1  3.94
-#>  4 1 [somewhat likely]     0      0  2.81
-#>  5 1 [somewhat likely]     0      0  2.53
-#>  6 0 [unlikely]            0      1  2.59
-#>  7 1 [somewhat likely]     0      0  2.56
-#>  8 1 [somewhat likely]     0      0  2.73
-#>  9 0 [unlikely]            0      0  3   
-#> 10 1 [somewhat likely]     1      0  3.5 
-#> # ℹ 390 more rows
+Data
+#> # A tibble: 28 × 12
+#>    country  iso2c iso3c  year    wp  gini fdipgdp exppgdp  reer taxrevpgdp
+#>    <chr>    <chr> <chr> <dbl> <dbl> <dbl>   <dbl>   <dbl> <dbl>      <dbl>
+#>  1 Austria  AT    AUT    2019     0  30.2   -2.85    55.9 102.        25.7
+#>  2 Belgium  BE    BEL    2019     0  27.2   -1.97    83.0  99.8       22.6
+#>  3 Bulgaria BG    BGR    2019     1  40.3    3.24    64.2 102.        20.6
+#>  4 Croatia  HR    HRV    2019     0  28.9    6.47    50.5  94.1       22.0
+#>  5 Cyprus   CY    CYP    2019     0  31.2  202.      75.8  87.5       23.1
+#>  6 Czechia  CZ    CZE    2019     1  25.3    4.19    72.1  99.6       14.5
+#>  7 Denmark  DK    DNK    2019     0  27.7   -1.10    59.0  95.6       34.9
+#>  8 Estonia  EE    EST    2019     1  30.8    9.77    72.0  NA         20.8
+#>  9 Finland  FI    FIN    2019     0  27.7    6.10    40.6  97.0       20.8
+#> 10 France   FR    FRA    2019     0  31.2    1.96    32.9  93.9       24.6
+#> # ℹ 18 more rows
+#> # ℹ 2 more variables: gdp <dbl>, pop <dbl>
 ```
 
 The “tibble” output tells us something about our data. We can observe
-that there are 400 observations (or rows, if you will) and that there
-are four columns in the data. It’s incidentally the case that because we
-loaded a Stata .dta file, there is value label information for them. So,
-the `apply` variable is just 0, 1, and 2, but 0 means “unlikely”, 1
-means “somewhat likely”, and 2 means “very likely”. That’s situationally
-useful, especially for beginners, but we’re going to ignore it for now.
+that there are 28 observations (or rows, if you will) and that there are
+11 columns in the data.
 
 There are other ways to find the dimension of the data set (i.e. rows
 and columns). For example, you can ask for the dimensions of the object
 itself.
 
 ``` r
-dim(Apply)
-#> [1] 400   4
+dim(Data)
+#> [1] 28 12
 ```
 
 Convention is rows-columns, so this first element in this numeric vector
-tells us there are 400 rows and the second one tells us there are four
+tells us there are 28 rows and the second one tells us there are 11
 columns. You can also do this.
 
 ``` r
-nrow(Apply)
-#> [1] 400
-ncol(Apply)
-#> [1] 4
+nrow(Data)
+#> [1] 28
+ncol(Data)
+#> [1] 12
 ```
 
 ### Learn Some Important R/“Tidy” Functions
@@ -299,19 +315,26 @@ introduction here will inevitably be incomplete because there’s only so
 much I can teach within the limited time I have. That said, I’m going to
 focus on the following functions available in the `{tidyverse}` that
 totally rethink base R. These are the “pipe” (`%>%`), `glimpse()` and
-`summary()`, `select()`, `group_by()`, `summarize()`, `mutate()`, and
-`filter()`.
+`summary()`, `select()`, `summarize()`, `mutate()`, and `filter()`. Most
+of these—certainly the important ones—have a `.by` argument that will
+also get special attention.
 
 #### The Pipe (`%>%`)
 
 I want to start with the pipe because I think of it as the most
 important function in the `{tidyverse}`. The pipe—represented as
-`%>%`—allows you to chain together a series of functions. The pipe is
-especially useful if you’re recoding data and you want to make sure you
-got everything the way you wanted (and correct) before assigning the
-data to another object. You can chain together *a lot* of `{tidyverse}`
-commands with pipes, but we’ll keep our introduction here rather minimal
-because I want to use it to teach about some other things.
+`%>%`—allows you to chain together a series of functions. Its innovation
+fundamentally changed R’s default behavior, which other wants to go
+line-by-line or work inside out for nested functions. The pipe instead
+allows you to think and do things in a more intuitive way. Rather than
+work inside out, or copy-paste functions, the pipe gives you the
+flexibility to thin left-to-right, and top-to-bottom (for reasons you’ll
+see soon). The pipe is especially useful if you’re recoding data and you
+want to make sure you got everything the way you wanted (and correct)
+before assigning the data to another object. You can chain together *a
+lot* of `{tidyverse}` commands with pipes, but we’ll keep our
+introduction here rather minimal because I want to use it to teach about
+some other things.
 
 #### `glimpse()` and `summary()`
 
@@ -322,38 +345,62 @@ you want to just peek into the data without spamming the R console
 without output.
 
 Notice, here, the introduction of the pipe (`%>%`). In the commands
-below, `Apply %>% glimpse()` is equivalent to `glimpse(Apply)`, but I
-like to lean more on pipes than perhaps others would. My workflow starts
-with (data) objects, applies various functions to them, and assigns them
-to objects. I think you’ll get a lot of mileage thinking that same way
-too.
+below, `Data %>% glimpse()` is equivalent to `glimpse(Data)`, but I like
+to lean more on pipes than perhaps others would. My workflow starts with
+(data) objects, applies various functions to them, and assigns them to
+objects. I think you’ll get a lot of mileage thinking that same way too.
 
 ``` r
-Apply %>% glimpse() # notice the pipe
-#> Rows: 400
-#> Columns: 4
-#> $ apply  <dbl+lbl> 2, 1, 0, 1, 1, 0, 1, 1, 0, 1, 0, 1, 2, 1, 0, 0, 0, 0, 2, 1,…
-#> $ pared  <dbl> 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, …
-#> $ public <dbl> 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, …
-#> $ gpa    <dbl> 3.26, 3.21, 3.94, 2.81, 2.53, 2.59, 2.56, 2.73, 3.00, 3.50, 3.6…
-Apply %>% summary()
-#>      apply          pared            public            gpa       
-#>  Min.   :0.00   Min.   :0.0000   Min.   :0.0000   Min.   :1.900  
-#>  1st Qu.:0.00   1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:2.720  
-#>  Median :0.00   Median :0.0000   Median :0.0000   Median :2.990  
-#>  Mean   :0.55   Mean   :0.1575   Mean   :0.1425   Mean   :2.999  
-#>  3rd Qu.:1.00   3rd Qu.:0.0000   3rd Qu.:0.0000   3rd Qu.:3.270  
-#>  Max.   :2.00   Max.   :1.0000   Max.   :1.0000   Max.   :4.000
+Data %>% glimpse() # notice the pipe
+#> Rows: 28
+#> Columns: 12
+#> $ country    <chr> "Austria", "Belgium", "Bulgaria", "Croatia", "Cyprus", "Cze…
+#> $ iso2c      <chr> "AT", "BE", "BG", "HR", "CY", "CZ", "DK", "EE", "FI", "FR",…
+#> $ iso3c      <chr> "AUT", "BEL", "BGR", "HRV", "CYP", "CZE", "DNK", "EST", "FI…
+#> $ year       <dbl> 2019, 2019, 2019, 2019, 2019, 2019, 2019, 2019, 2019, 2019,…
+#> $ wp         <dbl> 0, 0, 1, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 1, 0, 0, 0,…
+#> $ gini       <dbl> 30.2, 27.2, 40.3, 28.9, 31.2, 25.3, 27.7, 30.8, 27.7, 31.2,…
+#> $ fdipgdp    <dbl> -2.852556, -1.972530, 3.236477, 6.472772, 201.684997, 4.187…
+#> $ exppgdp    <dbl> 55.89581, 82.96743, 64.18229, 50.48924, 75.75887, 72.12485,…
+#> $ reer       <dbl> 101.73053, 99.79796, 102.37821, 94.10345, 87.47805, 99.5891…
+#> $ taxrevpgdp <dbl> 25.67596, 22.59782, 20.55721, 21.97302, 23.07736, 14.52457,…
+#> $ gdp        <dbl> 4.133653e+11, 4.940997e+11, 5.724854e+10, 5.782393e+10, 2.5…
+#> $ pop        <dbl> 8879920, 11488980, 6975761, 3949390, 1286671, 10671870, 581…
+Data %>% summary()
+#>    country             iso2c              iso3c                year     
+#>  Length:28          Length:28          Length:28          Min.   :2019  
+#>  Class :character   Class :character   Class :character   1st Qu.:2019  
+#>  Mode  :character   Mode  :character   Mode  :character   Median :2019  
+#>                                                           Mean   :2019  
+#>                                                           3rd Qu.:2019  
+#>                                                           Max.   :2019  
+#>                                                                         
+#>        wp              gini          fdipgdp           exppgdp      
+#>  Min.   :0.0000   Min.   :23.20   Min.   :-13.674   Min.   : 30.95  
+#>  1st Qu.:0.0000   1st Qu.:28.88   1st Qu.:  1.950   1st Qu.: 41.94  
+#>  Median :0.0000   Median :30.90   Median :  3.196   Median : 60.74  
+#>  Mean   :0.3214   Mean   :30.91   Mean   : 27.520   Mean   : 68.23  
+#>  3rd Qu.:1.0000   3rd Qu.:33.38   3rd Qu.:  6.291   3rd Qu.: 81.89  
+#>  Max.   :1.0000   Max.   :40.30   Max.   :252.920   Max.   :206.41  
+#>                                                                     
+#>       reer          taxrevpgdp         gdp                 pop          
+#>  Min.   : 85.71   Min.   :11.21   Min.   :1.488e+10   Min.   :  504062  
+#>  1st Qu.: 92.37   1st Qu.:18.83   1st Qu.:5.768e+10   1st Qu.: 3660577  
+#>  Median : 95.94   Median :22.13   Median :2.201e+11   Median : 9325530  
+#>  Mean   : 95.56   Mean   :21.59   Mean   :6.441e+11   Mean   :18362127  
+#>  3rd Qu.: 99.60   3rd Qu.:24.50   3rd Qu.:5.543e+11   3rd Qu.:17851568  
+#>  Max.   :103.25   Max.   :34.94   Max.   :3.673e+12   Max.   :83092962  
+#>  NA's   :3
 ```
 
-Of note: notice the summary function (alternatively `summary(Apply)`)
+Of note: notice the summary function (alternatively `summary(Data)`)
 gives you basic descriptive statistics. You can see the mean and median,
 which are routinely statistics of central tendency that we care about.
-In this hypothetical data, we can see that the mean of the `public`
-variable is .1425. Because this is a dummy variable, it tells us that
-14.25% of the observations are 1. We can see that the mean GPA is 2.999
-and the median is 2.99. This gives us some preliminary insight that
-there isn’t a major distribution/skew problem here.
+Notice the `wp` variable, which is binary and communicates whether a
+European Union state was previously in (or covered by) the Warsaw Pact.
+Here, the median is 0 (which tells you most European states weren’t
+previously in the Warsaw Pact) but the mean tells you about 32.14% of
+the European Union in 2019 was previously in the Warsaw Pact.
 
 #### `select()`
 
@@ -363,68 +410,71 @@ wanted to grab all the columns in the data. I could do that with the
 following command.
 
 ``` r
-Apply %>% select(everything())  # grab everything
-#> # A tibble: 400 × 4
-#>    apply               pared public   gpa
-#>    <dbl+lbl>           <dbl>  <dbl> <dbl>
-#>  1 2 [very likely]         0      0  3.26
-#>  2 1 [somewhat likely]     1      0  3.21
-#>  3 0 [unlikely]            1      1  3.94
-#>  4 1 [somewhat likely]     0      0  2.81
-#>  5 1 [somewhat likely]     0      0  2.53
-#>  6 0 [unlikely]            0      1  2.59
-#>  7 1 [somewhat likely]     0      0  2.56
-#>  8 1 [somewhat likely]     0      0  2.73
-#>  9 0 [unlikely]            0      0  3   
-#> 10 1 [somewhat likely]     1      0  3.5 
-#> # ℹ 390 more rows
+Data %>% select(everything())  # grab everything
+#> # A tibble: 28 × 12
+#>    country  iso2c iso3c  year    wp  gini fdipgdp exppgdp  reer taxrevpgdp
+#>    <chr>    <chr> <chr> <dbl> <dbl> <dbl>   <dbl>   <dbl> <dbl>      <dbl>
+#>  1 Austria  AT    AUT    2019     0  30.2   -2.85    55.9 102.        25.7
+#>  2 Belgium  BE    BEL    2019     0  27.2   -1.97    83.0  99.8       22.6
+#>  3 Bulgaria BG    BGR    2019     1  40.3    3.24    64.2 102.        20.6
+#>  4 Croatia  HR    HRV    2019     0  28.9    6.47    50.5  94.1       22.0
+#>  5 Cyprus   CY    CYP    2019     0  31.2  202.      75.8  87.5       23.1
+#>  6 Czechia  CZ    CZE    2019     1  25.3    4.19    72.1  99.6       14.5
+#>  7 Denmark  DK    DNK    2019     0  27.7   -1.10    59.0  95.6       34.9
+#>  8 Estonia  EE    EST    2019     1  30.8    9.77    72.0  NA         20.8
+#>  9 Finland  FI    FIN    2019     0  27.7    6.10    40.6  97.0       20.8
+#> 10 France   FR    FRA    2019     0  31.2    1.96    32.9  93.9       24.6
+#> # ℹ 18 more rows
+#> # ℹ 2 more variables: gdp <dbl>, pop <dbl>
 ```
 
 Do note this is kind of a redundant command. You could just as well spit
 the entire data into the console and it would’ve done the same thing.
-Still, here’s if I wanted everything except wanted to drop the labor
-share of income variable.
+Still, here’s if I wanted everything except the two-character ISO code.
+I’m more of a three-character guy myself.
 
 ``` r
-Apply %>% select(-public) # grab everything, but drop the public variable.
-#> # A tibble: 400 × 3
-#>    apply               pared   gpa
-#>    <dbl+lbl>           <dbl> <dbl>
-#>  1 2 [very likely]         0  3.26
-#>  2 1 [somewhat likely]     1  3.21
-#>  3 0 [unlikely]            1  3.94
-#>  4 1 [somewhat likely]     0  2.81
-#>  5 1 [somewhat likely]     0  2.53
-#>  6 0 [unlikely]            0  2.59
-#>  7 1 [somewhat likely]     0  2.56
-#>  8 1 [somewhat likely]     0  2.73
-#>  9 0 [unlikely]            0  3   
-#> 10 1 [somewhat likely]     1  3.5 
-#> # ℹ 390 more rows
+Data %>% select(-iso2c) # grab everything, but drop the public variable.
+#> # A tibble: 28 × 11
+#>    country  iso3c  year    wp  gini fdipgdp exppgdp  reer taxrevpgdp     gdp
+#>    <chr>    <chr> <dbl> <dbl> <dbl>   <dbl>   <dbl> <dbl>      <dbl>   <dbl>
+#>  1 Austria  AUT    2019     0  30.2   -2.85    55.9 102.        25.7 4.13e11
+#>  2 Belgium  BEL    2019     0  27.2   -1.97    83.0  99.8       22.6 4.94e11
+#>  3 Bulgaria BGR    2019     1  40.3    3.24    64.2 102.        20.6 5.72e10
+#>  4 Croatia  HRV    2019     0  28.9    6.47    50.5  94.1       22.0 5.78e10
+#>  5 Cyprus   CYP    2019     0  31.2  202.      75.8  87.5       23.1 2.52e10
+#>  6 Czechia  CZE    2019     1  25.3    4.19    72.1  99.6       14.5 2.17e11
+#>  7 Denmark  DNK    2019     0  27.7   -1.10    59.0  95.6       34.9 3.32e11
+#>  8 Estonia  EST    2019     1  30.8    9.77    72.0  NA         20.8 2.73e10
+#>  9 Finland  FIN    2019     0  27.7    6.10    40.6  97.0       20.8 2.53e11
+#> 10 France   FRA    2019     0  31.2    1.96    32.9  93.9       24.6 2.61e12
+#> # ℹ 18 more rows
+#> # ℹ 1 more variable: pop <dbl>
 ```
 
 Here’s a more typical case. Assume you’re working with a large data
 object and you just want a handful of things. In this case, we have
-these four variables, but we want just the first three columns and want
-to drop everything else. Here’s how we’d do that in the `select()`
-function, again with some assistance from the pipe.
+these variables, but we want just the identifier variables and the
+`gini` column for income inequality. We want to drop everything else.
+Here’s how we’d do that in the `select()` function, again with some
+assistance from the pipe.
 
 ``` r
-Apply %>% select(apply:public) # grab just these three columns.
-#> # A tibble: 400 × 3
-#>    apply               pared public
-#>    <dbl+lbl>           <dbl>  <dbl>
-#>  1 2 [very likely]         0      0
-#>  2 1 [somewhat likely]     1      0
-#>  3 0 [unlikely]            1      1
-#>  4 1 [somewhat likely]     0      0
-#>  5 1 [somewhat likely]     0      0
-#>  6 0 [unlikely]            0      1
-#>  7 1 [somewhat likely]     0      0
-#>  8 1 [somewhat likely]     0      0
-#>  9 0 [unlikely]            0      0
-#> 10 1 [somewhat likely]     1      0
-#> # ℹ 390 more rows
+Data %>% select(country:gini) # grab country, gini, and everything in between it.
+#> # A tibble: 28 × 6
+#>    country  iso2c iso3c  year    wp  gini
+#>    <chr>    <chr> <chr> <dbl> <dbl> <dbl>
+#>  1 Austria  AT    AUT    2019     0  30.2
+#>  2 Belgium  BE    BEL    2019     0  27.2
+#>  3 Bulgaria BG    BGR    2019     1  40.3
+#>  4 Croatia  HR    HRV    2019     0  28.9
+#>  5 Cyprus   CY    CYP    2019     0  31.2
+#>  6 Czechia  CZ    CZE    2019     1  25.3
+#>  7 Denmark  DK    DNK    2019     0  27.7
+#>  8 Estonia  EE    EST    2019     1  30.8
+#>  9 Finland  FI    FIN    2019     0  27.7
+#> 10 France   FR    FRA    2019     0  31.2
+#> # ℹ 18 more rows
 ```
 
 #### Grouped functions using `.by` arguments
@@ -444,104 +494,86 @@ into one output. You might see that terminology “split-apply-combine” as
 you learn more about the `{tidyverse}` and its development.
 
 Here, let’s do a simple exercise : `slice()`. `slice()` lets you index
-rows by integer locations and can be useful for peeking into the data or
-curating it (by doing something like removing duplicate observations).
-In this simple case, we’re going to slice the data by the first
-observation at each level of the `apply` variable.
+rows by integer locations (or through other means) and can be useful for
+peeking into the data or curating it (by doing something like removing
+duplicate observations). In this simple case, we’re going to slice the
+data by the first observation at each level of the `wp` variable. The
+`wp` variable communicates whether an observation was in the Warsaw Pact
+(or was a state covered by the Warsaw Pact by way of being a former
+republic of the Soviet Union).
 
 ``` r
 # Notice we can chain some pipes together
-Apply %>%
+Data %>%
   # Get me the first observation, by group.
-  slice(1, .by=apply)
-#> # A tibble: 3 × 4
-#>   apply               pared public   gpa
-#>   <dbl+lbl>           <dbl>  <dbl> <dbl>
-#> 1 2 [very likely]         0      0  3.26
-#> 2 1 [somewhat likely]     1      0  3.21
-#> 3 0 [unlikely]            1      1  3.94
-
-# This is the older way of doing it. It still works, but the presentation of what
-# it did slightly differs.
-
-Apply %>%
-  group_by(apply) %>%
-  slice(1) %>%
-  ungroup() # practice safe group_by()
-#> # A tibble: 3 × 4
-#>   apply               pared public   gpa
-#>   <dbl+lbl>           <dbl>  <dbl> <dbl>
-#> 1 0 [unlikely]            1      1  3.94
-#> 2 1 [somewhat likely]     1      0  3.21
-#> 3 2 [very likely]         0      0  3.26
-```
-
-Compare the above outputs with this
-
-``` r
-Apply
-#> # A tibble: 400 × 4
-#>    apply               pared public   gpa
-#>    <dbl+lbl>           <dbl>  <dbl> <dbl>
-#>  1 2 [very likely]         0      0  3.26
-#>  2 1 [somewhat likely]     1      0  3.21
-#>  3 0 [unlikely]            1      1  3.94
-#>  4 1 [somewhat likely]     0      0  2.81
-#>  5 1 [somewhat likely]     0      0  2.53
-#>  6 0 [unlikely]            0      1  2.59
-#>  7 1 [somewhat likely]     0      0  2.56
-#>  8 1 [somewhat likely]     0      0  2.73
-#>  9 0 [unlikely]            0      0  3   
-#> 10 1 [somewhat likely]     1      0  3.5 
-#> # ℹ 390 more rows
+  slice(1, .by=wp)
+#> # A tibble: 2 × 12
+#>   country iso2c iso3c  year    wp  gini fdipgdp exppgdp  reer taxrevpgdp     gdp
+#>   <chr>   <chr> <chr> <dbl> <dbl> <dbl>   <dbl>   <dbl> <dbl>      <dbl>   <dbl>
+#> 1 Austria AT    AUT    2019     0  30.2   -2.85    55.9  102.       25.7 4.13e11
+#> 2 Bulgar… BG    BGR    2019     1  40.3    3.24    64.2  102.       20.6 5.72e10
+#> # ℹ 1 more variable: pop <dbl>
 ```
 
 If you don’t group-by the category first, `slice(., 1)` will just return
 the first observation in the data set.
 
 ``` r
-Apply %>%
+Data %>%
   # Get me the first observation for each values of the apply variable
   slice(1) # womp womp. Forgot to use the .by argument
-#> # A tibble: 1 × 4
-#>   apply           pared public   gpa
-#>   <dbl+lbl>       <dbl>  <dbl> <dbl>
-#> 1 2 [very likely]     0      0  3.26
+#> # A tibble: 1 × 12
+#>   country iso2c iso3c  year    wp  gini fdipgdp exppgdp  reer taxrevpgdp     gdp
+#>   <chr>   <chr> <chr> <dbl> <dbl> <dbl>   <dbl>   <dbl> <dbl>      <dbl>   <dbl>
+#> 1 Austria AT    AUT    2019     0  30.2   -2.85    55.9  102.       25.7 4.13e11
+#> # ℹ 1 more variable: pop <dbl>
 ```
 
-I offer one caveat here. If you’re applying a group-specific function
-(that you need just once), it’s generally advisable to “ungroup()”
-(i.e. `ungroup()`) as the next function in your pipe chain if you are
-using the `group_by()` approach. As you build together chains/pipes, the
-intermediate output you get will advise you of any “groups” you’ve
-declared in your data. Don’t lose track of those.
+I think `slice()` is a hidden gem and offer it the way I often use it
+(mostly by row indexing), but you can also use it as you would
+`filter()` later in the script. For example, here’s how you can use it
+to identify the highest GDP by levels of the `wp` variable. For time
+constraints, I’m going to leave it to you to understand what’s happening
+here in more detail.
+
+``` r
+Data %>% slice(which(gdp == max(gdp)), .by=wp)
+#> # A tibble: 2 × 12
+#>   country iso2c iso3c  year    wp  gini fdipgdp exppgdp  reer taxrevpgdp     gdp
+#>   <chr>   <chr> <chr> <dbl> <dbl> <dbl>   <dbl>   <dbl> <dbl>      <dbl>   <dbl>
+#> 1 Germany DE    DEU    2019     0  31.8    1.91    42.4  95.5       11.2 3.67e12
+#> 2 Poland  PL    POL    2019     1  28.8    3.15    52.6  92.4       17.1 5.78e11
+#> # ℹ 1 more variable: pop <dbl>
+```
+
+`filter()` would be more efficient, but `slice()` can do some of that
+too.
 
 ### `summarize()`
 
 `summarize()` creates condensed summaries of your data, for whatever it
 is that you want. Here, for example, is a kind of dumb way of seeing how
-many observations are in the data. `nrow(Apply)` works just as well, but
+many observations are in the data. `nrow(Data)` works just as well, but
 alas…
 
 ``` r
-Apply %>%
+Data %>%
   # How many observations are in the data?
   summarize(n = n())
 #> # A tibble: 1 × 1
 #>       n
 #>   <int>
-#> 1   400
+#> 1    28
 
 # How many observations are there by levels of the apply variable?
 
-Apply %>%
-  summarize(n = n(), .by=apply)
-#> # A tibble: 3 × 2
-#>   apply                   n
-#>   <dbl+lbl>           <int>
-#> 1 2 [very likely]        40
-#> 2 1 [somewhat likely]   140
-#> 3 0 [unlikely]          220
+Data %>%
+  summarize(n = n(), .by=wp)
+#> # A tibble: 2 × 2
+#>      wp     n
+#>   <dbl> <int>
+#> 1     0    19
+#> 2     1     9
 
 # What you did, indirectly here, was find the mode of the apply variable. This is
 # the most frequently occurring value in a variable, which is really only of interest
@@ -550,31 +582,36 @@ Apply %>%
 # R that says "Here's the mode." You have to get it indirectly.
 ```
 
-More importantly, `summarize()` works wonderfully with `group_by()`. For
-example, for each country (`group_by(apply)`), let’s get the mean and
-median GPA by each value of apply
+More importantly, `summarize()` works wonderfully with the `.by`
+argument. For example, for each country in the EU, by their former
+Warsaw Pact status, let’s identify the average GINI and the average
+exports as a % of GDP.
 
 ``` r
-Apply %>%
-  # Give me the average GPA by each value of `apply`
-  summarize(mean_gpa = mean(gpa, na.rm = TRUE),
-            median_gpa = median(gpa, na.rm = TRUE),
-            .by = apply)
-#> # A tibble: 3 × 3
-#>   apply               mean_gpa median_gpa
-#>   <dbl+lbl>              <dbl>      <dbl>
-#> 1 2 [very likely]         3.15       3.13
-#> 2 1 [somewhat likely]     3.03       3.02
-#> 3 0 [unlikely]            2.95       2.98
+Data %>%
+  # Give me the average GINI and Exports/GDP by each value of `wp`
+  summarize(mean_gini = mean(gini, na.rm = TRUE),
+            mean_exppgdp = median(exppgdp, na.rm = TRUE),
+            .by = wp)
+#> # A tibble: 2 × 3
+#>      wp mean_gini mean_exppgdp
+#>   <dbl>     <dbl>        <dbl>
+#> 1     0      30.7         50.5
+#> 2     1      31.4         72.0
 ```
 
-One downside (or feature, depending on your perspective) to
-`summarize()` is that it condenses data and discards stuff that’s not
-necessary for creating the condensed output. In the case above, notice
-we didn’t ask for anything else about the data, other than the average
-GPA by each value of how likely they are to apply for graduate school.
-Thus, we didn’t get anything else, beyond the average GPA by how likely
-applicants are to apply for grad school.
+This summary tells you that European Union states generally have the
+same level of income inequality whether they were previously in the
+Warsaw Pact or not, but exports are a larger share of GDP for states
+that were formerly in the Warsaw Pact compared to states that were not.
+That’s not terribly surprising to me, given what we know about the
+endowments of the former Warsaw Pact states relative to states in the EU
+that are more “Western”. One downside (or feature, depending on your
+perspective) to `summarize()` is that it condenses data and discards
+stuff that’s not necessary for creating the condensed output. In the
+case above, notice we didn’t ask for anything else about the data, other
+than the average GINI and exports/GDP by each value of the `wp`
+variable. Thus, we didn’t get anything else. Use it with that in mind.
 
 #### `mutate()`
 
@@ -585,36 +622,74 @@ function to `summarize()`. But, where `summarize()` discards, `mutate()`
 retains.
 
 Let’s do something simple with `mutate()`. For example, we can create a
-new variable that just counts the length of the data frame. We can think
-of this as a kind of identifier variable. The first row is the first
-respondent. The second row is the second respondent, and so on.
+new variable for GDP per capita based on the information we have. We
+have GDP. We have population size. They are both in the same units. We
+just need to divide one over the other. Watch how we’d do that here.
 
 ``` r
-Apply %>%
-  mutate(id = 1:n()) %>%
-  select(id, everything()) -> Apply
+Data %>%
+  mutate(gdppc = gdp/pop)
+#> # A tibble: 28 × 13
+#>    country  iso2c iso3c  year    wp  gini fdipgdp exppgdp  reer taxrevpgdp
+#>    <chr>    <chr> <chr> <dbl> <dbl> <dbl>   <dbl>   <dbl> <dbl>      <dbl>
+#>  1 Austria  AT    AUT    2019     0  30.2   -2.85    55.9 102.        25.7
+#>  2 Belgium  BE    BEL    2019     0  27.2   -1.97    83.0  99.8       22.6
+#>  3 Bulgaria BG    BGR    2019     1  40.3    3.24    64.2 102.        20.6
+#>  4 Croatia  HR    HRV    2019     0  28.9    6.47    50.5  94.1       22.0
+#>  5 Cyprus   CY    CYP    2019     0  31.2  202.      75.8  87.5       23.1
+#>  6 Czechia  CZ    CZE    2019     1  25.3    4.19    72.1  99.6       14.5
+#>  7 Denmark  DK    DNK    2019     0  27.7   -1.10    59.0  95.6       34.9
+#>  8 Estonia  EE    EST    2019     1  30.8    9.77    72.0  NA         20.8
+#>  9 Finland  FI    FIN    2019     0  27.7    6.10    40.6  97.0       20.8
+#> 10 France   FR    FRA    2019     0  31.2    1.96    32.9  93.9       24.6
+#> # ℹ 18 more rows
+#> # ℹ 3 more variables: gdp <dbl>, pop <dbl>, gdppc <dbl>
 ```
 
-Again, the world is your oyster here. We can also recode that apply
-variable to be a dummy variable that equals 1 if and only if the
-respondent is very likely to apply to grad school.
+Again, the world is your oyster here. We can also create another
+variable to identify Southern European countries of Portugal, Spain,
+Italy, and Greece. Looking ahead, you can see how this would also create
+a variable for something like the Nordic countries in the European
+Union, though you’d have to change a few things to make it work (the
+information is still there).
 
 ``` r
-Apply %>%
-  mutate(vlapply = ifelse(apply == 2, 1, 0)) -> Apply
+Data %>%
+  mutate(southeurope = ifelse(iso2c %in% c("GR", "IT", "PT", "ES"), 1, 0)) %>%
+  filter(southeurope == 1) # Did this work the way I wanted?
+#> # A tibble: 4 × 13
+#>   country iso2c iso3c  year    wp  gini fdipgdp exppgdp  reer taxrevpgdp     gdp
+#>   <chr>   <chr> <chr> <dbl> <dbl> <dbl>   <dbl>   <dbl> <dbl>      <dbl>   <dbl>
+#> 1 Greece  GR    GRC    2019     0  33.1    2.41    39.6  88.7       25.9 2.06e11
+#> 2 Italy   IT    ITA    2019     0  34.6    1.77    30.9  94.6       24.5 1.92e12
+#> 3 Portug… PT    PRT    2019     0  32.8    4.30    43.7  96.4       22.2 2.22e11
+#> 4 Spain   ES    ESP    2019     0  34.3    2.16    34.7  95.9       13.7 1.33e12
+#> # ℹ 2 more variables: pop <dbl>, southeurope <dbl>
 ```
 
-We can use the distinct() function (also in {tidyverse}) to see that it
-worked.
+We can save/assign our work as follows.
 
 ``` r
-Apply %>% distinct(vlapply, apply)
-#> # A tibble: 3 × 2
-#>   vlapply apply              
-#>     <dbl> <dbl+lbl>          
-#> 1       1 2 [very likely]    
-#> 2       0 1 [somewhat likely]
-#> 3       0 0 [unlikely]
+Data %>%
+  mutate(gdppc = gdp/pop,
+         southeurope = ifelse(iso2c %in% c("GR", "IT", "PT", "ES"), 1, 0)) -> Data
+
+Data
+#> # A tibble: 28 × 14
+#>    country  iso2c iso3c  year    wp  gini fdipgdp exppgdp  reer taxrevpgdp
+#>    <chr>    <chr> <chr> <dbl> <dbl> <dbl>   <dbl>   <dbl> <dbl>      <dbl>
+#>  1 Austria  AT    AUT    2019     0  30.2   -2.85    55.9 102.        25.7
+#>  2 Belgium  BE    BEL    2019     0  27.2   -1.97    83.0  99.8       22.6
+#>  3 Bulgaria BG    BGR    2019     1  40.3    3.24    64.2 102.        20.6
+#>  4 Croatia  HR    HRV    2019     0  28.9    6.47    50.5  94.1       22.0
+#>  5 Cyprus   CY    CYP    2019     0  31.2  202.      75.8  87.5       23.1
+#>  6 Czechia  CZ    CZE    2019     1  25.3    4.19    72.1  99.6       14.5
+#>  7 Denmark  DK    DNK    2019     0  27.7   -1.10    59.0  95.6       34.9
+#>  8 Estonia  EE    EST    2019     1  30.8    9.77    72.0  NA         20.8
+#>  9 Finland  FI    FIN    2019     0  27.7    6.10    40.6  97.0       20.8
+#> 10 France   FR    FRA    2019     0  31.2    1.96    32.9  93.9       24.6
+#> # ℹ 18 more rows
+#> # ℹ 4 more variables: gdp <dbl>, pop <dbl>, gdppc <dbl>, southeurope <dbl>
 ```
 
 #### `filter()`
@@ -629,22 +704,38 @@ is greater than something (`>`), equal to or greater than something
 (`>=`), is less than something (`<`), or is less than or equal to
 something (`<=`).
 
-The benefit of the ID variable that we created, though, is we can do
-something like find the highest GPA per value of how likely they are to
-apply to grad school.
+We can do something like find the highest GDP per capita of EU states by
+different values of the `wp` variable.
 
 ``` r
-Apply %>%
-  filter(gpa == max(gpa),
-         .by = apply)
-#> # A tibble: 3 × 6
-#>      id apply               pared public   gpa vlapply
-#>   <int> <dbl+lbl>           <dbl>  <dbl> <dbl>   <dbl>
-#> 1     3 0 [unlikely]            1      1  3.94       0
-#> 2    13 2 [very likely]         0      1  3.90       1
-#> 3    90 1 [somewhat likely]     0      0  4          0
+Data %>%
+  filter(gdppc == max(gdppc),
+         .by = wp)
+#> # A tibble: 2 × 14
+#>   country iso2c iso3c  year    wp  gini fdipgdp exppgdp  reer taxrevpgdp     gdp
+#>   <chr>   <chr> <chr> <dbl> <dbl> <dbl>   <dbl>   <dbl> <dbl>      <dbl>   <dbl>
+#> 1 Estonia EE    EST    2019     1  30.8    9.77    72.0  NA         20.8 2.73e10
+#> 2 Luxemb… LU    LUX    2019     0  34.2  253.     206.   99.6       26.5 6.66e10
+#> # ℹ 3 more variables: pop <dbl>, gdppc <dbl>, southeurope <dbl>
 ```
 
-This tells us, for example, that the third respondent in the data
-incidentally has the highest GPA for someone who says they are very
-unlikely to apply for grad school.
+Take out `gdppc` above and insert `gdp` and you’ll get the more elegant
+way of doing what the `slice(which())` example did above. We can also
+see all the states that were previously in the Warsaw Pact.
+
+``` r
+Data %>% filter(wp == 1)
+#> # A tibble: 9 × 14
+#>   country iso2c iso3c  year    wp  gini fdipgdp exppgdp  reer taxrevpgdp     gdp
+#>   <chr>   <chr> <chr> <dbl> <dbl> <dbl>   <dbl>   <dbl> <dbl>      <dbl>   <dbl>
+#> 1 Bulgar… BG    BGR    2019     1  40.3    3.24    64.2 102.        20.6 5.72e10
+#> 2 Czechia CZ    CZE    2019     1  25.3    4.19    72.1  99.6       14.5 2.17e11
+#> 3 Estonia EE    EST    2019     1  30.8    9.77    72.0  NA         20.8 2.73e10
+#> 4 Hungary HU    HUN    2019     1  30     59.9     81.5  89.1       22.4 1.47e11
+#> 5 Latvia  LV    LVA    2019     1  34.5    3.37    62.5 103.        22.1 2.93e10
+#> 6 Lithua… LT    LTU    2019     1  35.3    6.23    76.8  NA         19.9 4.90e10
+#> 7 Poland  PL    POL    2019     1  28.8    3.15    52.6  92.4       17.1 5.78e11
+#> 8 Romania RO    ROU    2019     1  34.8    2.93    40.1  97.3       14.5 2.18e11
+#> 9 Slovak… SK    SVK    2019     1  23.2    2.15    91.8 101.        18.8 9.95e10
+#> # ℹ 3 more variables: pop <dbl>, gdppc <dbl>, southeurope <dbl>
+```

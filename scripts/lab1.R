@@ -88,7 +88,13 @@ if_not_install(c("tidyverse","stevedata","stevemisc",
 #' In my case: this did nothing. Ideally in your case it did nothing too. That would
 #' be because you already have these packages installed. If you don't have one or
 #' more of these packages installed, it will install them. I'm going to load
-#' {tidyverse} because I'm going to use it downstream in this script.
+#' {tidyverse} because I'm going to use it downstream in this script. In anything
+#' you do, whether for a problem set in this course or for your own projects,
+#' you'll typically be loading your libraries like this at the top of your script.
+#' Be mindful of that too when you're working interactively in a given lab session
+#' with me, but then need to do an assignment where I have to assume you're starting
+#' from scratch. Be explicit; load your libraries, and typically at the very
+#' top of your script.
 #' 
 
 library(tidyverse)
@@ -168,7 +174,7 @@ Norden = c("SWE", "FIN", "NOR", "ISL", "DNK")
 this_Is_a_long_AND_WEIRD_objEct_name_and_yOu_shoUld_not_do_this <- 5
 pi # notice there are a few built-in functions/objects
 d <- pi # you can assign one built-in object to a new object.
-# pi <- 3.14 # don't do this....
+pi <- 3.14 # don't do this....
 
 #' If you do something dumb (like overwrite `TRUE` with something), all hope is 
 #' not lost. Remove the object in question (e.g. `rm(TRUE)`). Restart R and 
@@ -204,34 +210,45 @@ d <- pi # you can assign one built-in object to a new object.
 #' These wrappers are also flexible with files on the internet. For example, 
 #' this will work. Just remember to assign them to an object.
 
-# Note: hypothetical data
-# Source: https://stats.oarc.ucla.edu/stata/dae/ordered-logistic-regression/
-Apply <- haven::read_dta("https://stats.idre.ucla.edu/stat/data/ologit.dta")
+Data <- haven::read_dta("http://svmiller.com/extdata/eu2019.dta")
+# Data <- readRDS(url("http://svmiller.com/extdata/eu2019.rds"))
+# ^ this will work too, but readRDS() requires url() for wrapping the location of the file.
+
+#' As a quick aside, I want you to use this as an opportunity to be sure you've
+#' read [a recent guide I put on my blog](https://svmiller.com/blog/2024/10/make-simple-cross-sectional-world-bank-data-wdi/) 
+#' about how to use the `{WDI}` package to access 
+#' [World Bank Open Data](https://data.worldbank.org/). I won't belabor these
+#' data in too great a detail, but these are all European Union states in 2019 
+#' by various metrics. These are income inequality (`gini`), FDI net inflows
+#' as a percentage of GDP (`fdipgdp`), exports as a percentage of GDP (`exppgdp`),
+#' the real effective exchange rate (`reer`), tax revenue as a percentage of
+#' GDP (`taxrevpgdp`), GDP in constant 2015 USD (`gdp`), and population size (`pop`).
+#' The `wp` variable communicates whether the European Union state was in the
+#' Warsaw Pact or not. Former republics of the Soviet Union (e.g. Estonia) and
+#' Poland, for example, would both be 1s. France and the United Kingdom would 
+#' both be 0.
+
 
 #' Because we loaded these data and assigned it to an object, we can ask for it
 #' using default methods available in R and look at what we just loaded.
 
-Apply
+Data
 
 #' The "tibble" output tells us something about our data. We can observe that
-#' there are 400 observations (or rows, if you will) and that there are four
-#' columns in the data. It's incidentally the case that because we loaded a 
-#' Stata .dta file, there is value label information for them. So, the `apply`
-#' variable is just 0, 1, and 2, but 0 means "unlikely", 1 means "somewhat 
-#' likely", and 2 means "very likely". That's situationally useful, especially 
-#' for beginners, but we're going to ignore it for now.
+#' there are 28 observations (or rows, if you will) and that there are 11
+#' columns in the data.
 #' 
 #' There are other ways to find the dimension of the data set (i.e. rows and 
 #' columns). For example, you can ask for the dimensions of the object itself.
 #' 
-dim(Apply)
+dim(Data)
 
 #' Convention is rows-columns, so this first element in this numeric vector tells
-#' us there are 400 rows and the second one tells us there are four columns.
+#' us there are 28 rows and the second one tells us there are 11 columns.
 #' You can also do this.
 
-nrow(Apply)
-ncol(Apply)
+nrow(Data)
+ncol(Data)
 
 #' ### Learn Some Important R/"Tidy" Functions
 #' 
@@ -246,14 +263,20 @@ ncol(Apply)
 #' incomplete because there's only so much I can teach within the limited time 
 #' I have. That said, I'm going to focus on the following functions available in 
 #' the `{tidyverse}` that totally rethink base R. These are the "pipe" (`%>%`), 
-#' `glimpse()` and `summary()`, `select()`, `group_by()`, `summarize()`, 
-#' `mutate()`, and `filter()`.
+#' `glimpse()` and `summary()`, `select()`, `summarize()`, 
+#' `mutate()`, and `filter()`. Most of these---certainly the important ones---have
+#' a `.by` argument that will also get special attention.
 #' 
 #' #### The Pipe (`%>%`)
 #' 
 #' I want to start with the pipe because I think of it as the most 
 #' important function in the `{tidyverse}`. The pipe---represented as `%>%`---allows 
-#' you to chain together a series of functions. The pipe is especially useful 
+#' you to chain together a series of functions. Its innovation fundamentally
+#' changed R's default behavior, which other wants to go line-by-line or work
+#' inside out for nested functions. The pipe instead allows you to think and do
+#' things in a more intuitive way. Rather than work inside out, or copy-paste
+#' functions, the pipe gives you the flexibility to thin left-to-right, and 
+#' top-to-bottom (for reasons you'll see soon). The pipe is especially useful 
 #' if you're recoding data and you want to make sure you got everything 
 #' the way you wanted (and correct) before assigning the data to 
 #' another object. You can chain together *a lot* of `{tidyverse}` 
@@ -268,42 +291,45 @@ ncol(Apply)
 #' just peek into the data without spamming the R console without output. 
 #' 
 #' Notice, here, the introduction of the pipe (`%>%`). In the commands below,
-#' `Apply %>% glimpse()` is equivalent to `glimpse(Apply)`, but I like to 
+#' `Data %>% glimpse()` is equivalent to `glimpse(Data)`, but I like to 
 #' lean more on pipes than perhaps others would. My workflow starts with (data) 
 #' objects, applies various functions to them, and assigns them to objects. I 
 #' think you'll get a lot of mileage thinking that same way too.
 
-Apply %>% glimpse() # notice the pipe
-Apply %>% summary()
+Data %>% glimpse() # notice the pipe
+Data %>% summary()
 
-#' Of note: notice the summary function (alternatively `summary(Apply)`) gives you
+#' Of note: notice the summary function (alternatively `summary(Data)`) gives you
 #' basic descriptive statistics. You can see the mean and median, which are routinely
-#' statistics of central tendency that we care about. In this hypothetical data, we can see
-#' that the mean of the `public` variable is .1425. Because this is a dummy variable,
-#' it tells us that 14.25% of the observations are 1. We can see that the mean GPA
-#' is 2.999 and the median is 2.99. This gives us some preliminary insight that
-#' there isn't a major distribution/skew problem here.
+#' statistics of central tendency that we care about. Notice the `wp` variable, 
+#' which is binary and communicates whether a European Union state was previously
+#' in (or covered by) the Warsaw Pact. Here, the median is 0 (which tells you
+#' most European states weren't previously in the Warsaw Pact) but the mean
+#' tells you about 32.14% of the European Union in 2019 was previously in the
+#' Warsaw Pact.
 #' 
 #' #### `select()`
 #' 
-#' `select()` is useful for basic (but important) data management. You can use it to grab 
-#' (or omit) columns from data. For example, let's say I wanted to grab all the columns 
-#' in the data. I could do that with the following command.
+#' `select()` is useful for basic (but important) data management. You can use it 
+#' to grab  (or omit) columns from data. For example, let's say I wanted to grab 
+#' all the columns in the data. I could do that with the following command.
 
-Apply %>% select(everything())  # grab everything
+Data %>% select(everything())  # grab everything
 
-#' Do note this is kind of a redundant command. You could just as well spit the entire data
-#' into the console and it would've done the same thing. Still, here's if I wanted everything 
-#' except wanted to drop the labor share of income variable.
+#' Do note this is kind of a redundant command. You could just as well spit the 
+#' entire data into the console and it would've done the same thing. Still, here's 
+#' if I wanted everything  except the two-character ISO code. I'm more of a 
+#' three-character guy myself.
 #' 
-Apply %>% select(-public) # grab everything, but drop the public variable.
+Data %>% select(-iso2c) # grab everything, but drop the public variable.
 
 #' Here's a more typical case. Assume you're working with a large data object and you 
-#' just want a handful of things. In this case, we have these four variables,
-#' but we want just the first three columns and want to drop everything else. Here's 
-#' how we'd do that in the `select()` function, again with some assistance from the pipe.
+#' just want a handful of things. In this case, we have these variables,
+#' but we want just the identifier variables and the `gini` column for income
+#' inequality. We want to drop everything else. Here's how we'd do that in the 
+#' `select()` function, again with some assistance from the pipe.
 
-Apply %>% select(apply:public) # grab just these three columns.
+Data %>% select(country:gini) # grab country, gini, and everything in between it.
 
 
 #' #### Grouped functions using `.by` arguments
@@ -322,56 +348,49 @@ Apply %>% select(apply:public) # grab just these three columns.
 #' as you learn more about the `{tidyverse}` and its development.
 #' 
 #' Here, let's do a simple exercise : `slice()`. `slice()` lets you index rows by
-#' integer locations and can be useful for peeking into the data or curating it (by
-#' doing something like removing duplicate observations). In this simple case, 
-#' we're going to slice the data by the first observation at each level of the `apply` 
-#' variable.
+#' integer locations (or through other means) and can be useful for peeking into 
+#' the data or curating it (by doing something like removing duplicate 
+#' observations). In this simple case, we're going to slice the data by the first 
+#' observation at each level of the `wp` variable. The `wp` variable communicates 
+#' whether an observation was in the Warsaw Pact (or was a state covered by the 
+#' Warsaw Pact by way of being a former republic of the Soviet Union).
 
 # Notice we can chain some pipes together
-Apply %>%
+Data %>%
   # Get me the first observation, by group.
-  slice(1, .by=apply)
+  slice(1, .by=wp)
 
-# This is the older way of doing it. It still works, but the presentation of what
-# it did slightly differs.
+#' If you don't group-by the category first, `slice(., 1)` will just return the 
+#' first observation in the data set.
 
-Apply %>%
-  group_by(apply) %>%
-  slice(1) %>%
-  ungroup() # practice safe group_by()
-
-#' Compare the above outputs with this
-#' 
-Apply
-
-#' If you don't group-by the category first, `slice(., 1)` will just return the first 
-#' observation in the data set.
-
-Apply %>%
+Data %>%
   # Get me the first observation for each values of the apply variable
   slice(1) # womp womp. Forgot to use the .by argument
 
-#' I offer one caveat here. If you're applying a group-specific function (that you 
-#' need just once), it's generally advisable to "ungroup()" (i.e. `ungroup()`) as the 
-#' next function in your pipe chain if you are using the `group_by()` approach. 
-#' As you build together chains/pipes, the intermediate  output you get will 
-#' advise you of any "groups" you've declared in your data. Don't
-#' lose track of those.
+#' I think `slice()` is a hidden gem and offer it the way I often use it (mostly
+#' by row indexing), but you can also use it as you would `filter()` later in the
+#' script. For example, here's how you can use it to identify the highest GDP
+#' by levels of the `wp` variable. For time constraints, I'm going to leave it
+#' to you to understand what's happening here in more detail.
+#' 
+Data %>% slice(which(gdp == max(gdp)), .by=wp)
+
+#' `filter()` would be more efficient, but `slice()` can do some of that too.
 #' 
 #' ### `summarize()`
 #' 
 #' `summarize()` creates condensed summaries of your data, for whatever it is 
 #' that you want. Here, for example, is a kind of dumb way of seeing how many 
-#' observations are in the data. `nrow(Apply)` works just as well, but alas...
+#' observations are in the data. `nrow(Data)` works just as well, but alas...
 
-Apply %>%
+Data %>%
   # How many observations are in the data?
   summarize(n = n())
 
 # How many observations are there by levels of the apply variable?
 
-Apply %>%
-  summarize(n = n(), .by=apply)
+Data %>%
+  summarize(n = n(), .by=wp)
 
 # What you did, indirectly here, was find the mode of the apply variable. This is
 # the most frequently occurring value in a variable, which is really only of interest
@@ -379,22 +398,29 @@ Apply %>%
 # don't care about the mode, and it's why there is no real built-in function in base
 # R that says "Here's the mode." You have to get it indirectly.
 
-#' More importantly, `summarize()` works wonderfully with `group_by()`. For example, 
-#' for each country (`group_by(apply)`), let's get the mean and median GPA by 
-#' each value of apply
+#' More importantly, `summarize()` works wonderfully with the `.by` argument. For 
+#' example, for each country in the EU, by their former Warsaw Pact status, let's
+#' identify the average GINI and the average exports as a % of GDP.
 
-Apply %>%
-  # Give me the average GPA by each value of `apply`
-  summarize(mean_gpa = mean(gpa, na.rm = TRUE),
-            median_gpa = median(gpa, na.rm = TRUE),
-            .by = apply)
+Data %>%
+  # Give me the average GINI and Exports/GDP by each value of `wp`
+  summarize(mean_gini = mean(gini, na.rm = TRUE),
+            mean_exppgdp = median(exppgdp, na.rm = TRUE),
+            .by = wp)
+
+#' This summary tells you that European Union states generally have the same 
+#' level of income inequality whether they were previously in the Warsaw Pact or
+#' not, but exports are a larger share of GDP for states that were formerly
+#' in the Warsaw Pact compared to states that were not. That's not terribly 
+#' surprising to me, given what we know about the endowments of the former
+#' Warsaw Pact states relative to states in the EU that are more "Western".
 
 #' One downside (or feature, depending on your perspective) to `summarize()` is 
 #' that it  condenses data and discards stuff that's not necessary for creating 
 #' the condensed output. In the case above, notice we didn't ask for anything 
-#' else about the data, other than the average GPA by each value of how likely 
-#' they are to apply for graduate school. Thus, we didn't get anything else, 
-#' beyond the average GPA by how likely applicants are to apply for grad school.
+#' else about the data, other than the average GINI and exports/GDP by each value 
+#' of the `wp` variable. Thus, we didn't get anything else. Use it with that in
+#' mind.
 #' 
 #' #### `mutate()`
 #' 
@@ -403,25 +429,31 @@ Apply %>%
 #' the original dimensions of the data. Consider it the sister function to 
 #' `summarize()`. But, where `summarize()` discards, `mutate()` retains.
 #' 
-#' Let's do something simple with `mutate()`. For example, we can create a new variable
-#' that just counts the length of the data frame. We can think of this as a kind
-#' of identifier variable. The first row is the first respondent. The second row
-#' is the second respondent, and so on.
+#' Let's do something simple with `mutate()`. For example, we can create a new 
+#' variable for GDP per capita based on the information we have. We have GDP. We
+#' have population size. They are both in the same units. We just need to divide
+#' one over the other. Watch how we'd do that here.
 
-Apply %>%
-  mutate(id = 1:n()) %>%
-  select(id, everything()) -> Apply
+Data %>%
+  mutate(gdppc = gdp/pop)
 
-#' Again, the world is your oyster here. We can also recode that apply
-#' variable to be a dummy variable that equals 1 if and only if the respondent
-#' is very likely to apply to grad school.
+#' Again, the world is your oyster here. We can also create another variable to
+#' identify Southern European countries of Portugal, Spain, Italy, and Greece. 
+#' Looking ahead, you can see how this would also create a variable for something
+#' like the Nordic countries in the European Union, though you'd have to change
+#' a few things to make it work (the information is still there).
 
+Data %>%
+  mutate(southeurope = ifelse(iso2c %in% c("GR", "IT", "PT", "ES"), 1, 0)) %>%
+  filter(southeurope == 1) # Did this work the way I wanted?
 
-Apply %>%
-  mutate(vlapply = ifelse(apply == 2, 1, 0)) -> Apply
+#' We can save/assign our work as follows.
 
-#' We can use the distinct() function (also in {tidyverse}) to see that it worked.
-Apply %>% distinct(vlapply, apply)
+Data %>%
+  mutate(gdppc = gdp/pop,
+         southeurope = ifelse(iso2c %in% c("GR", "IT", "PT", "ES"), 1, 0)) -> Data
+
+Data
 
 #' #### `filter()`
 #' 
@@ -435,15 +467,17 @@ Apply %>% distinct(vlapply, apply)
 #' is less than or equal to something (`<=`).
 #' 
 
-#' The benefit of the ID variable that we created, though, is we can do something
-#' like find the highest GPA per value of how likely they are to apply to grad
-#' school.
+#' We can do something like find the highest GDP per capita of EU states by 
+#' different values of the `wp` variable.
 
-Apply %>%
-  filter(gpa == max(gpa),
-         .by = apply)
+Data %>%
+  filter(gdppc == max(gdppc),
+         .by = wp)
+
+#' Take out `gdppc` above and insert `gdp` and you'll get the more elegant way
+#' of doing what the `slice(which())` example did above.
+
+#' We can also see all the states that were previously in the Warsaw Pact.
 
 
-#' This tells us, for example, that the third respondent in the data incidentally
-#' has the highest GPA for someone who says they are very unlikely to apply
-#' for grad school.
+Data %>% filter(wp == 1)
