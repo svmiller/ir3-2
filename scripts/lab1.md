@@ -574,18 +574,17 @@ Data %>%
 #>   <dbl> <int>
 #> 1     0    19
 #> 2     1     9
-
-# What you did, indirectly here, was find the mode of the apply variable. This is
-# the most frequently occurring value in a variable, which is really only of interest
-# to unordered-categorical or ordered-categorical variables. Statisticians really
-# don't care about the mode, and it's why there is no real built-in function in base
-# R that says "Here's the mode." You have to get it indirectly.
 ```
 
-More importantly, `summarize()` works wonderfully with the `.by`
-argument. For example, for each country in the EU, by their former
-Warsaw Pact status, let’s identify the average GINI and the average
-exports as a % of GDP.
+What you did, indirectly here, was find the mode of the apply variable.
+This is the most frequently occurring value in a variable, which is
+really only of interest to unordered-categorical or ordered-categorical
+variables. Statisticians really don’t care about the mode, and it’s why
+there is no real built-in function in base R that says “Here’s the
+mode.” You have to get it indirectly. More importantly, `summarize()`
+works wonderfully with the `.by` argument. For example, for each country
+in the EU, by their former Warsaw Pact status, let’s identify the
+average GINI and the average exports as a % of GDP.
 
 ``` r
 Data %>%
