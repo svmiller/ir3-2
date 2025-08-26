@@ -240,6 +240,8 @@ broom::augment(M2) %>%
   select(.fitted, .resid) %>%
   bind_cols(Data, .) -> Data
 
+broom::augment(M2) -> Data
+
 #' Let's get an idea of what's happening here before going any further.
 
 Data %>%
@@ -255,6 +257,7 @@ Data %>%
   geom_hline(yintercept = 0, linetype="dashed", color="red") +
   geom_smooth(method = "loess")
 
+plot(M2, which=1)
 #' Wooooof, that should not look like that. What you want to see is basically
 #' featureless, patternless buckshot. Something like this: 
 tibble(x = rnorm(95),
@@ -376,11 +379,11 @@ Data %>%
   stat_function(fun = dnorm, color="blue",
                 args = list(mean = 0, 
                             sd = sd(Data$.resid, na.rm=T)),
-                linetype="dashed", size=1.1) +
-  geom_density(size = 1.1) +
+                linetype="dashed", linewidth=1.1) +
+  geom_density(linewidth = 1.1) +
   theme_steve(style='generic')
 
-
+rd_plot(M2)
 #' ^ wooof. Kill this with fire.
 #'
 #' Your solution to this particular “problem” will depend on what exactly you’re 
