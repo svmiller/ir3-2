@@ -35,7 +35,7 @@ library(tidyverse)
 #> ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
 #> ✔ dplyr     1.1.4     ✔ readr     2.1.4
 #> ✔ forcats   1.0.0     ✔ stringr   1.5.0
-#> ✔ ggplot2   3.5.1     ✔ tibble    3.3.0
+#> ✔ ggplot2   3.5.2     ✔ tibble    3.3.0
 #> ✔ lubridate 1.9.4     ✔ tidyr     1.3.0
 #> ✔ purrr     1.1.0     
 #> ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
@@ -404,4 +404,16 @@ states_war # approximation of Valentino et al. (2010)
 ```
 
 Taking requests for something more interactive for illustrating a
-t-test.
+t-test. Whichever data you want, the syntax is straightforward.
+Basically: `t.test(y ~ x, data = Data)`. Just be mindful that `x` has to
+be binary. In the `EBJ` data, we already have that in the `pcj` column.
+It’s the democracy variables we need to dichotomize for the other two
+data sets. We have democracy variables from the Polity project in both.
+The convention is to classify a democracy as any instance where that
+variable is 6 or above. We’ll do that here to give us flexibility on how
+we want to proceed.
+
+``` r
+PRDEG %>% mutate(dem = ifelse(democ >= 6, 1, 0)) -> PRDEG
+states_war %>% mutate(dem = ifelse(polity2 >= 6, 1, 0)) -> states_war
+```

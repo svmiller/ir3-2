@@ -213,4 +213,15 @@ EBJ        # reduced form of Appell and Loyle (2012)
 PRDEG      # full replication of Leblang (1996)
 states_war # approximation of Valentino et al. (2010)
 
-#' Taking requests for something more interactive for illustrating a t-test.
+#' Taking requests for something more interactive for illustrating a t-test. 
+#' Whichever data you want, the syntax is straightforward. Basically: `t.test(y ~ x, data = Data)`.
+#' Just be mindful that `x` has to be binary. In the `EBJ` data, we already have
+#' that in the `pcj` column. It's the democracy variables we need to dichotomize
+#' for the other two data sets. We have democracy variables from the Polity 
+#' project in both. The convention is to classify a democracy as any instance
+#' where that variable is 6 or above. We'll do that here to give us flexibility
+#' on how we want to proceed.
+
+PRDEG %>% mutate(dem = ifelse(democ >= 6, 1, 0)) -> PRDEG
+states_war %>% mutate(dem = ifelse(polity2 >= 6, 1, 0)) -> states_war
+
