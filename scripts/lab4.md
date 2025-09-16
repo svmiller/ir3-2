@@ -21,7 +21,7 @@ output:
 #  |,4-  ) )-,_..;\ (  `'-'
 # '---''(_/--'  `-'\_)  
 #
-# Lab 4: Linear Models
+# Lab 4a: Linear Models
 ```
 
 ## If it’s not installed, install it.

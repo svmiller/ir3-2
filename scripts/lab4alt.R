@@ -23,12 +23,12 @@ knitr::opts_chunk$set(collapse = TRUE,
 #+
 #          ___
 #      _.-|   |          |\__/,|   (`\
-#     {   |   |          |o o  |__ _) ) # Linear Models (Again)
+#     {   |   |          |o o  |__ _) ) # not again...
 #      "-.|___|        _.( T   )  `  /
 #       .--'-`-.     _((_ `^--' /_<  \
 #     .+|______|__.-||__)`-'(((/  (((/
 #
-# Lab 4: Linear Models
+# Lab 4b: Linear Models (Again)
 
 #' ## If it's not installed, install it.
 
