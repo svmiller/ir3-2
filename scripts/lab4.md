@@ -31,9 +31,9 @@ library(tidyverse)
 #> ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
 #> ✔ dplyr     1.1.4     ✔ readr     2.1.4
 #> ✔ forcats   1.0.0     ✔ stringr   1.5.0
-#> ✔ ggplot2   3.5.1     ✔ tibble    3.2.1
-#> ✔ lubridate 1.9.2     ✔ tidyr     1.3.0
-#> ✔ purrr     1.0.1     
+#> ✔ ggplot2   3.5.2     ✔ tibble    3.3.0
+#> ✔ lubridate 1.9.4     ✔ tidyr     1.3.0
+#> ✔ purrr     1.1.0     
 #> ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 #> ✖ dplyr::filter() masks stats::filter()
 #> ✖ dplyr::lag()    masks stats::lag()
@@ -340,6 +340,8 @@ here, using the `augment()` function in `{broom}` (you have this).
 broom::augment(M2) %>%
   select(.fitted, .resid) %>%
   bind_cols(Data, .) -> Data
+
+broom::augment(M2) -> Data
 ```
 
 Let’s get an idea of what’s happening here before going any further.
@@ -378,6 +380,13 @@ Data %>%
 
 ![](figs/lab-4/unnamed-chunk-10-1.png)<!-- -->
 
+``` r
+
+plot(M2, which=1)
+```
+
+![](figs/lab-4/unnamed-chunk-10-2.png)<!-- -->
+
 Wooooof, that should not look like that. What you want to see is
 basically featureless, patternless buckshot. Something like this:
 
@@ -414,25 +423,6 @@ linloess_plot(M2, pch=21) +
   theme_steve(style='generic')
 #> `geom_smooth()` using formula = 'y ~ x'
 #> `geom_smooth()` using formula = 'y ~ x'
-#> Warning in simpleLoess(y, x, w, span, degree = degree, parametric = parametric,
-#> : at -0.005
-#> Warning in simpleLoess(y, x, w, span, degree = degree, parametric = parametric,
-#> : radius 2.5e-05
-#> Warning in simpleLoess(y, x, w, span, degree = degree, parametric = parametric,
-#> : all data on boundary of neighborhood. make span bigger
-#> Warning in simpleLoess(y, x, w, span, degree = degree, parametric = parametric,
-#> : pseudoinverse used at -0.005
-#> Warning in simpleLoess(y, x, w, span, degree = degree, parametric = parametric,
-#> : neighborhood radius 0.005
-#> Warning in simpleLoess(y, x, w, span, degree = degree, parametric = parametric,
-#> : reciprocal condition number 1
-#> Warning in simpleLoess(y, x, w, span, degree = degree, parametric = parametric,
-#> : There are other near singularities as well. 1.01
-#> Warning in simpleLoess(y, x, w, span, degree = degree, parametric = parametric,
-#> : zero-width neighborhood. make span bigger
-#> Warning: Failed to fit group -1.
-#> Caused by error in `predLoess()`:
-#> ! NA/NaN/Inf in foreign function call (arg 5)
 ```
 
 ![](figs/lab-4/unnamed-chunk-12-1.png)<!-- -->
@@ -559,17 +549,19 @@ Data %>%
   stat_function(fun = dnorm, color="blue",
                 args = list(mean = 0, 
                             sd = sd(Data$.resid, na.rm=T)),
-                linetype="dashed", size=1.1) +
-  geom_density(size = 1.1) +
+                linetype="dashed", linewidth=1.1) +
+  geom_density(linewidth = 1.1) +
   theme_steve(style='generic')
-#> Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
-#> ℹ Please use `linewidth` instead.
-#> This warning is displayed once every 8 hours.
-#> Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
-#> generated.
 ```
 
 ![](figs/lab-4/unnamed-chunk-16-1.png)<!-- -->
+
+``` r
+
+rd_plot(M2)
+```
+
+![](figs/lab-4/unnamed-chunk-16-2.png)<!-- -->
 
 ^ wooof. Kill this with fire.
 

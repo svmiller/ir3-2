@@ -30,8 +30,10 @@
       subhref: "/lab-scripts/lab-3alt/"
     - subtitle: "Lab 3b: Bivariate Relations"
       subhref: "/lab-scripts/lab-3/"
-    - subtitle: "Lab 4: Linear Models"
+    - subtitle: "Lab 4a: Linear Models"
       subhref: "/lab-scripts/lab-4/"
+    - subtitle: "Lab 4b: Linear Models (Again)"
+      subhref: "/lab-scripts/lab-4alt/"
     - subtitle: "Lab 5: Model Presentation"
       subhref: "/lab-scripts/lab-5/"
 
