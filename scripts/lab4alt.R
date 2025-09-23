@@ -98,7 +98,7 @@ summary(M1 <- lm(log_radius_area ~ territory + host_resource + host_mt +
                  data = Data))
 
 #' Got it. Don't worry about the difference in the test statistics as we're not
-#' going with robust standard errors for the sake of this exrecise. [I explain a
+#' going with robust standard errors for the sake of this exercise. [I explain a
 #' bit about what those are here](http://svmiller.com/blog/2024/01/linear-model-diagnostics-by-ir-example/).
 #' 
 #' ## Unpacking the Model Output
