@@ -33,8 +33,8 @@ This page contains link to the lectures I give throughout the semester. Clicking
 <strong style="font-size:100%; font-family: 'Titillium Web', sans-serif;  padding-right: .5em">
 <br />
 	<a href="https://github.com/{{ site.githubdir}}/tree/master/{{ lectures.dirname }}"><i class="fab fa-github"></i></a>&nbsp;&nbsp;
-<a href="https://github.com/{{ site.githubdir}}/tree/master/{{ lectures.dirname }}/eh6127-lecture-{{ lectures.filename}}.Rmd"><i class="fab fa-r-project"></i></a>&nbsp;&nbsp;
-<a href="https://github.com/{{ site.githubdir}}/blob/master/{{ lectures.dirname }}/eh6127-lecture-{{ lectures.filename}}.pdf"><i class="fas fa-file-pdf"></i></a>
+<a href="https://github.com/{{ site.githubdir}}/tree/master/{{ lectures.dirname }}/eh1903-2-lecture-{{ lectures.filename}}.Rmd"><i class="fab fa-r-project"></i></a>&nbsp;&nbsp;
+<a href="https://github.com/{{ site.githubdir}}/blob/master/{{ lectures.dirname }}/eh1903-2-lecture-{{ lectures.filename}}.pdf"><i class="fas fa-file-pdf"></i></a>
 </strong> 
       </li>
 {% endfor %}
