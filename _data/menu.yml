@@ -6,10 +6,14 @@
 #  href: ""
 #  active: course-description
 
-- title: "Course Materials"
-  href: "/course-materials/"
-  active: course-materials
-  icons: "fas fa-list-ul fa-lg"
+- title: "Lectures"
+  href: "/lectures/"
+  icons: "fas fa-chalkboard-teacher"
+
+# - title: "Course Materials"
+#   href: "/course-materials/"
+#   active: course-materials
+#   icons: "fas fa-list-ul fa-lg"
 
 - title: "R/RStudio"
   href: "/r-rstudio/"

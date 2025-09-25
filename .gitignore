@@ -11,3 +11,7 @@ _dross
 *.rdb
 *.RData
 cache/
+hopplock/
+gradesheets/
+data/
+compensatory-assignments
