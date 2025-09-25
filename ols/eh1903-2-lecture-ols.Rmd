@@ -5,6 +5,7 @@ output:
     dev: cairo_pdf # I typically comment this out  if latex_engine: pdflatex
     slide_level: 3 # I prefer this, but I won't force it on you.
     theme: metropolis
+    keep_tex: TRUE
 title: "The Linear Model and OLS"
 subtitle: IRIII.2 -- Quantitative Methods in the Study of International Relations
 author: Steven V. Miller
@@ -286,7 +287,7 @@ Data %>%
     labs(title = "Faceted Scatterplots of Bivariate Relationships",
        x = "Values of the Independent Variable(s)", 
        y = "Values of the Logged International Tourism Arrivals",
-       subtitle = "All relationships are positive, which we would (mostly) expect. However, the relative price correlation is a bit surprising. In all cases, the line drawn is the OLS line for a simple bivariate model.",
+       subtitle = "All relationships are positive. The, the relative price correlation is a bit surprising (prima facie). In all cases, the line drawn is the OLS line for a simple bivariate model.",
        caption = "Data: World Bank Data repository, through various other places.")
   
 ```
