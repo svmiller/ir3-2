@@ -1,0 +1,545 @@
+---
+output: 
+  stevetemplates::beamer:
+    latex_engine: xelatex # use xelatex here instead! I recommend it, but this is minimal reprex
+    dev: cairo_pdf # I typically comment this out  if latex_engine: pdflatex
+    slide_level: 3 # I prefer this, but I won't force it on you.
+    theme: metropolis
+    keep_tex: TRUE
+title: "Univariate Analysis"
+subtitle: IRIII.2 -- Quantitative Methods in the Study of International Relations
+author: Steven V. Miller
+institute: Department of Economic History and International Relations
+titlegraphic: "`r paste0(Sys.getenv('HOME'), '/Koofr/su/su-logotyp.png')`"
+titlegraphshift: "\\vspace{6cm}"
+make149: true
+mainfont: "Open Sans Light"
+titlefont: "Titillium Web"
+fontsize: 10pt
+header-includes:
+- \usepackage{dcolumn}
+- \usepackage{booktabs}
+- \usepackage{longtable}
+- \usepackage{array}
+- \usepackage{multirow}
+- \usepackage{wrapfig}
+- \usepackage{float}
+- \usepackage{colortbl}
+- \usepackage{pdflscape}
+- \usepackage{tabu}
+- \usepackage{threeparttable}
+#- \usepackage{kotex}
+---
+
+```{r setup, include=FALSE, cache=F, message=F, warning=F, results="hide"}
+knitr::opts_chunk$set(cache=TRUE, warning=F, message=F)
+knitr::opts_chunk$set(fig.path='figs/',  fig.width=14, fig.height=8.5)
+knitr::opts_chunk$set(cache.path='cache/')
+knitr::opts_chunk$set(cache.path='cache/',
+                      collapse = TRUE, comment = "#>")
+
+knitr::opts_chunk$set(
+                  fig.process = function(x) {
+                      x2 = sub('-\\d+([.][a-z]+)$', '\\1', x)
+                      if (file.rename(x, x2)) x2 else x
+                      }
+                  )
+```
+
+```{r loaddata, echo=F, eval=T, message=F, warning=F}
+
+library(tidyverse)
+library(stevemisc)
+library(stevethemes)
+library(stevedata)
+library(stargazer)
+library(modelsummary)
+library(kableExtra)
+library(lmtest)
+library(patchwork)
+library(simqi)
+
+options("modelsummary_format_numeric_latex" = "plain")
+options(knitr.kable.NA = '')
+
+set.seed(8675309)
+```
+
+# Introduction
+### Goal(s) for Today
+
+1. Introduce basic structure of the course
+2. Emphasize the qualitative component of international relations.
+3. Discuss some basic univariate methods/statistics you should know.
+
+### Course Information
+
+Hej! Jag heter Steve och jag talar inte mycket bra svenska. (Förlåt!)
+
+- Mi español es aceptable como turista.
+- I'm also learning Korean.
+<!-- - 나는 한국어를 배우고 있어요 -->
+- (How about we do this in English instead...)
+
+Format: three lectures; seven labs
+
+- See course description for more information about assignments
+- You can do these in Swedish (though I prefer English).
+
+When in doubt, read the course description (it's 14 pages!)
+
+# Univariate Analysis
+## Some Background to Get it Out of the Way
+### Qualitative and Quantitative: What Are These Terms?
+
+**Qualitative**: the analysis of *non-numerical* data to understand social phenomena
+
+\bigskip
+
+**Quantitative**:  the analysis of *numerical* data to understand social phenomena
+
+### Stages of Research
+
+0. Perspective
+1. Causal theory
+2. Hypothesis
+3. Empirical test
+4. Evaluation of hypothesis
+5. Evaluation of causal theory
+6. Advance in scientific knowledge
+
+### Perspective Matters
+
+A perspective is a general orientation to the world. They're untestable because:
+
+1. They're too broad. Empirical support will never be total.
+2. Perspectives are slippery and contextual.
+	- e.g. "People are rational."
+3. Any empirical data observed can be interpreted to fit the perspective.
+
+We start with perspectives because we're not blank slates.
+
+### Perspective Matters
+
+A perspective is a general orientation to the world. They're untestable because:
+
+1. They're too broad. Empirical support will never be total.
+2. Perspectives are slippery and contextual.
+	- e.g. "Government should stay out of our lives."
+3. Any empirical data observed can be interpreted to fit the perspective.
+
+We start with perspectives because we're not blank slates.
+
+- Rationality, for example, informs our general theories and the data-collection process.
+
+## Concepts and Measures
+### Measuring a Conceptual World
+
+Our world is fundamentally conceptual (qualitative)
+
+- We start with an interest in concepts we observe (e.g. "political tolerance", "corruption", "war")
+- We devise a conceptual definition of what that thing is.
+- We *operationalize* a definition of the thing to measure it.
+
+From this, we get an empirical *measure* of the concept.
+
+- This allows us to proceed with political *science*.
+
+### Concept and Measure
+
+We seek to devise the best measure that best captures the "true" concept.
+
+- However, there's always some slippage between concept and measure.
+- We do our best to eliminate as much error as we can.
+
+There are two types of measurement error.
+
+1. **Systematic measurement error**: the chronic, consistent distortion of a measure, leading to a *mis*measure of the concept in question.
+2. **Random measurement error**: haphazard, chaotic distortion of a measure, leading to an inconsistent operational reading of the concept.
+
+### Systematic Measurement Error Cases
+
+Systematic measurement error is always the bigger concern of the two because it can confound inference. Examples:
+
+- Measuring ideology by party support.
+- Measuring corruption by mass-level perception of corruption (or by indicators like arrests).
+- Measuring human rights records with U.S. state department reports.
+
+Detecting this is not always easy. You have to use your head.
+
+
+### "Political Tolerance" as a Classic Case
+
+![Scenes from the Tenth Communist Party USA convention in Chicago (May 1938)](1938-05-27-communist-party-usa-convention.png){ width=70% }
+
+### Validity and Reliability
+
+This distinction maps nicely onto conversations about reliability and validity.
+
+- **Validity**: i.e. am I measuring what I want without picking up anything else?
+- **Reliability**: am I consistently measuring what I want to measure?
+
+Likewise, validity is the greater concern of the two.
+
+## Types of Variables
+### Types of Variables
+
+Assume you have a measure of your concept, you can summarize it any number of ways.
+
+- However, it's contingent on what information you're measure can communicate.
+
+### The Classic Typology, for Better or Worse
+
+The classic typology, a la Stanley Smith Stevens.
+
+1. Nominal (i.e. unordered-categorical)
+2. Ordinal (i.e. ordered-categorical)
+3. Interval (i.e. continuous)
+4. Ratio (i.e. continuous, but with meaningful zero as a kind of bound)
+
+There are important wrinkles to this, so let's get some examples.
+
+###
+
+```{r, echo = F}
+OODTPT %>%
+  group_split(gatt) %>%
+  map(~mutate(., dd = paste0(country, collapse=", "))) %>%
+  map(~slice(., 1)) %>%
+  bind_rows() %>%
+  select(gatt, dd) %>%
+  #mutate(gatt = c("No", "Yes")) %>%
+  kbl(., booktabs = TRUE, longtable = TRUE,
+      col.names = c("In GATT?", "Countries"),
+      align = c("cl"),
+      caption = "GATT Members in Kono (2006)") %>%
+  column_spec(2, width = "30em") %>%
+  row_spec(0, bold = TRUE) %>%
+  column_spec(1, bold = TRUE) %>%
+  footnote(general = "FYI: You will see these data again in one of your problem sets.")
+```
+
+###
+
+```{r, echo = F}
+eu_ua_fta24 %>%
+  count(group_label) %>%
+  kbl(., booktabs = TRUE, longtable = TRUE,
+      col.names = c("Group Label", "No. of MEPs"),
+      align = c("lc"),
+      linesep = "",
+      caption = "Groups in the EU Parliament from a 2024 Vote on Ukraine") %>%
+  row_spec(0, bold = TRUE) %>%
+  footnote(general = "Data: ?eu_ua_fta24 in {stevedata}")
+```
+
+### Unordered-Categorical Data
+
+Unordered-categorical data takes on a few forms.
+
+- *"Dummy" variable*: has just two values.
+- *Nominal variable*: has multiple values where one category is not the other.
+
+Don't be fooled by order/information you perceive in a dummy variable.
+
+- They're just a special case of a nominal variable.
+
+### 
+
+```{r, echo = F}
+
+kgss_sample %>%
+  count(satisfin) %>%
+  mutate(cumsum = cumsum(n),
+         perc = make_perclab(cumsum/last(cumsum))) %>%
+  mutate(satisfin = c("Very Dissatisfied", "Somewhat Dissatisfied",
+                      "Neither Satisfied nor Dissatisfied", "Somewhat Satisfied",
+                      "Very Satisfied")) %>%
+    kbl(., booktabs = TRUE, longtable = TRUE,
+      col.names = c("Financial Satisfaction", "No.", "Cum. Sum", "%"),
+      align = c("lccc"),
+      linesep = "",
+      caption = "Financial Satisfaction in South Korea, 2023") %>%
+  row_spec(0, bold = TRUE) %>%
+  footnote(general = "Data: Korean General Social Survey, 2023 (by way of ?kgss_sample in {simqi}).")
+```
+
+
+###
+
+```{r, echo = F}
+som_sample %>% 
+  filter(year == 2020) %>% 
+  count(trust_rf) %>%
+  mutate(trust_rf = c("Very low\ntrust", "Quite low\ntrust",
+                      "Neither high nor low\ntrust",
+                      "Quite high\ntrust", "Very high\ntrust"),
+         trust_rf = fct_inorder(trust_rf)) %>%
+  ggplot(.,aes(trust_rf, n)) +
+  geom_bar(stat = 'identity', fill = g_c("su_water"), color = 'black') +
+  geom_text(aes(label = n), vjust = -.5) +
+  theme_steve() +
+  labs(title = "Trust in the Royal Family in Sweden, 2020",
+       subtitle = "Relatively few Swedes say they have low trust in the royal family. Notice, though, the available responses that Swedish respondents could select.",
+       x = "", y = "Number of Respondents",
+       caption = "Data: SOM, 2020 (by way of ?som_sample in {simqi}).")
+```
+
+### Ordered-Categorical Data
+
+Ordered-categorical data have an order/rank, but:
+
+- A finite set of available responses
+- No consistent difference between categories.
+
+You'll see these kind of data often on:
+
+- Questions of political support/trust/confidence
+- Likert items (with 5- or 7-point agree/disagree scale)
+- Assessments of political/financial satisfaction
+
+
+###
+
+```{r, echo = F}
+gss_spending %>%
+  ggplot(.,aes(sumnat)) + 
+  geom_histogram(bins = 36, fill=g_c("su_water"), 
+                 color='black') +
+  theme_steve() +
+  labs(title = "American Attitudes toward Government Spending, 2018",
+       subtitle = "Attitudes about whether the U.S. is spending too much, too little, or not enough on various programs approximates a normal distribution.",
+       x = "Overall Attitudes toward Government Spending (Higher Values = U.S. Should Spend More)",
+       y = "Number of respondents in Bin",
+       caption = "Data: General Social Survey, 2018 (by way of ?gss_spending in {stevedata}). Histograms do have arbitrary bins that you should consider. The U.S. definitely has anti-spending weirdos, but they're rare (if overpowered, unfortunately).")
+```
+
+###
+
+```{r, echo = F}
+kgss_sample %>% ggplot(.,aes(age)) + 
+  geom_histogram(bins = 73, fill=g_c("su_water"), 
+                 color='black') +
+  theme_steve() +
+  labs(title = "The Distribution of Age Among KGSS Respondents, 2023",
+       subtitle = "By and large, a distribution of age in a survey will follow a normal distribution (with obvious left truncation and a small right tail).",
+       x = "Age of Respondent",
+       y = "Number of Respondents in Bin",
+       caption = "Data: Korean General Social Survey, 2023 (by way of ?kgss_sample in {simqi}). Histograms do have arbitrary bins that you should consider. Again, I'm deliberately cheesing this for presentation.")
+```
+
+
+###
+
+```{r, echo = F}
+therms %>%
+  gather(var, val) %>%
+  mutate(var = ifelse(var == "fttrump1", "Trump", "Obama")) %>%
+  ggplot(.,aes(val)) + 
+  geom_histogram() +
+  facet_wrap(~var) +
+  theme_steve() +
+  scale_y_continuous(labels = scales::comma_format()) +
+  labs(title = "Thermometer Ratings Toward Donald Trump and Barack Obama (April 2020)",
+       subtitle = "This would be 'interval' in the classic scale, but has left and right bounds (and a hideous distribution to boot).",
+       x = "Thermometer Rating (Higher Values = More 'Warmth')",
+       y = "Bin Height",
+       caption = "ANES Exploratory Survey, 2020 (by way of ?therms in {stevedata}).")
+```
+
+###
+
+```{r, echo = F}
+
+USFAHR %>%
+  filter(year == 1951) %>%
+  ggplot(.,aes(nomoblig)) +
+  geom_histogram(bins = 50) +
+  theme_steve() +
+  scale_x_continuous(labels = scales::dollar_format()) +
+  labs(title = "The Distribution of U.S. Foreign Aid in 1951 (under Harry Truman)",
+       subtitle = "You could argue this is 'ratio' in the classic sense, but that hides important peculiarities of this data-generating process.",
+       x = "Aid Obligations in Nominal (i.e. 1951) Dollars", 
+       y = "Bin Height",
+       caption = "Data: USAID Data Services, by way of ?USFAHR in {stevedata}")
+```
+
+### Interval, Ratio, and Yadda Yadda Yadda
+
+Both "interval" and "ratio" have granular (practically infinite) possible values.
+
+- In the classic typology, they are distinguished by what 0 means in the measure.
+
+Rather than split these hairs, I'd encourage you to think of these as "continuous".
+
+- i.e. the values are infinitely (or practically) granular.
+- An arithmetic mean may not be faithful, but would make sense.
+    - This even applies to some integers, like age and income.
+
+
+## Summarizing Variables
+### Summarizing Variables
+
+```{r, echo = F}
+tribble(~type, ~mean, ~var,
+        "Unordered-Categorical", "Mode", "(Some you'll use at an advanced level)",
+        "Ordered-Categorical", "Median", "IQR, MAD (Better to eyeball it)",
+        "'Continuous'", "Mean", "Standard Deviation") %>%
+  kbl(.,booktabs = TRUE, longtable = TRUE,
+      col.names = c("Type", "Central Tendency", "Dispersion")) %>%
+  row_spec(0, bold = TRUE)
+```
+
+### Identifying Measures of Central Tendency
+
+```{r, echo = F}
+som_sample %>% count(lan) %>%
+  mutate(lan = str_remove(lan, " county")) %>%
+  mutate(lan = ifelse(lan == "Kalmar and Gotlands", "Kalmar/Gotlands", lan)) -> A
+
+bind_cols(A[1:10, ], A[11:20, ]) %>%
+  kbl(., longtable = TRUE, booktabs = TRUE,
+      align = c("lclc"),
+      caption = "County/Counties of Residence for Respondents in SOM (2019, 2020)",
+      col.names = c("County", "No.", "County", "No."),
+      linesep = "") %>%
+  row_spec(0, bold=TRUE) %>%
+  footnote(general = "Data: SOM (2019 and 2020, by way of ?som_sample in {simqi}).")
+```
+
+### Identifying Measures of Central Tendency
+
+```{r, echo = F}
+
+wvs_usa_abortion %>% 
+  filter(year == 2011) %>% 
+  count(aj) %>% 
+  na.omit %>% 
+  mutate(a = cumsum(n), b = a/sum(n),
+         b = make_perclab(b)) %>%
+  mutate(aj = case_when(
+    aj == 1 ~ "Never Justifiable",
+    aj == 10 ~ "Always Justifiable",
+    TRUE ~ as.character(aj)
+  )) %>%
+  kbl(., booktabs = TRUE, longtable = TRUE, linesep = "",
+      align = c("lccc"),
+      col.names = c("Values", "No.", "Cum. Sum", "Cum. Sum (%)"),
+      caption = "The Justifiability of Abortion in the U.S. in 2011") %>%
+  row_spec(0, bold = TRUE) %>%
+  footnote(general = "Data: World Values Survey, 2011 (by way of ?wvs_usa_abortion in {stevedata}.")
+```
+
+
+### Mean
+
+The arithmetic **mean** is used only for continuous variables.
+
+- This is to what we refer when we say "average".
+
+Formally, *i* through *n*:
+
+\begin{equation}
+	\frac{1}{n}\Sigma x_i
+\end{equation}
+
+We can always describe continuous variables with the median.
+
+- We cannot do the same for ordinal or nominal with the mean.
+- For really granular data, there is likely no real proper "mode" to report.
+
+###
+
+```{r, echo = F}
+
+pwt_sample %>% 
+  filter(year == max(year)) %>%
+  mutate(gdppc = rgdpna/pop) -> A
+
+smed <- median(A$rgdpna)
+smean <- mean(A$rgdpna)
+
+A %>%
+  ggplot(.,aes(rgdpna)) + geom_density() +
+  theme_steve() +
+  scale_x_continuous(labels = scales::dollar_format()) +
+  geom_vline(xintercept = smed, linetype = 'dashed') +
+  geom_vline(xintercept = smean) +
+  labs(title = "Real GDP for 22 Select (OECD?) Countries",
+       x = "Real GDP at constant 2011 national prices (in million 2017 USD)",
+       y = "Density",
+       subtitle = "The median is the difference between Belgium and Switzerland. The mean wants to hang out with the U.S. (the largest economy on the planet).",
+       caption = "Data: Penn World Table (10.0), by way of ?pwt_sample in {stevedata}. Density plots are smoothed histograms and give a better assessment of the overall shape of the data and is less sensitive to arbitrary bin selection.")
+  
+
+```
+
+### A Comment on Dummy Variables
+
+Dummy variables behave curiously in measures of central tendency.
+
+- Mode: most frequently occurring value (as it is nominal).
+- Median: also the mode.
+- Mean: the proportion of 1s.
+
+
+### Dispersion
+
+We also need to know variables by reference to its **dispersion**.
+
+- i.e. "how average is 'average'?"
+- How far do variables deviate from the typical value?
+- If they do, measures of central tendency can be misleading.
+
+In a lot of applications, you can just visualize this or look for a table.
+
+- If you have continuous data, you can get a precise measure: the **standard deviation**.
+    - i.e. the square root of the sum of squared deviations for each observation from the mean.
+    - There is a standard deviation for dummy variables, but it's different: $\sqrt{p(1 - p)}$
+- For less precise data: just eye-ball it.
+    - You could ask for an inter-quartile range or MAD, but, again, eye-ball it.
+
+### How to Calculate a Standard Deviation
+
+```{r, echo=F}
+set.seed(8675309)
+x <- sample(c(22:49), 10, replace=TRUE)
+age <- x
+tibble(age = x,
+       mean = mean(x),
+
+              dvtn = age - mean,
+       sum_dvtn = sum(dvtn),
+       dvtn2 = dvtn^2,
+       sum_dvtn2 = sum(dvtn2),
+       variance = sum_dvtn2/9,
+       sd = sqrt(variance)) %>%
+  mutate_all(~round(.,3)) %>%
+  kbl(.,
+      caption = "Calculating the Mean and Standard Deviation of Ten People's Age",
+      align=c("ccccccc"),
+      linesep='', booktabs = TRUE, longtable = TRUE) %>%
+  row_spec(0, bold=TRUE) %>%
+  column_spec(8, color="red", bold=TRUE) %>%
+  kable_styling(font_size = 7)
+```
+
+Alternatively:
+
+\scriptsize
+
+```{r, echo=T}
+sd(x)
+```
+
+\normalsize
+
+# Conclusion
+### Conclusion
+
+Welcome to IRIII.2 (the dungeon mini-boss of our program).
+
+- All social science research is qualitative; some of it is quantitative.
+- Know your perspectives (i.e. you have them, do trust).
+- There's always slippage (ideally random) between concept and measure.
+- Know your variable types and what information they communicate.

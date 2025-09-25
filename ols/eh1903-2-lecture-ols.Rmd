@@ -1,0 +1,502 @@
+---
+output: 
+  stevetemplates::beamer:
+    latex_engine: xelatex # use xelatex here instead! I recommend it, but this is minimal reprex
+    dev: cairo_pdf # I typically comment this out  if latex_engine: pdflatex
+    slide_level: 3 # I prefer this, but I won't force it on you.
+    theme: metropolis
+title: "The Linear Model and OLS"
+subtitle: IRIII.2 -- Quantitative Methods in the Study of International Relations
+author: Steven V. Miller
+institute: Department of Economic History and International Relations
+titlegraphic: "`r paste0(Sys.getenv('HOME'), '/Koofr/su/su-logotyp.png')`"
+titlegraphshift: "\\vspace{6cm}"
+make149: true
+mainfont: "Open Sans Light"
+titlefont: "Titillium Web"
+fontsize: 10pt
+header-includes:
+- \usepackage{dcolumn}
+- \usepackage{booktabs}
+- \usepackage{longtable}
+- \usepackage{array}
+- \usepackage{multirow}
+- \usepackage{wrapfig}
+- \usepackage{float}
+- \usepackage{colortbl}
+- \usepackage{pdflscape}
+- \usepackage{tabu}
+- \usepackage{threeparttable}
+#- \usepackage{kotex}
+---
+
+```{r setup, include=FALSE, cache=F, message=F, warning=F, results="hide"}
+knitr::opts_chunk$set(cache=F, warning=F, message=F, echo = F)
+knitr::opts_chunk$set(fig.path='figs/',  fig.width=14, fig.height=8.5)
+knitr::opts_chunk$set(cache.path='cache/')
+knitr::opts_chunk$set(cache.path='cache/',
+                      collapse = TRUE, comment = "#>")
+
+knitr::opts_chunk$set(
+                  fig.process = function(x) {
+                      x2 = sub('-\\d+([.][a-z]+)$', '\\1', x)
+                      if (file.rename(x, x2)) x2 else x
+                      }
+                  )
+```
+
+```{r loaddata, echo=F, eval=T, message=F, warning=F}
+
+library(tidyverse)
+library(stevemisc)
+library(stevethemes)
+library(stevedata)
+library(stargazer)
+library(modelsummary)
+library(kableExtra)
+library(lmtest)
+library(patchwork)
+library(simqi)
+library(tinytable)
+library(qs2)
+library(ggcorrplot)
+
+options("modelsummary_format_numeric_latex" = "plain")
+options(knitr.kable.NA = '')
+
+rawData <- readRDS("~/Koofr/teaching/eh1903-ir3/2/data/tourism-example.rds")
+
+rawData %>%
+  log_at(c("itarriv", "gdppc", "airtranspc")) %>%
+  lag_at(c("relprice", "ln_gdppc", "pvest", "ln_airtranspc"), .by = iso2c) %>%
+  select(country:year, ln_itarriv, l1_ln_airtranspc, l1_relprice, l1_ln_gdppc, l1_pvest) %>%
+  group_by(iso2c) %>%
+  fill(ln_itarriv:ncol(.)) %>%
+  ungroup() %>%
+  filter(year == 2019) -> Data
+
+wb_groups %>%
+  filter(wbgn == "Caribbean small states") %>%
+  select(iso3c) %>%
+  mutate(carib = 1) %>%
+  left_join(Data, .) %>%
+  mutate(carib = ifelse(is.na(carib), 0, 1)) -> Data
+
+wb_groups %>%
+  filter(wbgn == "Fragile and conflict affected situations") %>%
+  select(iso3c) %>%
+  mutate(fcas = 1) %>%
+  left_join(Data, .) %>%
+  mutate(fcas = ifelse(is.na(fcas), 0, 1)) -> Data
+
+Data %>%
+  na.omit  %>% filter(iso2c != "ML") -> Data
+
+Data %>%
+  mutate(s_l1_relprice = r1sd(l1_relprice)) -> Data
+
+M0 <- lm(ln_itarriv ~ l1_relprice, subset(Data))
+M1 <- lm(ln_itarriv ~ l1_ln_airtranspc + l1_relprice + l1_ln_gdppc + l1_pvest, subset(Data))
+M2 <- lm(ln_itarriv ~ l1_ln_airtranspc + l1_relprice + l1_ln_gdppc + l1_pvest + fcas, subset(Data))
+
+
+set.seed(8675309)
+```
+
+# Introduction
+### Goal(s) for Today
+
+1. Inttroduce the basic intuition behind linear regression.
+2. Give an applied example and unpack it.
+
+### Elsewhere on My Blog
+
+![](mr-jim.png){ width=80% }
+
+### Elsewhere on My Blog
+
+![](log-log-log.png){ width=80% }
+
+# The Linear Model and OLS
+## Demystifying, with the Quickness
+### Correlation to Linear Regression
+
+Correlation has a lot of nice properties.
+
+- It's another "first step" analytical tool.
+- Useful for detecting **multicollinearity**.
+	- This is when two independent variables correlate so highly that no partial effect for either can be summarized.
+
+However, it's neutral on what is *x* and what is *y*.
+
+- It won't communicate cause and effect.
+
+Fortunately, regression does that for us.
+
+### Demystifying Regression
+
+Does this look familiar?
+
+$$
+y = mx + b
+$$
+
+### Demystifying Regression
+
+That was the slope-intercept equation.
+
+- *b* is the intercept: the observed *y* when *x* = 0.
+- *m* is the familiar "rise over run", measuring the amount of change in *y* for a unit change in *x*.
+
+### Demystifying Regression
+
+The slope-intercept equation is, in essence, the representation of a regression line.
+
+- However, statisticians prefer a different rendering of the same concept measuring linear change.
+
+$$
+y = a + b(x)
+$$
+
+The *b* is the **regression coefficient** that communicates the change in *y* for each unit change in *x*.
+
+- However, this is a deterministic function. We live in a stochastic world.
+
+
+### A Full Statement of the Regression Formula
+
+If you've followed that, we're just going to add two more things:
+
+
+$$
+\hat{y} = \hat{a} + \hat{b}(x) + e
+$$
+
+...where:
+
+- $\hat{y}$, $\hat{a}$ and $\hat{b}$ are estimates of *y*, *a*, and *b* over the data.
+- *e* is the error term.
+	- It contains random sampling error, prediction error, and predictors not included in the model.
+
+We can further extend this out by including more *x* variables into our equation.
+
+- Mechanically: there's a lot to unpack. Conceptually: not really (at this level).
+
+### Getting a Regression Coefficient
+
+How do we get a regression coefficient for more complicated data?
+
+- Start with the **prediction error**, formally: $y_i - \hat{y}$.
+- Square them. In other words: $(y_i - \hat{y})^2$
+	- If you didn't, the sum of prediction errors would equal zero.
+
+The regression coefficient that emerges minimizes the sum of squared differences ($(y_i - \hat{y})^2$).
+
+- Put another way: "ordinary least squares" (OLS) regression.
+
+
+<!-- ### Elsewhere on My Blog -->
+
+<!-- ![](interactions.png){ width=80% } -->
+
+## An Applied Example: The Correlates of Tourism
+### An Applied Example: The Correlates of Tourism
+
+![I'll be honest that a trip to the Canaries sounds mighty nice in February...](ci-hotel.jpg){ width=80% }
+
+### An Applied Example: The Correlates of Tourism
+
+Academic interest in the international relations/IPE of tourism may owe to H.P. Gray (1966) and is still pertinent.
+
+- Tourism as a form of "soft power" projection. 
+    - (i.e. you've seen the YouTube ads for Türkiye or Arsenal's "Visit Rwanda" patch)
+- Tourism-dependent countries have *a lot* of subtle risks.
+    - Behave like rentier states; economy is dependent on foreign receipts.
+    - Environmental sustainability concerns are paramount. 
+    - *Very* sensitive to massive shocks like the pandemic or political violence.
+
+Thus, tourism is a kind of barometer or measuring stick for important questions of development and peace.
+
+- *ed. notice how I'm upselling you on the value of doing this in the first place...*
+
+### A Simple Exercise
+
+I gathered data from the World Bank's repository for a simple cross-sectional exercise.
+
+- *DV*: number of arrivals for international tourism (logged)
+- *IVs*: conceptually (operationally)
+    - Ease of access/infrastructure for visitors (passengers carried by air transport, logged)
+    - Relative price to USD (price level ratio of PPP to market exchange rate)
+    - Economic development (GDP per capita, logged)
+    - Political security (political stability/absence of violence, terrorism)
+    - Dummy variables for "fragile/conflict affected states (FCAS)"
+    
+I use the same lag and group-by fill I describe in the blog post I reference earlier.
+
+- Referent year: 2019 (or shortly before it)
+
+
+### The Model(s)
+
+We'll run two linear models.
+
+1. Bivariate model with just relative price.
+2. Full model with all the other stuff.
+
+###
+
+```{r}
+Data %>%
+  #filter(iso2c != "ML") %>%
+  na.omit %>%
+  select(ln_itarriv:l1_pvest) %>%
+  setNames(., c("Logged Tourism Arrivals (DV)", 
+                "Logged Air Transport Pasengers",
+                "Relative Price",
+                "Logged GDP per Capita",
+                "Political Violence Est.")) %>%
+  gather(var, val) %>%
+  mutate(var = fct_inorder(var)) %>%
+  ggplot(.,aes(val)) + geom_histogram(fill = g_c("su_water"), color = 'black') +
+  theme_steve() +
+  facet_wrap(~var, scales = 'free') +
+  labs(title = "Faceted Histograms of the Important Variables",
+       x = "", y = "Count",
+       subtitle = "The price variable has relatively few countries that are pricier than the U.S. Some Oceania countries have few visitors and Syria was a conspicuously unsafe country at this time.",
+       caption = "Data: World Bank Data repository, through various other places.")
+```
+
+###
+
+```{r}
+Data %>%
+  #filter(iso2c != "ML") %>%
+  na.omit %>%
+  select(ln_itarriv:l1_pvest) %>%
+  setNames(., c("DV", 
+                "Logged Air Transport Pasengers",
+                "Relative Price",
+                "Logged GDP per Capita",
+                "Political Violence Est.")) %>%
+  gather(var, val, -DV) %>%
+  ggplot(.,aes(val, DV)) +
+  facet_wrap(~var, scales = "free") +
+  geom_point() + geom_smooth(method = 'lm') +
+  theme_steve() +
+    labs(title = "Faceted Scatterplots of Bivariate Relationships",
+       x = "Values of the Independent Variable(s)", 
+       y = "Values of the Logged International Tourism Arrivals",
+       subtitle = "All relationships are positive, which we would (mostly) expect. However, the relative price correlation is a bit surprising. In all cases, the line drawn is the OLS line for a simple bivariate model.",
+       caption = "Data: World Bank Data repository, through various other places.")
+  
+```
+
+
+###
+
+```{r}
+modelsummary(list("Bivariate" = M0, 
+                  "Full Model" = M2),
+             output = "kableExtra",
+             stars = TRUE,
+             title = "Cross-National Correlates of International Tourism Arrivals",
+             coef_map = c("l1_relprice" = "Relative Price",
+                          "l1_ln_airtranspc" = "Air Transport Passengers (Logged)",
+                          "l1_ln_gdppc" = "GDP per Capita (Logged)",
+                          "l1_pvest" = "Political Stability",
+                          "carib" = "Caribbean",
+                          "fcas" = "Fragile/Conflict-Affected State",
+                          "s_l1_relprice" = "Relative Price",
+                          "s_l1_relprice:carib" = "Relative Price*Caribbean",
+                          "(Intercept)" = "Intercept"),
+             gof_map = c("nobs", "r.squared", "adj.r.squared", "F")) %>%
+  row_spec(0, bold = TRUE) %>%
+  kable_styling(font_size = 6)
+```
+
+###
+
+![](dawson_crying.jpg){ width=80% }
+
+
+## How to Interpret Regression Output
+### How to Interpret a Regression Table Like This
+
+1. Find the variable(s) of interest.
+2. Look for direction (positive/negative)
+3. Look for "stars" (to determine statistical significance)
+
+###
+
+```{r}
+modelsummary(list("Bivariate" = M0, 
+                  "Full Model" = M2),
+             stars = TRUE,
+             output = 'kableExtra',
+             title = "Cross-National Correlates of International Tourism Arrivals",
+             coef_map = c("l1_relprice" = "Relative Price",
+                          "l1_ln_airtranspc" = "Air Transport Passengers (Logged)",
+                          "l1_ln_gdppc" = "GDP per Capita (Logged)",
+                          "l1_pvest" = "Political Stability",
+                          "carib" = "Caribbean",
+                          "fcas" = "Fragile/Conflict-Affected State",
+                          "s_l1_relprice" = "Relative Price",
+                          "s_l1_relprice:carib" = "Relative Price*Caribbean",
+                          "(Intercept)" = "Intercept"),
+             gof_map = c("nobs", "r.squared", "adj.r.squared", "F")) %>%
+  row_spec(0, bold = TRUE) %>%
+  kable_styling(font_size = 6) %>%
+  row_spec(c(3, 4, 5, 6), background="#00cc00", bold = TRUE, color = "#ffffff") %>%
+  row_spec(c(1,2,7:10), background="#cc0000", bold=TRUE, color = "#ffffff") %>%
+  column_spec(2, background = "#00cc00") %>%
+  row_spec(c(3, 4, 5, 6), background="#00cc00", bold = TRUE, color = "#ffffff") %>%
+  row_spec(c(7:10), background="#cc0000", bold=TRUE, color = "#ffffff") %>%
+  row_spec(c(11:16), background = "#ffffff") %>%
+  column_spec(1, background = "#ffffff", bold = FALSE, color = "#000000")
+```
+
+### Being More Careful with Our Takeaways
+
+"Number goes (up/down); other number goes (up/down); has (no) stars" is fine when you're getting started.
+
+- But let's do more.
+
+We need to be smart with how we communicate this.
+
+- Our DV is log-transformed and so are a few of our IVs.
+
+Our plan of attack:
+
+1. Start with the two variables that are log-transformed.
+2. Talk about the variables that aren't log-transformed.
+
+
+### The DV and IV are Both Log-Transformed
+
+ *Air transport passengers*: a 1% increase in IV coincides with estimated .283% increase in DV.
+ 
+ - Alternatively, less helpfully: a unit increase log(x) increases log(y) by an estimated .311.
+ 
+ *GDP per capita*: a 1% change in GDP per capita -> .763% change in tourism arrivals.
+ 
+ - Alternatively, with more precision: `(1.01^(.763)-1)*100` = .762% change in tourism arrivals for 1% increase in GDP per capita.
+ 
+**Be mindful of the percentages!**
+ 
+ - "one percent change in *x* -> estimated (regression coefficient)% change in *y*"
+ 
+### The DV is Log-Transformed, but the IVs are Not
+
+*Relative price* (Full): a change from 0 to 1 in relative price -> est. -1.56% decrease in tourism arrivals.
+
+- Be mindful: 0 = conceptual extreme; 1 = same price level as the U.S.
+    
+*Political stability*: a change from 0 to 1 in political stability -> -.631% change in tourism arrivals.
+
+- Alternatively: `exp(-.631)` = .532. A one-unit change in stability multiplies expected tourism arrivals by .532.
+- This interpretation works the same way for relative price because it's not log-transformed.
+
+*FCAS*: Being a FCAS (e.g. Sudan) versus not being one (e.g. Sweden) decreases est. international tourism arrivals by est. 1.36%.
+
+\bigskip
+
+**Here: unit changes in x -> (regression coefficient)% changes in y**
+
+## The Intercept and Goodness of Fit Notes
+### Dont' Read Much into the Intercept
+
+Don't both interpreting the intercept.
+
+- Nominally, it tells you the estimated value of *y* when *everything* covariate is set to 0.
+- In our case: a country has no air passengers, is *infinitely* cheaper than the U.S., has no logged GDP per capita, has basically a middle level of political security and is not a FCAS.
+
+There are advanced things you can do here, but don't bother at this stage.
+
+- Just know what this is ultimately communicating.
+
+### The Goodness of Fit Statistics
+
+**R-square**: proportion of variation in *y* accounted for in the model.
+
+- In the bivariate model, it's quite literally Pearson's *r*, squared.
+
+**Adj. R-square**: Includes a downweight for more (redundant) parameters.
+
+- Consider this the "default" R-square for your linear model.
+- The more junk you have in the model, the greater the separation between it and R-square.
+
+**F**: "overall model fit" against guessing the mean.
+
+- I'm including this because it's in the output. You're free to ignore it.
+
+## Assumptions and Diagnostics
+### Assumptions and Diagnostics
+
+There are *myriad* assumptions of OLS. The ones we impress on you:
+
+- `L`: the outcome *y* model is a "l"inear (and additive) function of the regressors.
+- `I`: the error term is "i"ndependent/not correlated across observations.
+- `N`: the error term is "n"ormally distributed.
+- `E`: the error term has "e"qual/constant variance (i.e. no heteroskedasticity).
+
+Let me bore you with `L` and `N` at this round. 
+
+- Save `E` for me tormenting you in the C-paper stage.
+- `I` will matter a great deal for more advanced uses (i.e. MA-level).
+
+### Diagnostics You Should Run
+
+1. Fitted-residual plot (overall, and/or by regressor)
+    - This is the most "bang for your buck" OLS diagnostic. You should always run it.
+2. Residual density plot (or QQ plot)
+    - Useful for the `N` part, for as unimportant as that assumption mostly is.
+
+
+
+###
+
+```{r}
+broom::augment(M2) %>%
+  ggplot(.,aes(.fitted, .resid)) +
+  geom_point() +
+  theme_steve() +
+  geom_hline(yintercept = 0) +
+  geom_smooth(method = "loess") +
+  labs(x = "Fitted Values", y = "Residuals",
+       title = "A Fitted-Residual Plot of Our Full Model",
+       subtitle = "The linear line is flat at 0 by definition. Ideally a LOESS smoother agrees with it, but does not here. I don't see a heteroskedasticity concern, fwiw.")
+```
+
+###
+
+```{r}
+linloess_plot(M2, pch = 21) +
+  theme_steve() +
+  labs(x = "Values of the IVs", y = "Residuals",
+       title = "A Fitted-Residual Plot Won't Tell You Where Non-Linearity Is; This Plot Can Help",
+       subtitle = "At most, I see some issues in the air passengers variable. Tail observations will do what they do.")
+```
+
+###
+
+```{r}
+rd_plot(M2) +
+  theme_steve() +
+  labs(title = "A Residual Density Plot Can Assess Whether Your Residuals Approximate a Normal Distribution",
+       subtitle = "In practice, this is the least important of OLS' major assumptions. It doesn't hurt to look, though.",
+       x = "Distribution of Residuals", y = "Density")
+```
+
+
+# Conclusion
+### Conclusion
+
+There's *a lot* I crammed into this lecture, but:
+
+- If you remember the slope-intercept equation, the intuition behind linear regression isn't much.
+- OLS gives you the line of best fit that minimized squared prediction errors.
+- You gotta get comfortable interpreting regression output.
+- Logarithmic transformations proportionalize changes on their raw scale.
+    - This might take some getting used-to, but you should know it.
+    - I'll extend grace as you get started, but do wrestle with it. Economists definitely do.
+- Some parts/assumptions of the linear model are more important than others.
