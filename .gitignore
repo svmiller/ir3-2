@@ -9,3 +9,5 @@ _dross
 .jekyll-cache
 *.rdx
 *.rdb
+*.RData
+cache/
