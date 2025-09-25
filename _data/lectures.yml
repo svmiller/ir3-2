@@ -8,7 +8,7 @@
   dirname: univariate-analysis
   tldr: "An introduction to the course, a rudimentary statement of basic research design, an emphasis our concept-laden qualitative world, the ways we can measure it and describe what we see. Is that all? Yeah, actually. Yeah. That's all for this lecture."
 
-- title: "Descriptive Statistics"
+- title: "Bivariate Analysis"
   filename: bivariate-analysis
   dirname: bivariate-analysis
   tldr: "There are multiple ways you can bivariate comparisons/associations. This lecture mentions a lot of them, but privileges chi-square tests, Pearson's r, and the t-test."
