@@ -6,12 +6,12 @@
 - title: "Univariate Analysis"
   filename: univariate-analysis
   dirname: univariate-analysis
-  tldr: "An introduction to the course, a rudimentary statement of basic research design, an emphasis our concept-laden qualitative world, the ways we can measure it and describe what we see. Is that all? Yeah, actually. Yeah. That's all for this lecture."
+  tldr: "An introduction to the course, a rudimentary statement of basic research design, an emphasis our concept-laden qualitative world, and the ways we can measure it and describe what we see. Is that all? Yeah, actually. Yeah. That's all for this lecture."
 
 - title: "Bivariate Analysis"
   filename: bivariate-analysis
   dirname: bivariate-analysis
-  tldr: "There are multiple ways you can bivariate comparisons/associations. This lecture mentions a lot of them, but privileges chi-square tests, Pearson's r, and the t-test."
+  tldr: "There are multiple ways you can make bivariate comparisons/associations. This lecture mentions a lot of them, but privileges chi-square tests, Pearson's r, and the t-test."
 
 - title: "The Linear Model and OLS"
   filename: ols
