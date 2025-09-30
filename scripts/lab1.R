@@ -254,8 +254,7 @@ ncol(Data)
 #' 
 #' I want to spend most of our time in this lab session teaching you some basic 
 #' commands you should know to do basically anything in R. These are so-called 
-#' "tidy" verbs. We'll be using this Apply data that we just loaded from the 
-#' internet.
+#' "tidy" verbs. We'll be using the data that we just loaded from the internet.
 
 
 #' I want to dedicate the bulk of this section to learning some core functions 
@@ -364,7 +363,7 @@ Data %>%
 #' first observation in the data set.
 
 Data %>%
-  # Get me the first observation for each values of the apply variable
+  # Get me the first observation for each values of the Warsaw Pact variable
   slice(1) # womp womp. Forgot to use the .by argument
 
 #' I think `slice()` is a hidden gem and offer it the way I often use it (mostly
@@ -387,12 +386,12 @@ Data %>%
   # How many observations are in the data?
   summarize(n = n())
 
-# How many observations are there by levels of the apply variable?
+# How many observations are there by levels of the Warsaw Pact variable?
 
 Data %>%
   summarize(n = n(), .by=wp)
 
-#' What you did, indirectly here, was find the mode of the apply variable. This 
+#' What you did, indirectly here, was find the mode of the Warsaw Pact variable. This 
 #' is the most frequently occurring value in a variable, which is really only of 
 #' interest to unordered-categorical or ordered-categorical variables. 
 #' Statisticians really don't care about the mode, and it's why there is no real 

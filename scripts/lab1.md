@@ -124,7 +124,7 @@ location of this script.
 
 ``` r
 getwd()
-#> [1] "/home/steve/Dropbox/teaching/eh1903-ir3/2/scripts"
+#> [1] "/home/steve/Koofr/teaching/eh1903-ir3/2/scripts"
 ```
 
 Of note: by default, R’s working directory is the system’s “home”
@@ -308,13 +308,13 @@ ncol(Data)
 
 I want to spend most of our time in this lab session teaching you some
 basic commands you should know to do basically anything in R. These are
-so-called “tidy” verbs. We’ll be using this Apply data that we just
-loaded from the internet. I want to dedicate the bulk of this section to
-learning some core functions that are part of the `{tidyverse}`. My
-introduction here will inevitably be incomplete because there’s only so
-much I can teach within the limited time I have. That said, I’m going to
-focus on the following functions available in the `{tidyverse}` that
-totally rethink base R. These are the “pipe” (`%>%`), `glimpse()` and
+so-called “tidy” verbs. We’ll be using the data that we just loaded from
+the internet. I want to dedicate the bulk of this section to learning
+some core functions that are part of the `{tidyverse}`. My introduction
+here will inevitably be incomplete because there’s only so much I can
+teach within the limited time I have. That said, I’m going to focus on
+the following functions available in the `{tidyverse}` that totally
+rethink base R. These are the “pipe” (`%>%`), `glimpse()` and
 `summary()`, `select()`, `summarize()`, `mutate()`, and `filter()`. Most
 of these—certainly the important ones—have a `.by` argument that will
 also get special attention.
@@ -520,7 +520,7 @@ the first observation in the data set.
 
 ``` r
 Data %>%
-  # Get me the first observation for each values of the apply variable
+  # Get me the first observation for each values of the Warsaw Pact variable
   slice(1) # womp womp. Forgot to use the .by argument
 #> # A tibble: 1 × 12
 #>   country iso2c iso3c  year    wp  gini fdipgdp exppgdp  reer taxrevpgdp     gdp
@@ -565,7 +565,7 @@ Data %>%
 #>   <int>
 #> 1    28
 
-# How many observations are there by levels of the apply variable?
+# How many observations are there by levels of the Warsaw Pact variable?
 
 Data %>%
   summarize(n = n(), .by=wp)
@@ -576,15 +576,15 @@ Data %>%
 #> 2     1     9
 ```
 
-What you did, indirectly here, was find the mode of the apply variable.
-This is the most frequently occurring value in a variable, which is
-really only of interest to unordered-categorical or ordered-categorical
-variables. Statisticians really don’t care about the mode, and it’s why
-there is no real built-in function in base R that says “Here’s the
-mode.” You have to get it indirectly. More importantly, `summarize()`
-works wonderfully with the `.by` argument. For example, for each country
-in the EU, by their former Warsaw Pact status, let’s identify the
-average GINI and the average exports as a % of GDP.
+What you did, indirectly here, was find the mode of the Warsaw Pact
+variable. This is the most frequently occurring value in a variable,
+which is really only of interest to unordered-categorical or
+ordered-categorical variables. Statisticians really don’t care about the
+mode, and it’s why there is no real built-in function in base R that
+says “Here’s the mode.” You have to get it indirectly. More importantly,
+`summarize()` works wonderfully with the `.by` argument. For example,
+for each country in the EU, by their former Warsaw Pact status, let’s
+identify the average GINI and the average exports as a % of GDP.
 
 ``` r
 Data %>%
