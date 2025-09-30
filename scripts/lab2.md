@@ -45,7 +45,7 @@ library(tidyverse)
 #> ✔ forcats   1.0.0     ✔ stringr   1.5.0
 #> ✔ ggplot2   3.5.1     ✔ tibble    3.2.1
 #> ✔ lubridate 1.9.2     ✔ tidyr     1.3.0
-#> ✔ purrr     1.0.2     
+#> ✔ purrr     1.0.1     
 #> ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 #> ✖ dplyr::filter() masks stats::filter()
 #> ✖ dplyr::lag()    masks stats::lag()
@@ -65,18 +65,18 @@ tibble(x = rnorm(100),
 
 Example
 #> # A tibble: 100 × 2
-#>          x       y
-#>      <dbl>   <dbl>
-#>  1 -0.146  -0.474 
-#>  2  0.306   0.881 
-#>  3 -1.50   -1.25  
-#>  4  0.608  -0.322 
-#>  5  0.658   0.436 
-#>  6 -1.52   -1.00  
-#>  7 -0.149  -0.0338
-#>  8 -0.742  -0.257 
-#>  9 -0.0130  0.687 
-#> 10  0.0823  1.86  
+#>         x      y
+#>     <dbl>  <dbl>
+#>  1  0.218  0.793
+#>  2 -0.614 -0.639
+#>  3 -0.879 -1.14 
+#>  4  0.266 -0.340
+#>  5  1.18   1.30 
+#>  6  0.600 -0.872
+#>  7  0.709  1.38 
+#>  8  1.10   0.515
+#>  9 -0.302  0.116
+#> 10  0.349 -0.909
 #> # ℹ 90 more rows
 ```
 
@@ -586,7 +586,7 @@ going to have different working directories here.
 
 ``` r
 getwd()
-#> [1] "/home/steve/Dropbox/teaching/eh1903-ir3/2/scripts"
+#> [1] "/home/steve/Koofr/teaching/eh1903-ir3/2/scripts"
 
 saveRDS(Data, "my-toy-data-set.rds")
 ```
