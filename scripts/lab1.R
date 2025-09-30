@@ -404,8 +404,8 @@ Data %>%
 
 Data %>%
   # Give me the average GINI and Exports/GDP by each value of `wp`
-  summarize(mean_gini = mean(gini, na.rm = TRUE),
-            mean_exppgdp = median(exppgdp, na.rm = TRUE),
+  summarize(avggini = mean(gini, na.rm = TRUE),
+            avgexppgdp = median(exppgdp, na.rm = TRUE),
             .by = wp)
 
 #' This summary tells you that European Union states generally have the same 
@@ -454,6 +454,21 @@ Data %>%
          southeurope = ifelse(iso2c %in% c("GR", "IT", "PT", "ES"), 1, 0)) -> Data
 
 Data
+
+#' Now, let's combine it with `summarize()` to learn a bit more about the differences
+#' between Southern Europe and the rest of the European Union in terms of their
+#' average level of wealth, their average tax revenues as a percentage of GDP, 
+#' and their average levels of net FDI inflows as a percentage of GDP.
+
+Data %>% summarize(avggdppc = mean(gdppc), 
+                   avgtaxrevpgdp = mean(taxrevpgdp),
+                   avgfdipgdp = mean(fdipgdp), .by=southeurope)
+
+#' The data suggest that the four Southern European countries are generally
+#' poorer than the rest of the European Union and there are generally more net
+#' FDI inflows coming into the rest of the European Union (as % of GDP) than 
+#' there are coming into Southern Europe. However, there doesn't seem to be a
+#' difference at all in reliance on tax intake relative to its economic size.
 
 #' #### `filter()`
 #' 

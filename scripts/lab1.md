@@ -589,14 +589,14 @@ identify the average GINI and the average exports as a % of GDP.
 ``` r
 Data %>%
   # Give me the average GINI and Exports/GDP by each value of `wp`
-  summarize(mean_gini = mean(gini, na.rm = TRUE),
-            mean_exppgdp = median(exppgdp, na.rm = TRUE),
+  summarize(avggini = mean(gini, na.rm = TRUE),
+            avgexppgdp = median(exppgdp, na.rm = TRUE),
             .by = wp)
 #> # A tibble: 2 × 3
-#>      wp mean_gini mean_exppgdp
-#>   <dbl>     <dbl>        <dbl>
-#> 1     0      30.7         50.5
-#> 2     1      31.4         72.0
+#>      wp avggini avgexppgdp
+#>   <dbl>   <dbl>      <dbl>
+#> 1     0    30.7       50.5
+#> 2     1    31.4       72.0
 ```
 
 This summary tells you that European Union states generally have the
@@ -691,7 +691,29 @@ Data
 #> # ℹ 4 more variables: gdp <dbl>, pop <dbl>, gdppc <dbl>, southeurope <dbl>
 ```
 
-#### `filter()`
+Now, let’s combine it with `summarize()` to learn a bit more about the
+differences between Southern Europe and the rest of the European Union
+in terms of their average level of wealth, their average tax revenues as
+a percentage of GDP, and their average levels of net FDI inflows as a
+percentage of GDP.
+
+``` r
+Data %>% summarize(avggdppc = mean(gdppc), 
+                   avgtaxrevpgdp = mean(taxrevpgdp),
+                   avgfdipgdp = mean(fdipgdp), .by=southeurope)
+#> # A tibble: 2 × 4
+#>   southeurope avggdppc avgtaxrevpgdp avgfdipgdp
+#>         <dbl>    <dbl>         <dbl>      <dbl>
+#> 1           0   34965.          21.6      31.7 
+#> 2           1   25314.          21.6       2.66
+```
+
+The data suggest that the four Southern European countries are generally
+poorer than the rest of the European Union and there are generally more
+net FDI inflows coming into the rest of the European Union (as % of GDP)
+than there are coming into Southern Europe. However, there doesn’t seem
+to be a difference at all in reliance on tax intake relative to its
+economic size. \#### `filter()`
 
 `filter()` is a great diagnostic tool for subsetting your data to look
 at particular observations. Notice one little thing, especially if
