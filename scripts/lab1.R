@@ -226,16 +226,18 @@ Data <- haven::read_dta("http://svmiller.com/extdata/eu2019.dta")
 #' The `wp` variable communicates whether the European Union state was in the
 #' Warsaw Pact or not. Former republics of the Soviet Union (e.g. Estonia) and
 #' Poland, for example, would both be 1s. France and the United Kingdom would 
-#' both be 0.
-
-
+#' both be 0.[^de]
+#' 
+#' [^de]: Germany is in the not-Warsaw Pact group by my discretion. It's not
+#' important for the sake of this exercise but I'll tell you that I did this.
+#' 
 #' Because we loaded these data and assigned it to an object, we can ask for it
 #' using default methods available in R and look at what we just loaded.
 
 Data
 
 #' The "tibble" output tells us something about our data. We can observe that
-#' there are 28 observations (or rows, if you will) and that there are 11
+#' there are 28 observations (or rows, if you will) and that there are 12
 #' columns in the data.
 #' 
 #' There are other ways to find the dimension of the data set (i.e. rows and 
@@ -250,7 +252,7 @@ dim(Data)
 nrow(Data)
 ncol(Data)
 
-#' ### Learn Some Important R/"Tidy" Functions
+#' ## Learn Some Important R/"Tidy" Functions
 #' 
 #' I want to spend most of our time in this lab session teaching you some basic 
 #' commands you should know to do basically anything in R. These are so-called 
@@ -266,7 +268,7 @@ ncol(Data)
 #' `mutate()`, and `filter()`. Most of these---certainly the important ones---have
 #' a `.by` argument that will also get special attention.
 #' 
-#' #### The Pipe (`%>%`)
+#' ### The Pipe (`%>%`)
 #' 
 #' I want to start with the pipe because I think of it as the most 
 #' important function in the `{tidyverse}`. The pipe---represented as `%>%`---allows 
@@ -282,7 +284,7 @@ ncol(Data)
 #' commands with pipes, but we'll keep our introduction here rather minimal 
 #' because I want to use it to teach about some other things.
 #' 
-#' #### `glimpse()` and `summary()`
+#' ### `glimpse()` and `summary()`
 #' 
 #' `glimpse()` and `summary()` will get you basic descriptions of your data. 
 #' Personally, I find `summary()` more informative than `glimpse()` though
@@ -307,7 +309,7 @@ Data %>% summary()
 #' tells you about 32.14% of the European Union in 2019 was previously in the
 #' Warsaw Pact.
 #' 
-#' #### `select()`
+#' ### `select()`
 #' 
 #' `select()` is useful for basic (but important) data management. You can use it 
 #' to grab  (or omit) columns from data. For example, let's say I wanted to grab 
@@ -331,7 +333,7 @@ Data %>% select(-iso2c) # grab everything, but drop the public variable.
 Data %>% select(country:gini) # grab country, gini, and everything in between it.
 
 
-#' #### Grouped functions using `.by` arguments
+#' ### Grouped functions using `.by` arguments
 #' 
 #' I think the pipe is probably the most important function in the `{tidyverse}` 
 #' even as a critical reader might note that the pipe is 1) a port from another 
@@ -422,7 +424,7 @@ Data %>%
 #' of the `wp` variable. Thus, we didn't get anything else. Use it with that in
 #' mind.
 #' 
-#' #### `mutate()`
+#' ### `mutate()`
 #' 
 #' `mutate()` is probably the most important `{tidyverse}` function for data 
 #' management/recoding. It will allow you to create new columns while retaining 
@@ -469,8 +471,8 @@ Data %>% summarize(avggdppc = mean(gdppc),
 #' FDI inflows coming into the rest of the European Union (as % of GDP) than 
 #' there are coming into Southern Europe. However, there doesn't seem to be a
 #' difference at all in reliance on tax intake relative to its economic size.
-
-#' #### `filter()`
+#' 
+#' ### `filter()`
 #' 
 #' `filter()` is a great diagnostic tool for subsetting your data to look at 
 #' particular observations. Notice one little thing, especially if you're new to 
@@ -493,6 +495,5 @@ Data %>%
 #' of doing what the `slice(which())` example did above.
 
 #' We can also see all the states that were previously in the Warsaw Pact.
-
 
 Data %>% filter(wp == 1)

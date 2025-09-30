@@ -104,9 +104,8 @@ Data %>%
   # na.omit %>%
   datasummary_skim(title = "Summary Statistics of the Data Used in this Analysis",
                    align = c("lcccccccc"),
-                   histogram = TRUE,
-                  # output = "tinytable",
-                   notes = "You can put a footnote here.") 
+                   # output = "tinytable",
+                   histogram = TRUE) 
 
 #' Be mindful that the data I supplied here are *all* numeric and the data
 #' has *only* what I want to summarize. This will try to (want to) summarize
@@ -135,8 +134,7 @@ Data %>%
   # na.omit %>%
   datasummary_skim(title = "Summary Statistics of the Data Used in this Analysis",
                    align = c("lccccccc"),
-                   histogram = F,
-                   notes = "You can put a footnote here.") 
+                   histogram = F) 
 
 #' Looks nice, right? Let's copy-paste it into a Word document. Some cosmetic
 #' things you'll have to do yourself (e.g. potential centering and what-not). All

@@ -257,9 +257,11 @@ percentage of GDP (`taxrevpgdp`), GDP in constant 2015 USD (`gdp`), and
 population size (`pop`). The `wp` variable communicates whether the
 European Union state was in the Warsaw Pact or not. Former republics of
 the Soviet Union (e.g. Estonia) and Poland, for example, would both be
-1s. France and the United Kingdom would both be 0. Because we loaded
-these data and assigned it to an object, we can ask for it using default
-methods available in R and look at what we just loaded.
+1s. France and the United Kingdom would both be 0.[^1]
+
+Because we loaded these data and assigned it to an object, we can ask
+for it using default methods available in R and look at what we just
+loaded.
 
 ``` r
 Data
@@ -282,7 +284,7 @@ Data
 
 The “tibble” output tells us something about our data. We can observe
 that there are 28 observations (or rows, if you will) and that there are
-11 columns in the data.
+12 columns in the data.
 
 There are other ways to find the dimension of the data set (i.e. rows
 and columns). For example, you can ask for the dimensions of the object
@@ -304,7 +306,7 @@ ncol(Data)
 #> [1] 12
 ```
 
-### Learn Some Important R/“Tidy” Functions
+## Learn Some Important R/“Tidy” Functions
 
 I want to spend most of our time in this lab session teaching you some
 basic commands you should know to do basically anything in R. These are
@@ -319,7 +321,7 @@ rethink base R. These are the “pipe” (`%>%`), `glimpse()` and
 of these—certainly the important ones—have a `.by` argument that will
 also get special attention.
 
-#### The Pipe (`%>%`)
+### The Pipe (`%>%`)
 
 I want to start with the pipe because I think of it as the most
 important function in the `{tidyverse}`. The pipe—represented as
@@ -336,7 +338,7 @@ lot* of `{tidyverse}` commands with pipes, but we’ll keep our
 introduction here rather minimal because I want to use it to teach about
 some other things.
 
-#### `glimpse()` and `summary()`
+### `glimpse()` and `summary()`
 
 `glimpse()` and `summary()` will get you basic descriptions of your
 data. Personally, I find `summary()` more informative than `glimpse()`
@@ -402,7 +404,7 @@ Here, the median is 0 (which tells you most European states weren’t
 previously in the Warsaw Pact) but the mean tells you about 32.14% of
 the European Union in 2019 was previously in the Warsaw Pact.
 
-#### `select()`
+### `select()`
 
 `select()` is useful for basic (but important) data management. You can
 use it to grab (or omit) columns from data. For example, let’s say I
@@ -477,7 +479,7 @@ Data %>% select(country:gini) # grab country, gini, and everything in between it
 #> # ℹ 18 more rows
 ```
 
-#### Grouped functions using `.by` arguments
+### Grouped functions using `.by` arguments
 
 I think the pipe is probably the most important function in the
 `{tidyverse}` even as a critical reader might note that the pipe is 1) a
@@ -612,7 +614,7 @@ case above, notice we didn’t ask for anything else about the data, other
 than the average GINI and exports/GDP by each value of the `wp`
 variable. Thus, we didn’t get anything else. Use it with that in mind.
 
-#### `mutate()`
+### `mutate()`
 
 `mutate()` is probably the most important `{tidyverse}` function for
 data management/recoding. It will allow you to create new columns while
@@ -713,7 +715,9 @@ poorer than the rest of the European Union and there are generally more
 net FDI inflows coming into the rest of the European Union (as % of GDP)
 than there are coming into Southern Europe. However, there doesn’t seem
 to be a difference at all in reliance on tax intake relative to its
-economic size. \#### `filter()`
+economic size.
+
+### `filter()`
 
 `filter()` is a great diagnostic tool for subsetting your data to look
 at particular observations. Notice one little thing, especially if
@@ -760,3 +764,7 @@ Data %>% filter(wp == 1)
 #> 9 Slovak… SK    SVK    2019     1  23.2    2.15    91.8 101.        18.8 9.95e10
 #> # ℹ 3 more variables: pop <dbl>, gdppc <dbl>, southeurope <dbl>
 ```
+
+[^1]: Germany is in the not-Warsaw Pact group by my discretion. It’s not
+    important for the sake of this exercise but I’ll tell you that I did
+    this.
