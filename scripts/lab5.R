@@ -47,7 +47,7 @@ options("modelsummary_factory_default" = "kableExtra")
 #' 
 #' ## Load the data 
 
-WVS <- readRDS("~/Dropbox/teaching/eh1903-ir3/2/data/wv6-sweden-v20201117.rds")
+WVS <- readRDS("~/Koofr/teaching/eh1903-ir3/2/data/wvs-swe-6/wv6-sweden-v20201117.rds")
 #' ^ Note: you have access to this, but I won't know where you put it on your
 #' hard drive. You need to download it and load it.
 #' 
@@ -120,8 +120,12 @@ Data %>%
 #' Now, we're going to do a few things. First, we're going to "uncomment"
 #' that `setNames()` comment, which is going to quickly rename our variables
 #' to be something that would be insane for an analysis but easy for formatting
-#' a table. Next, we're going to disable that (`histogram = FALSE`) and knock off
-#' a "c" from the align argument.
+#' a table. It is apparently now a feature of `{modelsummary}` that it can scrape
+#' variable labels if they're present in the data (as they often are for data
+#' in the Stata format). However, you should not rely on this being the case (and
+#' it isn't for the one variable we had to create ourselves). Next, we're going 
+#' to disable that (`histogram = FALSE`) and knock off a "c" from the align 
+#' argument.
 
 
 Data %>% 

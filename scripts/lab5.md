@@ -31,7 +31,7 @@ library(tidyverse)
 #> ✔ forcats   1.0.0     ✔ stringr   1.5.0
 #> ✔ ggplot2   3.5.1     ✔ tibble    3.2.1
 #> ✔ lubridate 1.9.2     ✔ tidyr     1.3.0
-#> ✔ purrr     1.0.2     
+#> ✔ purrr     1.0.1     
 #> ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 #> ✖ dplyr::filter() masks stats::filter()
 #> ✖ dplyr::lag()    masks stats::lag()
@@ -55,7 +55,7 @@ copy-pasting from RStudio into Word.
 ## Load the data
 
 ``` r
-WVS <- readRDS("~/Dropbox/teaching/eh1903-ir3/2/data/wv6-sweden-v20201117.rds")
+WVS <- readRDS("~/Koofr/teaching/eh1903-ir3/2/data/wvs-swe-6/wv6-sweden-v20201117.rds")
 ```
 
 ^ Note: you have access to this, but I won’t know where you put it on
@@ -188,15 +188,15 @@ Data %>%
                    notes = "You can put a footnote here.") 
 ```
 
-|         | Unique | Missing Pct. | Mean | SD   | Min  | Median | Max  | Histogram                                                             |
-|---------|--------|--------------|------|------|------|--------|------|-----------------------------------------------------------------------|
-| impdem  | 11     | 1            | 9.3  | 1.5  | 1.0  | 10.0   | 10.0 | <img src="tinytable_assets/idwhu8253say8qriwm1ymj.png" height="16" /> |
-| justdiv | 11     | 3            | 8.4  | 2.3  | 1.0  | 10.0   | 10.0 | <img src="tinytable_assets/idmyb0hom83zn2b9c4js2x.png" height="16" /> |
-| age     | 68     | 0            | 47.3 | 19.4 | 18.0 | 47.0   | 85.0 | <img src="tinytable_assets/idfuxgmpdurgvxz0of1za7.png" height="16" /> |
-| sex     | 2      | 0            | 0.5  | 0.5  | 0.0  | 1.0    | 1.0  | <img src="tinytable_assets/idi02jfp4wna9tfhpsb6ra.png" height="16" /> |
-| inc     | 11     | 3            | 5.4  | 1.8  | 1.0  | 5.0    | 10.0 | <img src="tinytable_assets/id6sx7nbl9gk189i1jhmtp.png" height="16" /> |
-| pray    | 9      | 1            | 6.4  | 2.3  | 1.0  | 8.0    | 8.0  | <img src="tinytable_assets/idouiokow6o94s1flhqid9.png" height="16" /> |
-| educ    | 54     | 2            | 24.1 | 8.3  | 5.0  | 22.0   | 83.0 | <img src="tinytable_assets/idbg4uqdycz0o574jhg3vf.png" height="16" /> |
+|  | Unique | Missing Pct. | Mean | SD | Min | Median | Max | Histogram |
+|----|----|----|----|----|----|----|----|----|
+| Importance of democracy | 11 | 1 | 9.3 | 1.5 | 1.0 | 10.0 | 10.0 | <img src="tinytable_assets/idxr45rbl950x2lo9x8un7.png" height="16" /> |
+| Justifiable: Divorce | 11 | 3 | 8.4 | 2.3 | 1.0 | 10.0 | 10.0 | <img src="tinytable_assets/idvo2fh7ev9n5lfvz68vib.png" height="16" /> |
+| Age | 68 | 0 | 47.3 | 19.4 | 18.0 | 47.0 | 85.0 | <img src="tinytable_assets/idfozl5vwwrb7osy9ohev9.png" height="16" /> |
+| sex | 2 | 0 | 0.5 | 0.5 | 0.0 | 1.0 | 1.0 | <img src="tinytable_assets/idh77oygrozi1e052ulab1.png" height="16" /> |
+| Scale of incomes | 11 | 3 | 5.4 | 1.8 | 1.0 | 5.0 | 10.0 | <img src="tinytable_assets/id969etfvzv3t4v6pqa3oj.png" height="16" /> |
+| How often to you pray | 9 | 1 | 6.4 | 2.3 | 1.0 | 8.0 | 8.0 | <img src="tinytable_assets/id3mlalhjttrnxzhzgxlx7.png" height="16" /> |
+| What age did you complete your education | 54 | 2 | 24.1 | 8.3 | 5.0 | 22.0 | 83.0 | <img src="tinytable_assets/idkm2kvfnpz54ninft0jzl.png" height="16" /> |
 
 Be mindful that the data I supplied here are *all* numeric and the data
 has *only* what I want to summarize. This will try to (want to)
@@ -226,15 +226,15 @@ Data %>%
 #> Warning: The `histogram` argument is deprecated. Use `fun_numeric` instead.
 ```
 
-|                         | Unique | Missing Pct. | Mean | SD   | Min  | Median | Max  |
-|-------------------------|--------|--------------|------|------|------|--------|------|
-| Imp. Dem.               | 11     | 1            | 9.3  | 1.5  | 1.0  | 10.0   | 10.0 |
-| Justif. Divorce         | 11     | 3            | 8.4  | 2.3  | 1.0  | 10.0   | 10.0 |
-| Age                     | 68     | 0            | 47.3 | 19.4 | 18.0 | 47.0   | 85.0 |
-| Female                  | 2      | 0            | 0.5  | 0.5  | 0.0  | 1.0    | 1.0  |
-| Income                  | 11     | 3            | 5.4  | 1.8  | 1.0  | 5.0    | 10.0 |
-| Prayer Frequency        | 9      | 1            | 6.4  | 2.3  | 1.0  | 8.0    | 8.0  |
-| Age at End of Schooling | 54     | 2            | 24.1 | 8.3  | 5.0  | 22.0   | 83.0 |
+|  | Unique | Missing Pct. | Mean | SD | Min | Median | Max |
+|----|----|----|----|----|----|----|----|
+| Importance of democracy | 11 | 1 | 9.3 | 1.5 | 1.0 | 10.0 | 10.0 |
+| Justifiable: Divorce | 11 | 3 | 8.4 | 2.3 | 1.0 | 10.0 | 10.0 |
+| Age | 68 | 0 | 47.3 | 19.4 | 18.0 | 47.0 | 85.0 |
+| Female | 2 | 0 | 0.5 | 0.5 | 0.0 | 1.0 | 1.0 |
+| Scale of incomes | 11 | 3 | 5.4 | 1.8 | 1.0 | 5.0 | 10.0 |
+| How often to you pray | 9 | 1 | 6.4 | 2.3 | 1.0 | 8.0 | 8.0 |
+| What age did you complete your education | 54 | 2 | 24.1 | 8.3 | 5.0 | 22.0 | 83.0 |
 
 Looks nice, right? Let’s copy-paste it into a Word document. Some
 cosmetic things you’ll have to do yourself (e.g. potential centering and
@@ -325,7 +325,7 @@ modelsummary(list(M1, M2))
 <col style="width: 16%" />
 </colgroup>
 <thead>
-<tr class="header">
+<tr>
 <th></th>
 <th><ol type="1">
 <li></li>
@@ -336,107 +336,107 @@ modelsummary(list(M1, M2))
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>(Intercept)</td>
 <td>8.618</td>
 <td>6.993</td>
 </tr>
-<tr class="even">
+<tr>
 <td></td>
 <td>(0.158)</td>
 <td>(0.267)</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>justdiv</td>
 <td>0.087</td>
 <td>0.095</td>
 </tr>
-<tr class="even">
+<tr>
 <td></td>
 <td>(0.018)</td>
 <td>(0.018)</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>age</td>
 <td></td>
 <td>0.018</td>
 </tr>
-<tr class="even">
+<tr>
 <td></td>
 <td></td>
 <td>(0.002)</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>sex</td>
 <td></td>
 <td>0.181</td>
 </tr>
-<tr class="even">
+<tr>
 <td></td>
 <td></td>
 <td>(0.085)</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>inc</td>
 <td></td>
 <td>0.056</td>
 </tr>
-<tr class="even">
+<tr>
 <td></td>
 <td></td>
 <td>(0.023)</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>pray</td>
 <td></td>
 <td>-0.006</td>
 </tr>
-<tr class="even">
+<tr>
 <td></td>
 <td></td>
 <td>(0.019)</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>educ</td>
 <td></td>
 <td>0.013</td>
 </tr>
-<tr class="even">
+<tr>
 <td></td>
 <td></td>
 <td>(0.005)</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>Num.Obs.</td>
 <td>1163</td>
 <td>1098</td>
 </tr>
-<tr class="even">
+<tr>
 <td>R2</td>
 <td>0.020</td>
 <td>0.106</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>R2 Adj.</td>
 <td>0.019</td>
 <td>0.101</td>
 </tr>
-<tr class="even">
+<tr>
 <td>AIC</td>
 <td>4132.9</td>
 <td>3808.4</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>BIC</td>
 <td>4148.1</td>
 <td>3848.4</td>
 </tr>
-<tr class="even">
+<tr>
 <td>Log.Lik.</td>
 <td>-2063.469</td>
 <td>-1896.218</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>RMSE</td>
 <td>1.43</td>
 <td>1.36</td>
@@ -501,120 +501,120 @@ modelsummary(list("Bivariate Regression" = M1,
 <col style="width: 18%" />
 </colgroup>
 <thead>
-<tr class="header">
+<tr>
 <th></th>
 <th>Bivariate Regression</th>
 <th>Full Model</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>(Intercept)</td>
 <td>8.618***</td>
 <td>6.993***</td>
 </tr>
-<tr class="even">
+<tr>
 <td></td>
 <td>(0.158)</td>
 <td>(0.267)</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>justdiv</td>
 <td>0.087***</td>
 <td>0.095***</td>
 </tr>
-<tr class="even">
+<tr>
 <td></td>
 <td>(0.018)</td>
 <td>(0.018)</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>age</td>
 <td></td>
 <td>0.018***</td>
 </tr>
-<tr class="even">
+<tr>
 <td></td>
 <td></td>
 <td>(0.002)</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>sex</td>
 <td></td>
 <td>0.181*</td>
 </tr>
-<tr class="even">
+<tr>
 <td></td>
 <td></td>
 <td>(0.085)</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>inc</td>
 <td></td>
 <td>0.056*</td>
 </tr>
-<tr class="even">
+<tr>
 <td></td>
 <td></td>
 <td>(0.023)</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>pray</td>
 <td></td>
 <td>-0.006</td>
 </tr>
-<tr class="even">
+<tr>
 <td></td>
 <td></td>
 <td>(0.019)</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>educ</td>
 <td></td>
 <td>0.013**</td>
 </tr>
-<tr class="even">
+<tr>
 <td></td>
 <td></td>
 <td>(0.005)</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>Num.Obs.</td>
 <td>1163</td>
 <td>1098</td>
 </tr>
-<tr class="even">
+<tr>
 <td>R2</td>
 <td>0.020</td>
 <td>0.106</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>R2 Adj.</td>
 <td>0.019</td>
 <td>0.101</td>
 </tr>
-<tr class="even">
+<tr>
 <td>AIC</td>
 <td>4132.9</td>
 <td>3808.4</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>BIC</td>
 <td>4148.1</td>
 <td>3848.4</td>
 </tr>
-<tr class="even">
+<tr>
 <td>Log.Lik.</td>
 <td>-2063.469</td>
 <td>-1896.218</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>RMSE</td>
 <td>1.43</td>
 <td>1.36</td>
 </tr>
 </tbody><tfoot>
-<tr class="even">
+<tr>
 <td colspan="3"><ul>
 <li>p &lt; 0.1, * p &lt; 0.05, ** p &lt; 0.01, *** p &lt; 0.001</li>
 </ul></td>
@@ -651,120 +651,120 @@ modelsummary(list("Bivariate Regression" = M1,
 <col style="width: 18%" />
 </colgroup>
 <thead>
-<tr class="header">
+<tr>
 <th></th>
 <th>Bivariate Regression</th>
 <th>Full Model</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>Justifiability of Divorce</td>
 <td>0.087***</td>
 <td>0.095***</td>
 </tr>
-<tr class="even">
+<tr>
 <td></td>
 <td>(0.018)</td>
 <td>(0.018)</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>Age</td>
 <td></td>
 <td>0.018***</td>
 </tr>
-<tr class="even">
+<tr>
 <td></td>
 <td></td>
 <td>(0.002)</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>Age at End of Schooling</td>
 <td></td>
 <td>0.013**</td>
 </tr>
-<tr class="even">
+<tr>
 <td></td>
 <td></td>
 <td>(0.005)</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>Female</td>
 <td></td>
 <td>0.181*</td>
 </tr>
-<tr class="even">
+<tr>
 <td></td>
 <td></td>
 <td>(0.085)</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>Frequency of Prayer</td>
 <td></td>
 <td>-0.006</td>
 </tr>
-<tr class="even">
+<tr>
 <td></td>
 <td></td>
 <td>(0.019)</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>Scale of Incomes</td>
 <td></td>
 <td>0.056*</td>
 </tr>
-<tr class="even">
+<tr>
 <td></td>
 <td></td>
 <td>(0.023)</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>Intercept</td>
 <td>8.618***</td>
 <td>6.993***</td>
 </tr>
-<tr class="even">
+<tr>
 <td></td>
 <td>(0.158)</td>
 <td>(0.267)</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>Num.Obs.</td>
 <td>1163</td>
 <td>1098</td>
 </tr>
-<tr class="even">
+<tr>
 <td>R2</td>
 <td>0.020</td>
 <td>0.106</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>R2 Adj.</td>
 <td>0.019</td>
 <td>0.101</td>
 </tr>
-<tr class="even">
+<tr>
 <td>AIC</td>
 <td>4132.9</td>
 <td>3808.4</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>BIC</td>
 <td>4148.1</td>
 <td>3848.4</td>
 </tr>
-<tr class="even">
+<tr>
 <td>Log.Lik.</td>
 <td>-2063.469</td>
 <td>-1896.218</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>RMSE</td>
 <td>1.43</td>
 <td>1.36</td>
 </tr>
 </tbody><tfoot>
-<tr class="even">
+<tr>
 <td colspan="3"><ul>
 <li>p &lt; 0.1, * p &lt; 0.05, ** p &lt; 0.01, *** p &lt; 0.001</li>
 </ul></td>
@@ -815,100 +815,100 @@ modelsummary(list("Bivariate Regression" = M1,
 <col style="width: 18%" />
 </colgroup>
 <thead>
-<tr class="header">
+<tr>
 <th></th>
 <th>Bivariate Regression</th>
 <th>Full Model</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>Justifiability of Divorce</td>
 <td>0.087***</td>
 <td>0.095***</td>
 </tr>
-<tr class="even">
+<tr>
 <td></td>
 <td>(0.018)</td>
 <td>(0.018)</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>Age</td>
 <td></td>
 <td>0.018***</td>
 </tr>
-<tr class="even">
+<tr>
 <td></td>
 <td></td>
 <td>(0.002)</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>Age at End of Schooling</td>
 <td></td>
 <td>0.013**</td>
 </tr>
-<tr class="even">
+<tr>
 <td></td>
 <td></td>
 <td>(0.005)</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>Female</td>
 <td></td>
 <td>0.181*</td>
 </tr>
-<tr class="even">
+<tr>
 <td></td>
 <td></td>
 <td>(0.085)</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>Frequency of Prayer</td>
 <td></td>
 <td>-0.006</td>
 </tr>
-<tr class="even">
+<tr>
 <td></td>
 <td></td>
 <td>(0.019)</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>Scale of Incomes</td>
 <td></td>
 <td>0.056*</td>
 </tr>
-<tr class="even">
+<tr>
 <td></td>
 <td></td>
 <td>(0.023)</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>Intercept</td>
 <td>8.618***</td>
 <td>6.993***</td>
 </tr>
-<tr class="even">
+<tr>
 <td></td>
 <td>(0.158)</td>
 <td>(0.267)</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>Num.Obs.</td>
 <td>1163</td>
 <td>1098</td>
 </tr>
-<tr class="even">
+<tr>
 <td>R2 Adj.</td>
 <td>0.019</td>
 <td>0.101</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>R2</td>
 <td>0.020</td>
 <td>0.106</td>
 </tr>
 </tbody><tfoot>
-<tr class="even">
+<tr>
 <td colspan="3"><ul>
 <li>p &lt; 0.1, * p &lt; 0.05, ** p &lt; 0.01, *** p &lt; 0.001</li>
 </ul></td>
@@ -943,108 +943,106 @@ modelsummary(list("Bivariate Regression" = M1,
 <col style="width: 18%" />
 </colgroup>
 <thead>
-<tr class="header">
+<tr>
 <th></th>
 <th>Bivariate Regression</th>
 <th>Full Model</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>Justifiability of Divorce</td>
 <td>0.087***</td>
 <td>0.095***</td>
 </tr>
-<tr class="even">
+<tr>
 <td></td>
 <td>(0.018)</td>
 <td>(0.018)</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>Age</td>
 <td></td>
 <td>0.018***</td>
 </tr>
-<tr class="even">
+<tr>
 <td></td>
 <td></td>
 <td>(0.002)</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>Age at End of Schooling</td>
 <td></td>
 <td>0.013**</td>
 </tr>
-<tr class="even">
+<tr>
 <td></td>
 <td></td>
 <td>(0.005)</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>Female</td>
 <td></td>
 <td>0.181*</td>
 </tr>
-<tr class="even">
+<tr>
 <td></td>
 <td></td>
 <td>(0.085)</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>Frequency of Prayer</td>
 <td></td>
 <td>-0.006</td>
 </tr>
-<tr class="even">
+<tr>
 <td></td>
 <td></td>
 <td>(0.019)</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>Scale of Incomes</td>
 <td></td>
 <td>0.056*</td>
 </tr>
-<tr class="even">
+<tr>
 <td></td>
 <td></td>
 <td>(0.023)</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>Intercept</td>
 <td>8.618***</td>
 <td>6.993***</td>
 </tr>
-<tr class="even">
+<tr>
 <td></td>
 <td>(0.158)</td>
 <td>(0.267)</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>Num.Obs.</td>
 <td>1163</td>
 <td>1098</td>
 </tr>
-<tr class="even">
+<tr>
 <td>R2 Adj.</td>
 <td>0.019</td>
 <td>0.101</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>R2</td>
 <td>0.020</td>
 <td>0.106</td>
 </tr>
 </tbody><tfoot>
-<tr class="even">
+<tr>
 <td colspan="3"><ul>
 <li>p &lt; 0.1, * p &lt; 0.05, ** p &lt; 0.01, *** p &lt; 0.001</li>
 </ul></td>
 </tr>
 </tfoot>
 &#10;</table>
-
-Hi Mom!
 
 Dope, let’s put it in our Word document. In RStudio, click on that
 viewer of the table. Then: Ctrl-A, Ctrl-C, Ctrl-V into your Word
