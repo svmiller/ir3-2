@@ -71,7 +71,7 @@ to include `url()` in the `readRDS()` function. Observe:
 ``` r
 Braith <- readRDS(url("https://svmiller.com/extdata/braithwaite2006gsmd.rds"))
 # Braith <- haven::read_dta("https://svmiller.com/extdata/braithwaite2006gsmd.dta")
-# ^ also works. You can also download a copy of the data fraom Athena.
+# ^ also works. You can also download a copy of the data from Athena.
 ```
 
 This part won’t be super fun, but this is the price of doing business in
@@ -86,7 +86,8 @@ We’re going for a replication of Table II, so let’s identify what
 exactly he did and get a reduced version of the data based on Alex’
 description and the Stata .do file. I’ll do it for you this session but,
 in the Master’s level, I’ll ask you to figure stuff out like this
-yourself. It’s good experience.
+yourself. [It’s good
+experience](https://svmiller.com/blog/2025/09/replication-forensics/).
 
 Before we begin, though, I welcome anyone in the class as we’re doing
 this to tell me what this article is about.
@@ -132,11 +133,11 @@ names(Braith)
 ```
 
 This is a good lesson for those of you who may have some experience with
-Stata from another program. Stata will guess stuff on your behalf. R
-won’t. In this case, Stata can infer you meant `log_jointsize` in the
-data when you asked for `logsize`. R 100% won’t do that for you. Beyond
-that, reducing the raw data to a simple form for the sake of the
-analysis isn’t that hard.
+Stata from instruction in another department. Stata will guess stuff on
+your behalf. R won’t. In this case, Stata can infer you meant
+`log_jointsize` in the data when you asked for `logsize`. R 100% won’t
+do that for you. Beyond that, reducing the raw data to a simple form for
+the sake of the analysis isn’t that hard.
 
 ``` r
 Braith %>%
@@ -273,7 +274,8 @@ like “a one-unit change in the percentage of the territory that is
 covered in mountains coincides with an estimated change of .025 in the
 logged value of the radius between the center of the dispute to the
 furthest incident.” I’d be remiss, though, if I didn’t give you things
-to consider.
+to consider. Economists certainly are accustomed to this line of
+thinking given the type of indicators they model.
 
 We should also make an obligatory reference to the stuff included at the
 bottom of the output. Namely, the adjusted R-squared suggests the model

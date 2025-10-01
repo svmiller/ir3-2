@@ -160,7 +160,7 @@ mat
 chisq.test(table(Data$war, Data$mmb))
 chisq.test(mat)
 
-#' Simulation is useful for illustrating what the chi-squared statistic is illustrating
+#' Simulation is useful for illustrating what the chi-squared statistic is
 #' with respect to its eponymous distribution. We have a distribution with one
 #' degree of freedom, representing a singular standard normal variate to square.
 #' It's conceivable, however rare, that you could draw a singular 4 from that

@@ -37,9 +37,9 @@ library(tidyverse)
 #> ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
 #> ✔ dplyr     1.1.4     ✔ readr     2.1.4
 #> ✔ forcats   1.0.0     ✔ stringr   1.5.0
-#> ✔ ggplot2   3.5.1     ✔ tibble    3.2.1
-#> ✔ lubridate 1.9.2     ✔ tidyr     1.3.0
-#> ✔ purrr     1.0.1     
+#> ✔ ggplot2   3.5.2     ✔ tibble    3.3.0
+#> ✔ lubridate 1.9.4     ✔ tidyr     1.3.0
+#> ✔ purrr     1.1.0     
 #> ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 #> ✖ dplyr::filter() masks stats::filter()
 #> ✖ dplyr::lag()    masks stats::lag()
@@ -263,16 +263,16 @@ chisq.test(mat)
 ```
 
 Simulation is useful for illustrating what the chi-squared statistic is
-illustrating with respect to its eponymous distribution. We have a
-distribution with one degree of freedom, representing a singular
-standard normal variate to square. It’s conceivable, however rare, that
-you could draw a singular 4 from that distribution to square. You’d
-expect about 95% of the distribution under those circumstances to be
-around 1.96^2 or thereabouts (about 3.84). Intuitively, if the
-differences we observe were random fluctuations, they’d be consistent
-with a chi-squared distribution with that singular degree of freedom.
-Anything outside those bounds and we’re left with the impression the
-differences we observe are not just random squared differences.
+with respect to its eponymous distribution. We have a distribution with
+one degree of freedom, representing a singular standard normal variate
+to square. It’s conceivable, however rare, that you could draw a
+singular 4 from that distribution to square. You’d expect about 95% of
+the distribution under those circumstances to be around 1.96^2 or
+thereabouts (about 3.84). Intuitively, if the differences we observe
+were random fluctuations, they’d be consistent with a chi-squared
+distribution with that singular degree of freedom. Anything outside
+those bounds and we’re left with the impression the differences we
+observe are not just random squared differences.
 
 Again, simulation is nice for this. Let’s simulate 100,000 random
 numbers from a chi-square distribution with a singular degree of freedom

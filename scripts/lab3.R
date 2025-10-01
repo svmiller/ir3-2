@@ -38,9 +38,12 @@ knitr::opts_chunk$set(collapse = TRUE,
 library(tidyverse)
 library(stevemisc)
 
-#' Reminder: Please have read this:
+#' Please read this:
 #'
 #' - http://svmiller.com/blog/2023/09/democracy-income-correlation-analysis/
+#' 
+#' It should not be difficult to follow along with the overall scope of this
+#' analysis and the broader context in which it occurs.
 #'
 #' ## Load and prepare the data 
 #'
