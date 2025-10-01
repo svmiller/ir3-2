@@ -535,6 +535,11 @@ sd(x)
 \normalsize
 
 # Conclusion
+
+### Please Install RStudio
+
+![](install-rstudio.png)
+
 ### Conclusion
 
 Welcome to IRIII.2 (the dungeon mini-boss of our program).
