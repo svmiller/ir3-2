@@ -342,7 +342,7 @@ Relations}
 \begin{enumerate}
 \tightlist
 \item
-  Inttroduce the basic intuition behind linear regression.
+  Introduce the basic intuition behind linear regression.
 \item
   Give an applied example and unpack it.
 \end{enumerate}
@@ -390,7 +390,7 @@ However, it's neutral on what is \emph{x} and what is \emph{y}.
   It won't communicate cause and effect.
 \end{itemize}
 
-Fortunately, regression does that for us.
+Fortunately, regression can do that for us (under ideal conditions).
 \end{frame}
 
 \begin{frame}{Demystifying Regression}
@@ -524,7 +524,7 @@ in February\ldots{}}
 \begin{frame}{An Applied Example: The Correlates of Tourism}
 \phantomsection\label{an-applied-example-the-correlates-of-tourism-2}
 Academic interest in the international relations/IPE of tourism may owe
-to H.P. Gray (1966) and is still pertinent.
+to H.P. Gray (1966).
 
 \begin{itemize}
 \tightlist
@@ -559,12 +559,12 @@ questions of development and peace.
 \begin{itemize}
 \tightlist
 \item
-  \emph{ed.~notice how I'm upselling you on the value of doing this in
-  the first place\ldots{}}
+  \emph{ed.~notice how I'm selling you on the value of doing this in the
+  first place\ldots{}}
 \end{itemize}
 \end{frame}
 
-\begin{frame}{A Simple Exercise}
+\begin{frame}[fragile]{A Simple Exercise}
 \phantomsection\label{a-simple-exercise}
 I gathered data from the World Bank's repository for a simple
 cross-sectional exercise.
@@ -575,22 +575,24 @@ cross-sectional exercise.
   \emph{DV}: number of arrivals for international tourism (logged)
 \item
   \emph{IVs}: conceptually (operationally)
+  \texttt{{[}expected\ effect{]}}
 
   \begin{itemize}
   \tightlist
   \item
     Ease of access/infrastructure for visitors (passengers carried by
-    air transport, logged)
+    air transport, logged) \texttt{{[}+{]}}
   \item
     Relative price to USD (price level ratio of PPP to market exchange
-    rate)
+    rate) \texttt{{[}-{]}}
   \item
-    Economic development (GDP per capita, logged)
+    Economic development (GDP per capita, logged) \texttt{{[}+{]}}
   \item
     Political security (political stability/absence of violence,
-    terrorism)
+    terrorism) \texttt{{[}+{]}}
   \item
-    Dummy variables for ``fragile/conflict affected states (FCAS)''
+    Dummy variable for ``fragile/conflict affected states (FCAS)''
+    \texttt{{[}-{]}}
   \end{itemize}
 \end{itemize}
 
@@ -631,7 +633,7 @@ We'll run two linear models.
 \phantomsection\label{section-2}
 \begin{table}
 \centering\centering
-\caption{\label{tab:unnamed-chunk-3}Cross-National Correlates of International Tourism Arrivals}
+\caption{\label{tab:unnamed-chunk-3}Cross-National Correlates of (Logged) International Tourism Arrivals}
 \centering
 \fontsize{6}{8}\selectfont
 \begin{tabular}[t]{lcc}
@@ -686,7 +688,7 @@ Output}\label{how-to-interpret-regression-output}
 \phantomsection\label{section-4}
 \begin{table}
 \centering\centering
-\caption{\label{tab:unnamed-chunk-4}Cross-National Correlates of International Tourism Arrivals}
+\caption{\label{tab:unnamed-chunk-4}Cross-National Correlates of (Logged) International Tourism Arrivals}
 \centering
 \fontsize{6}{8}\selectfont
 \begin{tabular}[t]{>{}l>{}cc}
@@ -817,7 +819,7 @@ Notes}\label{the-intercept-and-goodness-of-fit-notes}
 
 \begin{frame}{Dont' Read Much into the Intercept}
 \phantomsection\label{dont-read-much-into-the-intercept}
-Don't both interpreting the intercept.
+Don't bother interpreting the intercept.
 
 \begin{itemize}
 \tightlist

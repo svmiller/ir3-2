@@ -107,7 +107,7 @@ set.seed(8675309)
 # Introduction
 ### Goal(s) for Today
 
-1. Inttroduce the basic intuition behind linear regression.
+1. Introduce the basic intuition behind linear regression.
 2. Give an applied example and unpack it.
 
 ### Elsewhere on My Blog
@@ -132,7 +132,7 @@ However, it's neutral on what is *x* and what is *y*.
 
 - It won't communicate cause and effect.
 
-Fortunately, regression does that for us.
+Fortunately, regression can do that for us (under ideal conditions).
 
 ### Demystifying Regression
 
@@ -207,7 +207,7 @@ The regression coefficient that emerges minimizes the sum of squared differences
 
 ### An Applied Example: The Correlates of Tourism
 
-Academic interest in the international relations/IPE of tourism may owe to H.P. Gray (1966) and is still pertinent.
+Academic interest in the international relations/IPE of tourism may owe to H.P. Gray (1966).
 
 - Tourism as a form of "soft power" projection. 
     - (i.e. you've seen the YouTube ads for Türkiye or Arsenal's "Visit Rwanda" patch)
@@ -218,19 +218,19 @@ Academic interest in the international relations/IPE of tourism may owe to H.P. 
 
 Thus, tourism is a kind of barometer or measuring stick for important questions of development and peace.
 
-- *ed. notice how I'm upselling you on the value of doing this in the first place...*
+- *ed. notice how I'm selling you on the value of doing this in the first place...*
 
 ### A Simple Exercise
 
 I gathered data from the World Bank's repository for a simple cross-sectional exercise.
 
 - *DV*: number of arrivals for international tourism (logged)
-- *IVs*: conceptually (operationally)
-    - Ease of access/infrastructure for visitors (passengers carried by air transport, logged)
-    - Relative price to USD (price level ratio of PPP to market exchange rate)
-    - Economic development (GDP per capita, logged)
-    - Political security (political stability/absence of violence, terrorism)
-    - Dummy variables for "fragile/conflict affected states (FCAS)"
+- *IVs*: conceptually (operationally) `[expected effect]`
+    - Ease of access/infrastructure for visitors (passengers carried by air transport, logged) `[+]`
+    - Relative price to USD (price level ratio of PPP to market exchange rate) `[-]`
+    - Economic development (GDP per capita, logged) `[+]`
+    - Political security (political stability/absence of violence, terrorism) `[+]`
+    - Dummy variable for "fragile/conflict affected states (FCAS)" `[-]`
     
 I use the same lag and group-by fill I describe in the blog post I reference earlier.
 
@@ -300,7 +300,7 @@ modelsummary(list("Bivariate" = M0,
                   "Full Model" = M2),
              output = "kableExtra",
              stars = TRUE,
-             title = "Cross-National Correlates of International Tourism Arrivals",
+             title = "Cross-National Correlates of (Logged) International Tourism Arrivals",
              coef_map = c("l1_relprice" = "Relative Price",
                           "l1_ln_airtranspc" = "Air Transport Passengers (Logged)",
                           "l1_ln_gdppc" = "GDP per Capita (Logged)",
@@ -334,7 +334,7 @@ modelsummary(list("Bivariate" = M0,
                   "Full Model" = M2),
              stars = TRUE,
              output = 'kableExtra',
-             title = "Cross-National Correlates of International Tourism Arrivals",
+             title = "Cross-National Correlates of (Logged) International Tourism Arrivals",
              coef_map = c("l1_relprice" = "Relative Price",
                           "l1_ln_airtranspc" = "Air Transport Passengers (Logged)",
                           "l1_ln_gdppc" = "GDP per Capita (Logged)",
@@ -406,7 +406,7 @@ Our plan of attack:
 ## The Intercept and Goodness of Fit Notes
 ### Dont' Read Much into the Intercept
 
-Don't both interpreting the intercept.
+Don't bother interpreting the intercept.
 
 - Nominally, it tells you the estimated value of *y* when *everything* covariate is set to 0.
 - In our case: a country has no air passengers, is *infinitely* cheaper than the U.S., has no logged GDP per capita, has basically a middle level of political security and is not a FCAS.
