@@ -502,26 +502,58 @@ In a lot of applications, you can just visualize this or look for a table.
 ### How to Calculate a Standard Deviation
 
 ```{r, echo=F}
-set.seed(8675309)
-x <- sample(c(22:49), 10, replace=TRUE)
-age <- x
-tibble(age = x,
-       mean = mean(x),
 
-              dvtn = age - mean,
-       sum_dvtn = sum(dvtn),
-       dvtn2 = dvtn^2,
+pwt10::pwt10.01 %>%
+  filter(year == 2019) %>%
+  filter(isocode %in% c("BRN", "KHM", "IDN", "LAO",
+                        "MYS", "MMR", "PHL", "SGP",
+                        "THA", "VNM")) %>%
+  mutate(rgdppc = rgdpo/pop) %>%
+  select(isocode, rgdppc) -> x
+
+row.names(x) <- NULL
+
+x %>%
+  mutate(mean = mean(rgdppc),
+         dvtn = rgdppc - mean,
+         sum_dvtn = sum(dvtn),
+         dvtn2 = dvtn^2,
        sum_dvtn2 = sum(dvtn2),
        variance = sum_dvtn2/9,
-       sd = sqrt(variance)) %>%
-  mutate_all(~round(.,3)) %>%
+       sd = sqrt(variance))  %>%
+  mutate_if(is.numeric, ~round(.,3)) %>%
   kbl(.,
-      caption = "Calculating the Mean and Standard Deviation of Ten People's Age",
+      caption = "Calculating the Mean and Standard Deviation of GDP per Capita in the Ten ASEAN Countries (2019)",
       align=c("ccccccc"),
       linesep='', booktabs = TRUE, longtable = TRUE) %>%
   row_spec(0, bold=TRUE) %>%
   column_spec(8, color="red", bold=TRUE) %>%
-  kable_styling(font_size = 7)
+  kable_styling(font_size = 6) %>%
+  footnote(general = "Data: Penn World Table (10.01)")
+
+x %>%
+  pull(rgdppc) -> asean_rgdppc
+
+# set.seed(8675309)
+# x <- sample(c(22:49), 10, replace=TRUE)
+# age <- x
+# tibble(age = x,
+#        mean = mean(x),
+# 
+#               dvtn = age - mean,
+#        sum_dvtn = sum(dvtn),
+#        dvtn2 = dvtn^2,
+#        sum_dvtn2 = sum(dvtn2),
+#        variance = sum_dvtn2/9,
+#        sd = sqrt(variance)) %>%
+#   mutate_all(~round(.,3)) %>%
+#   kbl(.,
+#       caption = "Calculating the Mean and Standard Deviation of Ten People's Age",
+#       align=c("ccccccc"),
+#       linesep='', booktabs = TRUE, longtable = TRUE) %>%
+#   row_spec(0, bold=TRUE) %>%
+#   column_spec(8, color="red", bold=TRUE) %>%
+#   kable_styling(font_size = 7)
 ```
 
 Alternatively:
@@ -529,7 +561,7 @@ Alternatively:
 \scriptsize
 
 ```{r, echo=T}
-sd(x)
+sd(asean_rgdppc)
 ```
 
 \normalsize

@@ -355,6 +355,20 @@ Relations}
 \usepackage{pdflscape}
 \usepackage{tabu}
 \usepackage{threeparttable}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{array}
+\usepackage{multirow}
+\usepackage{wrapfig}
+\usepackage{float}
+\usepackage{colortbl}
+\usepackage{pdflscape}
+\usepackage{tabu}
+\usepackage{threeparttable}
+\usepackage{threeparttablex}
+\usepackage[normalem]{ulem}
+\usepackage{makecell}
+\usepackage{xcolor}
 
 % Okay, and begin the actual document...
 
@@ -942,24 +956,26 @@ table.
 
 \begin{frame}[fragile]{How to Calculate a Standard Deviation}
 \phantomsection\label{how-to-calculate-a-standard-deviation}
-\begingroup\fontsize{7}{9}\selectfont
+\begingroup\fontsize{6}{8}\selectfont
 
-\begin{longtable}[t]{ccccccc>{}c}
-\caption{\label{tab:unnamed-chunk-13}Calculating the Mean and Standard Deviation of Ten People's Age}\\
+\begin{longtable}[t]{ccccccc>{}cc}
+\caption{\label{tab:unnamed-chunk-13}Calculating the Mean and Standard Deviation of GDP per Capita in the Ten ASEAN Countries (2019)}\\
 \toprule
-\textbf{age} & \textbf{mean} & \textbf{dvtn} & \textbf{sum\_dvtn} & \textbf{dvtn2} & \textbf{sum\_dvtn2} & \textbf{variance} & \textbf{sd}\\
+\textbf{isocode} & \textbf{rgdppc} & \textbf{mean} & \textbf{dvtn} & \textbf{sum\_dvtn} & \textbf{dvtn2} & \textbf{sum\_dvtn2} & \textbf{variance} & \textbf{sd}\\
 \midrule
-41 & 36.3 & 4.7 & 0 & 22.09 & 266.1 & 29.567 & \textcolor{red}{\textbf{5.438}}\\
-32 & 36.3 & -4.3 & 0 & 18.49 & 266.1 & 29.567 & \textcolor{red}{\textbf{\vphantom{1} 5.438}}\\
-31 & 36.3 & -5.3 & 0 & 28.09 & 266.1 & 29.567 & \textcolor{red}{\textbf{5.438}}\\
-32 & 36.3 & -4.3 & 0 & 18.49 & 266.1 & 29.567 & \textcolor{red}{\textbf{5.438}}\\
-34 & 36.3 & -2.3 & 0 & 5.29 & 266.1 & 29.567 & \textcolor{red}{\textbf{5.438}}\\
-40 & 36.3 & 3.7 & 0 & 13.69 & 266.1 & 29.567 & \textcolor{red}{\textbf{5.438}}\\
-30 & 36.3 & -6.3 & 0 & 39.69 & 266.1 & 29.567 & \textcolor{red}{\textbf{5.438}}\\
-35 & 36.3 & -1.3 & 0 & 1.69 & 266.1 & 29.567 & \textcolor{red}{\textbf{5.438}}\\
-44 & 36.3 & 7.7 & 0 & 59.29 & 266.1 & 29.567 & \textcolor{red}{\textbf{\vphantom{1} 5.438}}\\
-44 & 36.3 & 7.7 & 0 & 59.29 & 266.1 & 29.567 & \textcolor{red}{\textbf{5.438}}\\
+BRN & 73249.186 & 24322.66 & 48926.528 & 0 & 2393805147 & 7550598490 & \textcolor{red}{\textbf{838955388}} & 28964.73\\
+IDN & 11595.102 & 24322.66 & -12727.556 & 0 & 161990680 & 7550598490 & \textcolor{red}{\textbf{838955388}} & 28964.73\\
+KHM & 4500.053 & 24322.66 & -19822.605 & 0 & 392935676 & 7550598490 & \textcolor{red}{\textbf{838955388}} & 28964.73\\
+LAO & 7585.554 & 24322.66 & -16737.104 & 0 & 280130653 & 7550598490 & \textcolor{red}{\textbf{838955388}} & 28964.73\\
+MMR & 5153.375 & 24322.66 & -19169.283 & 0 & 367461401 & 7550598490 & \textcolor{red}{\textbf{838955388}} & 28964.73\\
+MYS & 25735.309 & 24322.66 & 1412.651 & 0 & 1995583 & 7550598490 & \textcolor{red}{\textbf{838955388}} & 28964.73\\
+PHL & 8448.533 & 24322.66 & -15874.124 & 0 & 251987828 & 7550598490 & \textcolor{red}{\textbf{838955388}} & 28964.73\\
+SGP & 82336.342 & 24322.66 & 58013.684 & 0 & 3365587542 & 7550598490 & \textcolor{red}{\textbf{838955388}} & 28964.73\\
+THA & 17116.308 & 24322.66 & -7206.350 & 0 & 51931482 & 7550598490 & \textcolor{red}{\textbf{838955388}} & 28964.73\\
+VNM & 7506.817 & 24322.66 & -16815.841 & 0 & 282772498 & 7550598490 & \textcolor{red}{\textbf{838955388}} & 28964.73\\
 \bottomrule
+\multicolumn{9}{l}{\rule{0pt}{1em}\textit{Note: }}\\
+\multicolumn{9}{l}{\rule{0pt}{1em}Data: Penn World Table (10.01)}\\
 \end{longtable}
 \endgroup{}
 
@@ -969,8 +985,8 @@ Alternatively:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{sd}\NormalTok{(x)}
-\CommentTok{\#\textgreater{} [1] 5.437524}
+\FunctionTok{sd}\NormalTok{(asean\_rgdppc)}
+\CommentTok{\#\textgreater{} [1] 28964.73}
 \end{Highlighting}
 \end{Shaded}
 
