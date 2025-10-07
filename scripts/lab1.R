@@ -213,6 +213,10 @@ pi <- 3.14 # don't do this....
 Data <- haven::read_dta("http://svmiller.com/extdata/eu2019.dta")
 # Data <- readRDS(url("http://svmiller.com/extdata/eu2019.rds"))
 # ^ this will work too, but readRDS() requires url() for wrapping the location of the file.
+# Doing this just in case something goes haywire with the wireless. Eduroam can
+# be finicky.
+# Data <- readRDS("~/Koofr/svmiller.github.io/extdata/eu2019.rds")
+
 
 #' As a quick aside, I want you to use this as an opportunity to be sure you've
 #' read [a recent guide I put on my blog](https://svmiller.com/blog/2024/10/make-simple-cross-sectional-world-bank-data-wdi/) 
