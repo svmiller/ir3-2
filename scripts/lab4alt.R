@@ -64,6 +64,7 @@ Braith <- readRDS(url("https://svmiller.com/extdata/braithwaite2006gsmd.rds"))
 #' did and get a reduced version of the data based on Alex' description and the
 #' Stata .do file. I'll do it for you this session but, in the Master's level,
 #' I'll ask you to figure stuff out like this yourself. [It's good experience](https://svmiller.com/blog/2025/09/replication-forensics/).
+#' [Figure it out](https://www.youtube.com/watch?v=GfU8CZVNb6o).
 #' 
 #' Before we begin, though, I welcome anyone in the class as we're doing this
 #' to tell me what this article is about.

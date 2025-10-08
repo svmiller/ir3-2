@@ -32,9 +32,9 @@ library(tidyverse)
 #> ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
 #> ✔ dplyr     1.1.4     ✔ readr     2.1.4
 #> ✔ forcats   1.0.0     ✔ stringr   1.5.0
-#> ✔ ggplot2   3.5.2     ✔ tibble    3.3.0
-#> ✔ lubridate 1.9.4     ✔ tidyr     1.3.0
-#> ✔ purrr     1.1.0     
+#> ✔ ggplot2   3.5.1     ✔ tibble    3.2.1
+#> ✔ lubridate 1.9.2     ✔ tidyr     1.3.0
+#> ✔ purrr     1.0.1     
 #> ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 #> ✖ dplyr::filter() masks stats::filter()
 #> ✖ dplyr::lag()    masks stats::lag()
@@ -88,6 +88,7 @@ description and the Stata .do file. I’ll do it for you this session but,
 in the Master’s level, I’ll ask you to figure stuff out like this
 yourself. [It’s good
 experience](https://svmiller.com/blog/2025/09/replication-forensics/).
+[Figure it out](https://www.youtube.com/watch?v=GfU8CZVNb6o).
 
 Before we begin, though, I welcome anyone in the class as we’re doing
 this to tell me what this article is about.
