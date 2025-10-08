@@ -409,9 +409,13 @@ Data %>%
 #' identify the average GINI and the average exports as a % of GDP.
 
 Data %>%
-  # Give me the average GINI and Exports/GDP by each value of `wp`
-  summarize(avggini = mean(gini, na.rm = TRUE),
-            avgexppgdp = median(exppgdp, na.rm = TRUE),
+  # Give me the median GINI and Exports/GDP by each value of `wp`
+  # notice the `na.rm = TRUE` argument here. A lot of summary statistics in base
+  # R fail in the presence of missing data. Often times, you want the summary
+  # anyway. `na.rm = TRUE` tells the function to shut up in the presence of
+  # missing data and just use what's available.
+  summarize(medgini = median(gini, na.rm = TRUE),
+            medexppgdp = median(exppgdp, na.rm = TRUE),
             .by = wp)
 
 #' This summary tells you that European Union states generally have the same 
@@ -473,8 +477,9 @@ Data %>% summarize(avggdppc = mean(gdppc),
 #' The data suggest that the four Southern European countries are generally
 #' poorer than the rest of the European Union and there are generally more net
 #' FDI inflows coming into the rest of the European Union (as % of GDP) than 
-#' there are coming into Southern Europe. However, there doesn't seem to be a
-#' difference at all in reliance on tax intake relative to its economic size.
+#' there are coming into Southern Europe. Cyprus might be doing some heavy-lifting
+#' in that. There doesn't seem to be a difference at all in reliance on tax 
+#' intake relative to its economic size.
 #' 
 #' ### `filter()`
 #' 
