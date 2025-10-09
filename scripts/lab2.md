@@ -65,18 +65,18 @@ tibble(x = rnorm(100),
 
 Example
 #> # A tibble: 100 × 2
-#>         x      y
-#>     <dbl>  <dbl>
-#>  1  0.218  0.793
-#>  2 -0.614 -0.639
-#>  3 -0.879 -1.14 
-#>  4  0.266 -0.340
-#>  5  1.18   1.30 
-#>  6  0.600 -0.872
-#>  7  0.709  1.38 
-#>  8  1.10   0.515
-#>  9 -0.302  0.116
-#> 10  0.349 -0.909
+#>           x       y
+#>       <dbl>   <dbl>
+#>  1  0.551    0.0992
+#>  2  0.395    1.62  
+#>  3  0.571   -0.0244
+#>  4 -1.56    -2.11  
+#>  5 -0.447   -0.870 
+#>  6  0.520    0.433 
+#>  7 -0.00528 -1.21  
+#>  8 -0.929   -3.02  
+#>  9 -1.19    -1.84  
+#> 10 -0.267   -1.11  
 #> # ℹ 90 more rows
 ```
 
@@ -277,16 +277,11 @@ Watch what happens here:
 ``` r
 ggplot(steves_clothes, aes(origin)) + # Don't need a y-axis. geom_bar() will give us one.
   geom_bar() +  # create a simple bar chart
-  geom_text(stat='count', aes(label=..count..), vjust=-.5) +
+  geom_text(aes(label = after_stat(count)), stat = "count", vjust = -0.5) +
   # ^ create a label/count
   theme_steve(style='generic') +
   labs(caption = "Data: ?steves_clothes in {stevedata}. Hey, that's me!",
        x = "Country of Origin", y = "Count")
-#> Warning: The dot-dot notation (`..count..`) was deprecated in ggplot2 3.4.0.
-#> ℹ Please use `after_stat(count)` instead.
-#> This warning is displayed once every 8 hours.
-#> Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
-#> generated.
 ```
 
 ![](figs/lab-2/unnamed-chunk-16-1.png)<!-- -->
@@ -316,7 +311,7 @@ steves_clothes %>% # start with the data, and...
 
 ![](figs/lab-2/unnamed-chunk-17-1.png)<!-- -->
 
-# Histograms and density plots
+## Histograms and density plots
 
 Histograms and density plots are communicating the same basic thing: the
 shape of the data. The density plot is a smoothed histogram, meaning

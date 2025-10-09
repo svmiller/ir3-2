@@ -188,7 +188,7 @@ steves_clothes
 
 ggplot(steves_clothes, aes(origin)) + # Don't need a y-axis. geom_bar() will give us one.
   geom_bar() +  # create a simple bar chart
-  geom_text(stat='count', aes(label=..count..), vjust=-.5) +
+  geom_text(aes(label = after_stat(count)), stat = "count", vjust = -0.5) +
   # ^ create a label/count
   theme_steve(style='generic') +
   labs(caption = "Data: ?steves_clothes in {stevedata}. Hey, that's me!",
@@ -214,7 +214,7 @@ steves_clothes %>% # start with the data, and...
   labs(caption = "Data: ?steves_clothes in {stevedata}. Hey, that's me!",
        x = "Country of Origin", y = "Count")
 
-#' # Histograms and density plots
+#' ## Histograms and density plots
 #' 
 #' Histograms and density plots are communicating the same basic
 #' thing: the shape of the data. The density plot is a smoothed histogram, meaning

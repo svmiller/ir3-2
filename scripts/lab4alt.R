@@ -7,7 +7,7 @@
 #' the basic linear model by reference to Braithwaite's (2006) analysis
 #' of the geographic spread of militarized interstate disputes. Students should read that
 #' article to understand the context of what we're doing. This lab script will
-#' just implement one of their basic models and unpack its contents."
+#' just implement one of his basic models and unpack its contents."
 #' output:
 #'    md_document:
 #'      variant: gfm
