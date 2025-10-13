@@ -51,7 +51,7 @@ If, for some reason, you are unable to install R, RStudio, or a package that I'l
 
 There is not a way of learning R without accessing characters that are not common or intuitive on a Scandinavian keyboard. R uses dollar sign (`$`) as a separator in a data frame, connecting to a particular column in the data frame. For example, `Data$gdppc` would be a vector referring to a column called `gdppc` in an object in the R session, an assumed data frame, called `Data`. Likewise, there is just no way to do any regression analysis or *t*-test without the tilde (`~`). The tilde even features in statistical notation in textbooks, communicating that some out variable is regressed on (`~`) some variable(s). These are a little easier to find on American keyboards, but not so easy to find or locate on a Scandinavian keyboard.
 
-- **Mac users**: the dollar sign (`$`) should be `⌥ Option (Alt) + 4`. The (`~`) should be `⌥ Option (Alt) + ¨` (the key to the right of `Å`). For the latter, you may have to hit space for it to appear (which you should be doing anyway).
+- **Mac users**: the dollar sign (`$`) should be `⌥ Option (Alt) + 4`. The (`~`) should be `⌥ Option (Alt) + "` (the key to the right of `Å`). For the latter, you may have to hit space for it to appear (which you should be doing anyway).
 - **Other users (not Mac)**: the operator you want is the `Alt Gr` key (the right-hand Alt key). `Alt Gr + 4` gives you the dollar sign (`$`). `Alt Gr + "` (just right of `Å`) gives you the tilde (`~`).
 
 
