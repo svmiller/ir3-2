@@ -376,7 +376,7 @@ Our plan of attack:
 
  *Air transport passengers*: a 1% increase in IV coincides with estimated .283% increase in DV.
  
- - Alternatively, less helpfully: a unit increase log(x) increases log(y) by an estimated .311.
+ - Alternatively, less helpfully: a unit increase log(x) increases log(y) by an estimated .283.
  
  *GDP per capita*: a 1% change in GDP per capita -> .763% change in tourism arrivals.
  
