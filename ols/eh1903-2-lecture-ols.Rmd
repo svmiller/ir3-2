@@ -408,7 +408,7 @@ Our plan of attack:
 
 Don't bother interpreting the intercept.
 
-- Nominally, it tells you the estimated value of *y* when *everything* covariate is set to 0.
+- Nominally, it tells you the estimated value of *y* when *every* covariate is set to 0.
 - In our case: a country has no air passengers, is *infinitely* cheaper than the U.S., has no logged GDP per capita, has basically a middle level of political security and is not a FCAS.
 
 There are advanced things you can do here, but don't bother at this stage.
