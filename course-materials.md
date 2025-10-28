@@ -14,6 +14,8 @@ permalink: /course-materials/
 
 The main textbook for the course is Russell T. Warne's (2018) *Statistics for the Social Sciences: A General Linear Model Approach*. The book is available for purchase at Akademibokhandeln and can also be borrowed from the library. The class makes additional use of a selection of journal articles that should be available from [the university library](https://www.su.se/stockholm-university-library/). Students who are unfamiliar with how to use the library, but know how to Google things, may find the following link to be useful.
 
+- [Set Up Google Scholar to Find Class Readings on Your Syllabus](http://svmiller.com/blog/2017/07/set-up-google-scholar-to-find-class-readings/)
+
 
 ## Other Resources
 
@@ -21,7 +23,7 @@ Quantitative methods is a unique subset of social science pedagogy where you cou
 
 The instructor for the labs is not bashful about using past guides and material he has written for public consumption and encourages students to engage with these resources. Please consult the material on his blog ([`svmiller.com/blog`](http://svmiller.com/blog)) and the material/code for previous undergraduate and graduate-level methods classes he has taught.[^links] Lab sessions will almost assuredly borrow, quite liberally, from these past courses and blog posts.
 
-[^links]: See [`posc3410.svmiller.com`](http://posc3410.svmiller.com), [`post8000.svmiller.com`](http://post8000.svmiller.com), and  [`eh6105.svmiller.com`](http://eh6105.svmiller.com) for more.
+[^links]: See [`posc3410.svmiller.com`](http://posc3410.svmiller.com), [`post8000.svmiller.com`](http://post8000.svmiller.com),  [`eh6105.svmiller.com`](http://eh6105.svmiller.com), and [`eh6127.svmiller.com`](http://eh6127.svmiller.com) for more.
 
 <!-- Content is written in [Markdown](https://learnxinyminutes.com/docs/markdown/).
 Plain text format allows you to focus on your **content**. -->

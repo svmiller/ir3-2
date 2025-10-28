@@ -27,8 +27,7 @@ knitr::opts_chunk$set(collapse = TRUE,
                       comment = "#>")
 #+
 # ==============================
-# Lab 1: Getting Started in R and Rstudio
-#  - Steven V. Miller (EH 1903)
+# An Intro to R, RStudio, and {tidyverse}
 # ==============================
 #    \
 #      \

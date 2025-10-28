@@ -1,5 +1,5 @@
 - title: "An Intro to R, RStudio, and {tidyverse}"
-  filename: lab-1
+  filename: intro
   rscript: "intro-r-rstudio"
   tldr: "A {tidyverse}-oriented lab for introducing students to R and Rstudio."
 
