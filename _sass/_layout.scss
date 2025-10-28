@@ -360,6 +360,34 @@ ul#archive li span a:hover {
     font-style: italic;
 }
 
+.lab-abstract a {
+
+font-weight: bold;
+font-style: normal;
+
+}
+
+.lab-abstract .instructions {
+
+font-family: "Fira Code", monospace;
+font-size: 80%;
+font-style: normal;
+border-left: 4px solid $su-water;
+
+background: $su-sky34;
+border-top: 1.5px dotted $su-sky;
+border-bottom: 1.5px dotted $su-sky;
+border-right: 1.5px dotted $su-sky;
+border-radius: 4px 4px 4px 0;
+  
+  
+padding: $spacing-unit / 4;
+margin-left: $spacing-unit / 4;
+margin-top: $spacing-unit / 4;
+
+
+}
+
 .post p img {
 	float: right;
 	border: 0px $su-sky solid;
