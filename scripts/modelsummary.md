@@ -29,15 +29,18 @@ output:
 library(tidyverse)
 #> ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
 #> ✔ dplyr     1.1.4     ✔ readr     2.1.4
-#> ✔ forcats   1.0.0     ✔ stringr   1.5.0
-#> ✔ ggplot2   4.0.0     ✔ tibble    3.3.0
-#> ✔ lubridate 1.9.4     ✔ tidyr     1.3.0
+#> ✔ forcats   1.0.1     ✔ stringr   1.5.0
+#> ✔ ggplot2   4.0.0     ✔ tibble    3.2.1
+#> ✔ lubridate 1.9.2     ✔ tidyr     1.3.0
 #> ✔ purrr     1.1.0     
 #> ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 #> ✖ dplyr::filter() masks stats::filter()
 #> ✖ dplyr::lag()    masks stats::lag()
 #> ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
 library(modelsummary)
+library(stevethemes)
+
+theme_set(theme_steve(style = 'generic'))
 # library(kableExtra) # for extra formatting options, in this format.
 # options("modelsummary_factory_default" = "kableExtra")
 ```
@@ -174,82 +177,80 @@ Papers make routine use of the table of descriptive statistics to
 communicate some basic features about the data. this is easily done in
 `{modelsummary}` with the `datasummary_skim()` function. The
 `datasummary()` function in the same package has more flexibility but
-this is easier to explain and its default format actually looks nicer.
+this is easier to explain.
+
+However, it comes with a few caveats that aren’t immediately obvious and
+often change as the package is updated. I’ll talk about these here.
+
+1.  It makes the most sense to whittle the data frame you’re using to
+    *just* the information that you’re going to model. Real-world
+    applications often have many more columns based on various
+    transformations or robustness tests or what-not. It’s just easier to
+    use `select()` here to grab only what you need.
+2.  Related to the above, you may want to consider how you communicate
+    the information about unique values and the percent missing and
+    whether you want to pick just one to include. Technically, `NA` is a
+    unique observation. Thus, a 1-10 scale would have 11 unique values
+    for missing data. For ordinal measures that would be included in the
+    minimum and maximum in a lot of applications. For something like a
+    respondent’s age, do we care that there are 68 unique values of a
+    respondent’s age? I’d probably suppress the “Unique” column if I
+    were you. Alternatively, you can do the `na.omit` function on the
+    data before feeding it to `datasummary_skim()` and omit the “Missing
+    Pct.” column for presentation. I’m going to do the former here.
+3.  It used to be the case, as far as I remember, that this function
+    would only use the column names. Now, it can use variable labels (if
+    you have them). I’ll actually show you how to overwrite one or
+    supply one because the “sex” column doesn’t have one.
+4.  It used to be easier to get a histogram with these data, which was
+    nice for in-console presentation. Now, it’s more difficult to get
+    that to behave the way I’d like for an audience like yours. It’s
+    also something you really won’t be presenting anyway.
+    `histogram = FALSE` used to be an argument you’d supply here. Now,
+    it’s a bit more complicated.
+
+Just trust me as I do this…
 
 ``` r
+attr(Data$sex, "label") <- "Female"
+attr(Data$pray, "label") <- "Frequency of Prayer"
+attr(Data$educ, "label") <- "Age at End of Schooling"
+
 Data %>% 
-  # setNames(c("Imp. Dem.", "Justif. Divorce",
-  #                      "Age", "Female", "Income", "Prayer Frequency",
-  #                      "Age at End of Schooling")) %>%
-  # na.omit %>%
-  datasummary_skim(title = "Summary Statistics of the Data Used in this Analysis",
-                   align = c("lcccccccc"),
-                   # output = "tinytable",
-                   histogram = TRUE) 
+  # na.omit %>% # See second point above...
+  # Below: feel free to copy-paste, but, explicitly, what goes before the = is
+  # what the column is going to be named. You can also adjust this to taste in
+  # Word or whatever...
+  datasummary_skim(fun_numeric = list(N = N,
+                                      `Missing %` = PercentMissing,
+                                      Mean = Mean,
+                                      `Std. Dev` = SD,
+                                      Min = Min,
+                                      Median = Median,
+                                      Max = Max),
+                   # Below: you may want to experiment with output = 'flextable'
+                   output = 'tinytable') 
 ```
 
-|  | Unique | Missing Pct. | Mean | SD | Min | Median | Max | Histogram |
-|----|----|----|----|----|----|----|----|----|
-| Importance of democracy | 11 | 1 | 9.3 | 1.5 | 1.0 | 10.0 | 10.0 | <img src="tinytable_assets/tinytable_4_idmeqe1vcf22k6z90vl4bl.png"
-height="16" /> |
-| Justifiable: Divorce | 11 | 3 | 8.4 | 2.3 | 1.0 | 10.0 | 10.0 | <img src="tinytable_assets/tinytable_5_id3ytp8hk2d6vpo328z2z2.png"
-height="16" /> |
-| Age | 68 | 0 | 47.3 | 19.4 | 18.0 | 47.0 | 85.0 | <img src="tinytable_assets/tinytable_6_iddwnn91ov3qg5wzfeggiu.png"
-height="16" /> |
-| sex | 2 | 0 | 0.5 | 0.5 | 0.0 | 1.0 | 1.0 | <img src="tinytable_assets/tinytable_1_iduhur71mx2smudhrgefkk.png"
-height="16" /> |
-| Scale of incomes | 11 | 3 | 5.4 | 1.8 | 1.0 | 5.0 | 10.0 | <img src="tinytable_assets/tinytable_2_idhs4jqjztrp8w78ykz8rw.png"
-height="16" /> |
-| How often to you pray | 9 | 1 | 6.4 | 2.3 | 1.0 | 8.0 | 8.0 | <img src="tinytable_assets/tinytable_3_idc8vg0wewavntm7ernru9.png"
-height="16" /> |
-| What age did you complete your education | 54 | 2 | 24.1 | 8.3 | 5.0 | 22.0 | 83.0 | <img src="tinytable_assets/tinytable_7_idbdtnyam7kcoqoc5kzbkh.png"
-height="16" /> |
+|                         | N    | Missing % | Mean | Std. Dev | Min  | Median | Max  |
+|-------------------------|------|-----------|------|----------|------|--------|------|
+| Importance of democracy | 1194 | 1         | 9.3  | 1.5      | 1.0  | 10.0   | 10.0 |
+| Justifiable: Divorce    | 1167 | 3         | 8.4  | 2.3      | 1.0  | 10.0   | 10.0 |
+| Age                     | 1206 | 0         | 47.3 | 19.4     | 18.0 | 47.0   | 85.0 |
+| Female                  | 1206 | 0         | 0.5  | 0.5      | 0.0  | 1.0    | 1.0  |
+| Scale of incomes        | 1166 | 3         | 5.4  | 1.8      | 1.0  | 5.0    | 10.0 |
+| Frequency of Prayer     | 1188 | 1         | 6.4  | 2.3      | 1.0  | 8.0    | 8.0  |
+| Age at End of Schooling | 1181 | 2         | 24.1 | 8.3      | 5.0  | 22.0   | 83.0 |
 
 Be mindful that the data I supplied here are *all* numeric and the data
-has *only* what I want to summarize. This will try to (want to)
-summarize everything, so be mindful what you are asking it to do.
-
-The `histogram = TRUE` is nice but often doesn’t print well to documents
-(and it won’t in Word as I’m going to show you to do it). So, you can
-use this (as a beginner) to get an idea of what your data look like and
-what issues you may have, but you should disable it for use.
-
-Now, we’re going to do a few things. First, we’re going to “uncomment”
-that `setNames()` comment, which is going to quickly rename our
-variables to be something that would be insane for an analysis but easy
-for formatting a table. It is apparently now a feature of
-`{modelsummary}` that it can scrape variable labels if they’re present
-in the data (as they often are for data in the Stata format). However,
-you should not rely on this being the case (and it isn’t for the one
-variable we had to create ourselves). Next, we’re going to disable that
-(`histogram = FALSE`) and knock off a “c” from the align argument.
-
-``` r
-Data %>% 
-  setNames(c("Imp. Dem.", "Justif. Divorce",
-                       "Age", "Female", "Income", "Prayer Frequency",
-                       "Age at End of Schooling")) %>%
-  # na.omit %>%
-  datasummary_skim(title = "Summary Statistics of the Data Used in this Analysis",
-                   align = c("lccccccc"),
-                   histogram = F) 
-#> Warning: The `histogram` argument is deprecated. Use `fun_numeric` instead.
-```
-
-|  | Unique | Missing Pct. | Mean | SD | Min | Median | Max |
-|----|----|----|----|----|----|----|----|
-| Importance of democracy | 11 | 1 | 9.3 | 1.5 | 1.0 | 10.0 | 10.0 |
-| Justifiable: Divorce | 11 | 3 | 8.4 | 2.3 | 1.0 | 10.0 | 10.0 |
-| Age | 68 | 0 | 47.3 | 19.4 | 18.0 | 47.0 | 85.0 |
-| Female | 2 | 0 | 0.5 | 0.5 | 0.0 | 1.0 | 1.0 |
-| Scale of incomes | 11 | 3 | 5.4 | 1.8 | 1.0 | 5.0 | 10.0 |
-| How often to you pray | 9 | 1 | 6.4 | 2.3 | 1.0 | 8.0 | 8.0 |
-| What age did you complete your education | 54 | 2 | 24.1 | 8.3 | 5.0 | 22.0 | 83.0 |
-
-Looks nice, right? Let’s copy-paste it into a Word document. Some
+has *only* what I want to summarize. Be aware what you are asking it to
+do. Looks nice, right? Let’s copy-paste it into a Word document. Some
 cosmetic things you’ll have to do yourself (e.g. potential centering and
 what-not). All you need is Ctrl-A, Ctrl-C, Ctrl-V (Cmd equivalent for
-you Mac users).
+you Mac users). Don’t forget to add a title to the table. That is an
+argument in this function, but it’s only applicable (as I understand) to
+in-chunk stuff processed by {knitr} or R Markdown. That’s likely not
+you, but it’s a good reason to learn how to do this.
 
 ## Make a plot or two or three
 
@@ -273,15 +274,13 @@ Data %>%
   ggplot(.,aes(factor(impdem))) +
   geom_bar(fill="#9bb2ce", alpha=.8, color='black') +
   geom_text(aes(label = after_stat(count)), stat = "count", vjust = -0.5)  +
- # theme_steve(style = 'generic') +
-  theme_minimal() +
   labs(caption = "Data: World Values Survey in Sweden (2011, Wave 6)",
        x = "Values of the Importance of Democracy",
        y = "Count of Observations") +
   scale_y_continuous(limits = c(0,1000))
 ```
 
-![](figs/modelsummary/unnamed-chunk-10-1.png)<!-- -->
+![](figs/modelsummary/unnamed-chunk-9-1.png)<!-- -->
 
 Issues in the dependent variable will typically be the ones you should
 think about first and the most, but you can see these issues manifest
@@ -294,15 +293,13 @@ Data %>%
   ggplot(.,aes(factor(justdiv))) +
   geom_bar(fill="#9bb2ce", alpha=.8, color='black') +
   geom_text(aes(label = after_stat(count)), stat = "count", vjust = -0.5)  +
-  # theme_steve(style = 'generic') +
-  theme_minimal() +
   labs(caption = "Data: World Values Survey in Sweden (2011, Wave 6)",
        x = "Values of the Justifiability of Divorce",
        y = "Count of Observations") +
   scale_y_continuous(limits = c(0,750))
 ```
 
-![](figs/modelsummary/unnamed-chunk-11-1.png)<!-- -->
+![](figs/modelsummary/unnamed-chunk-10-1.png)<!-- -->
 
 Now that you’ve created a graph that summarizes important features about
 your data, save it (in RStudio) to a PNG file. Then, in your Word

@@ -1,0 +1,97 @@
+---
+output: stevetemplates::word
+title: "Problem Set #1"
+author: Sven Svensson
+---
+
+```{r setup, include=FALSE}
+# This is a 'setup' chunk. Be very careful changing anything in here.
+knitr::opts_chunk$set(echo = TRUE,warning=FALSE,message=FALSE,
+                      collapse = TRUE,
+                      comment = "#>", fig.width = 8.5)
+
+```
+
+```{r, eval=T}
+# This is just to make sure you know in Word you have to load these.
+library(tidyverse)
+library(stevedata)
+```
+
+This example document will mimic what you will do in the first homework. It will make use of the `ESS9GB` data in `{stevedata}`. You can [read more about those data here](https://svmiller.com/stevedata/reference/ESS9GB.html). I also have [a blog post](https://svmiller.com/blog/2020/03/what-explains-british-attitudes-toward-immigration-a-pedagogical-example/) and [a grad-level lab script](https://eh6127.svmiller.com/lab-scripts/lab-4/) built around analyzing these data.
+
+```{r}
+# I can't really practice the use of `read_csv()` in the context of a guide like this.
+my_data <- ESS9GB
+```
+
+Now, let's see how many columns there are. There are a number of ways of doing this and the eagle-eye student will note that the default "tibble" format basically tells you this as well.
+
+```{r}
+ncol(my_data)
+dim(my_data) # rows, then columns
+```
+
+Let's see how many rows there are.
+
+```{r}
+nrow(my_data)
+dim(my_data) # rows, then columns
+```
+
+Let's see what the mean and median are of age. Again, there are a number of ways of doing this. Note that the presence of any missing observations results in an error here, so you should get in the habit of explicitly telling R that you don't care if there are missing values and that you just want the summary statistic of what's available. That would be specifying an argument of `na.rm = TRUE` or `na.rm = T` in your `mean()` and `median()` function.
+
+```{r}
+mean(my_data$agea, na.rm=TRUE)
+median(my_data$agea, na.rm=TRUE)
+
+# notice the pipe operator.
+my_data %>%
+  summarize(avgage = mean(agea, na.rm=T),
+            medage = median(agea, na.rm=T))
+```
+
+Let's do the same for the years of education variable.
+
+```{r}
+mean(my_data$eduyrs, na.rm=TRUE)
+median(my_data$eduyrs, na.rm=TRUE)
+
+# notice the pipe operator.
+my_data %>%
+  summarize(avgage = mean(eduyrs, na.rm=T),
+            medage = median(eduyrs, na.rm=T))
+```
+
+Finally, let's say isolate the respondents who live in London.
+
+```{r}
+my_data %>%
+  filter(region %in% c("London"))
+
+# Alternatively, if you have just one thing to find...
+
+my_data %>%
+  filter(region == "London")
+
+# Alternatively, using subset() in base R.
+
+subset(my_data, region %in% c("London"))
+
+# The benefit of the %in% approach is using it to isolate even more. Like this:
+
+subset(my_data, region %in% c("London", "Scotland"))
+
+# It'd be good to know what the regions are, though...
+
+my_data %>% distinct(region)
+
+```
+
+Here's a plot. This is text!
+
+```{r}
+ggplot(my_data, aes(agea)) + geom_histogram()
+```
+
+There's still plenty more to do...
