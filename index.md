@@ -1,10 +1,10 @@
 ---
-title: About the Course
+title: Quantitative Methods in the Study of International Relations
 layout: default
 active: home
 ---
 
-# {{ page.title }}
+# About the Course
 
 {% include image.html url="/images/warne2018sss.jpg" caption="Statistics for the Social Sciences: A General Linear Model Approach" width=300 align="right" %}
 
