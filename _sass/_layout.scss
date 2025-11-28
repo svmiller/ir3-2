@@ -276,7 +276,9 @@ ul#archive li {
        padding: .1em .1em .1em .1em;
 }
 
-ul#archive li:nth-child(even) { background: $su-sky20; }
+ul#archive li:nth-child(even) {
+  background: rgba($su-olive20, .5);
+}
 ul#archive li:nth-child(odd) { background: $background-color; }
 
 
@@ -347,13 +349,13 @@ ul#archive li span a:hover {
 /* Last-minute stuff I added... */
 
 .lab-abstract {
-  border-left: 4px solid $su-sky;
-  border-top: 1px dotted $su-sky;
-  border-bottom: 1px dotted $su-sky;
-  border-right: 1px dotted $su-sky;
+  border-left: 4px solid $su-olive70;
+  border-top: 1px dotted $su-olive70;
+  border-bottom: 1px dotted $su-olive70;
+  border-right: 1px dotted $su-olive70;
   border-radius: 4px 4px 4px 0;
   margin-bottom: 20px;
-  background: $su-sky20;
+  background: rgba($su-olive20, .5);
   padding: $spacing-unit / 2;
     font-size: 18px;
     letter-spacing: -1px;
@@ -372,12 +374,12 @@ font-style: normal;
 font-family: "Fira Code", monospace;
 font-size: 80%;
 font-style: normal;
-border-left: 4px solid $su-water;
+border-left: 4px solid $su-olive;
 
-background: $su-sky34;
-border-top: 1.5px dotted $su-sky;
-border-bottom: 1.5px dotted $su-sky;
-border-right: 1.5px dotted $su-sky;
+background: $su-olive20;
+border-top: 1.5px dotted $su-olive;
+border-bottom: 1.5px dotted $su-olive;
+border-right: 1.5px dotted $su-olive;
 border-radius: 4px 4px 4px 0;
   
   
