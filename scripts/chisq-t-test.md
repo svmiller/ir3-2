@@ -46,6 +46,9 @@ library(tidyverse)
 #> ✖ dplyr::lag()    masks stats::lag()
 #> ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
 library(stevedata)
+library(stevethemes) # Optional; gonna use it anyway
+
+theme_set(theme_steve(style = 'generic'))
 ```
 
 Reminder: Please have read this:
@@ -325,7 +328,6 @@ corresponding with our test statistic.
 ``` r
 ggplot(chisqsim, aes(x)) +
   geom_density() +
-  theme_minimal() +
   geom_vline(xintercept = 17.895, linetype = 'dashed')
 ```
 

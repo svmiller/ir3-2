@@ -53,6 +53,9 @@ library(stevemisc)
 #> The following object is masked from 'package:dplyr':
 #> 
 #>     tbl_df
+library(stevethemes) # Optional; gonna use it anyway
+
+theme_set(theme_steve(style = 'generic'))
 ```
 
 Please read this:
@@ -349,7 +352,6 @@ ggplot(Data, aes(cat, gdppc)) +
   geom_boxplot(fill="#619cff") +
   # put your thing down flip it and reverse it...
   coord_flip() +
-  theme_minimal() +
   # Be mindful of the coord_flip(), though...
   scale_y_continuous(labels = scales::dollar_format()) +
   labs(x = "", y="GDP per Capita Quartiles",
@@ -531,7 +533,6 @@ mean_gdppc <- mean(Data$gdppc)
 mean_demest <- mean(Data$demest)
 
 ggplot(Data, aes(demest, gdppc)) +
-  theme_minimal() +
   geom_point() +
   geom_smooth(method ='lm') +
   geom_vline(xintercept = mean_demest, linetype = 'dashed') +

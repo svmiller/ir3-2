@@ -33,8 +33,10 @@ knitr::opts_chunk$set(collapse = TRUE,
 #' ## If it's not installed, install it.
 
 library(tidyverse)
-library(stevethemes)
 library(stevemisc)
+library(stevethemes) # Optional; gonna use it anyway
+
+theme_set(theme_steve(style = 'generic'))
 
 #' ## Load the data
 #' 
@@ -180,7 +182,6 @@ plot(M1, which = 1)
 broom::augment(M1) %>%
   ggplot(.,aes(.fitted, .resid)) +
   geom_point(pch = 21) +
-  theme_steve(style='generic') +
   geom_hline(yintercept = 0, linetype="dashed", color="red") +
   geom_smooth(method = "loess")
 
@@ -195,8 +196,7 @@ broom::augment(M1) %>%
 #' then falls on a line like this. Let's see this for ourselves.
 #' 
 Data %>% ggplot(.,aes(log_radius_area)) + 
-  geom_histogram() +
-  theme_steve(style='generic')
+  geom_histogram() 
 
 Data %>% arrange(log_radius_area)
 
@@ -234,8 +234,7 @@ Data %>% arrange(log_radius_area)
 #' third is that we 100% won't know where until we looked at something a bit
 #' more informative. `linloess_plot()` in `{stevemisc}` will do this.
 
-linloess_plot(M1, pch=21) +
-  theme_steve(style='generic')
+linloess_plot(M1, pch=21)
 
 #' Binary IVs will never be the issue here. It's the "vital border" variable that
 #' looks like it has some weirdness. Based on what I remember of Starr (2002) and
@@ -264,7 +263,7 @@ lmtest::coeftest(M1,  sandwich::vcovHC(M1,type='HC1'))
 #' 
 plot(M1, which=2)
 
-rd_plot(M1) + theme_steve(style='generic')
+rd_plot(M1) 
 
 #' Again, a plot like this is wanting to alert us to the "hurdle" component of
 #' the DV. Rather than have normally distributed residuals, or something reasonably

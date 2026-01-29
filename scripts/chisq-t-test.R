@@ -42,6 +42,9 @@ knitr::opts_chunk$set(collapse = TRUE,
 
 library(tidyverse)
 library(stevedata)
+library(stevethemes) # Optional; gonna use it anyway
+
+theme_set(theme_steve(style = 'generic'))
 
 #' Reminder: Please have read this:
 #'
@@ -194,7 +197,6 @@ quantile(chisqsim$x, .95)
 
 ggplot(chisqsim, aes(x)) +
   geom_density() +
-  theme_minimal() +
   geom_vline(xintercept = 17.895, linetype = 'dashed')
 
 #' Our test statistic is almost an impossibility in the chi-squared distribution.
