@@ -33,8 +33,10 @@ knitr::opts_chunk$set(collapse = TRUE,
 #' ## If it's not installed, install it.
 
 library(tidyverse)
-library(stevethemes)
 library(stevemisc)
+library(stevethemes) # Optional; gonna use it anyway
+
+theme_set(theme_steve(style = 'generic'))
 
 #' ## Load the data
 #' 
@@ -257,7 +259,6 @@ Data %>%
 Data %>%
   ggplot(.,aes(.fitted, .resid)) +
   geom_point(pch = 21) +
-  theme_steve(style='generic') +
   geom_hline(yintercept = 0, linetype="dashed", color="red") +
   geom_smooth(method = "loess")
 
@@ -271,7 +272,6 @@ M4 <- lm(y ~ x, A)
 broom::augment(M4) %>%
   ggplot(.,aes(.fitted, .resid)) +
   geom_point(pch = 21) +
-  theme_steve(style='generic') +
   geom_hline(yintercept = 0, linetype="dashed", color="red") +
   geom_smooth(method = "loess")
 
@@ -292,8 +292,7 @@ plot(M4, which = 1) # ideal case
 #' variable. Do note this tells you nothing about binary IVs, but binary IVs 
 #' aren’t the  problem here.
 
-linloess_plot(M2, pch=21) +
-  theme_steve(style='generic')
+linloess_plot(M2, pch=21) 
 
 #' ^ A couple of things stand out here to me: 1) the model is so offended
 #' by the presence of the exchange rate variable that it's making anything else
@@ -306,8 +305,7 @@ Data %>%
   select(econ_growth, xr) %>%
   gather(var, val) %>%
   ggplot(.,aes(val)) + geom_histogram(bins=40) +
-  facet_wrap(~var, nrow = 2, scales='free') +
-  theme_steve(style='generic')
+  facet_wrap(~var, nrow = 2, scales='free')
 
 #' Iiiiiinteresting. You're free to play around with this, but use your head a bit.
 #' It implies there are a few categories of "growth". Some are negative, which is
@@ -389,8 +387,7 @@ Data %>%
                 args = list(mean = 0, 
                             sd = sd(Data$.resid, na.rm=T)),
                 linetype="dashed", linewidth=1.1) +
-  geom_density(linewidth = 1.1) +
-  theme_steve(style='generic')
+  geom_density(linewidth = 1.1) 
 
 rd_plot(M2)
 #' ^ wooof. Kill this with fire.
@@ -408,8 +405,7 @@ rd_plot(M2)
 #' distribution. That's almost assuredly the case here.
 
 Data %>%
-  ggplot(.,aes(fdi)) + geom_density() +
-  theme_steve(style='generic')
+  ggplot(.,aes(fdi)) + geom_density()
 
 #' ^ it's one thing for there to be this kind of tail. It's another for it to be
 #' driven by so few observations. It's possible you may want to condense the scale

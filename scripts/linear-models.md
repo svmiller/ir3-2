@@ -38,7 +38,6 @@ library(tidyverse)
 #> ✖ dplyr::filter() masks stats::filter()
 #> ✖ dplyr::lag()    masks stats::lag()
 #> ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
-library(stevethemes)
 library(stevemisc)
 #> 
 #> Attaching package: 'stevemisc'
@@ -50,6 +49,9 @@ library(stevemisc)
 #> The following object is masked from 'package:dplyr':
 #> 
 #>     tbl_df
+library(stevethemes) # Optional; gonna use it anyway
+
+theme_set(theme_steve(style = 'generic'))
 ```
 
 ## Load the data
@@ -376,7 +378,6 @@ Now, let’s get to the heart of the matter.
 Data %>%
   ggplot(.,aes(.fitted, .resid)) +
   geom_point(pch = 21) +
-  theme_steve(style='generic') +
   geom_hline(yintercept = 0, linetype="dashed", color="red") +
   geom_smooth(method = "loess")
 #> `geom_smooth()` using formula = 'y ~ x'
@@ -396,7 +397,6 @@ M4 <- lm(y ~ x, A)
 broom::augment(M4) %>%
   ggplot(.,aes(.fitted, .resid)) +
   geom_point(pch = 21) +
-  theme_steve(style='generic') +
   geom_hline(yintercept = 0, linetype="dashed", color="red") +
   geom_smooth(method = "loess")
 #> `geom_smooth()` using formula = 'y ~ x'
@@ -431,8 +431,7 @@ tells you nothing about binary IVs, but binary IVs aren’t the problem
 here.
 
 ``` r
-linloess_plot(M2, pch=21) +
-  theme_steve(style='generic')
+linloess_plot(M2, pch=21) 
 #> `geom_smooth()` using formula = 'y ~ x'
 #> `geom_smooth()` using formula = 'y ~ x'
 ```
@@ -452,8 +451,7 @@ Data %>%
   select(econ_growth, xr) %>%
   gather(var, val) %>%
   ggplot(.,aes(val)) + geom_histogram(bins=40) +
-  facet_wrap(~var, nrow = 2, scales='free') +
-  theme_steve(style='generic')
+  facet_wrap(~var, nrow = 2, scales='free')
 ```
 
 ![](figs/linear-models/unnamed-chunk-14-1.png)<!-- -->
@@ -562,8 +560,7 @@ Data %>%
                 args = list(mean = 0, 
                             sd = sd(Data$.resid, na.rm=T)),
                 linetype="dashed", linewidth=1.1) +
-  geom_density(linewidth = 1.1) +
-  theme_steve(style='generic')
+  geom_density(linewidth = 1.1) 
 ```
 
 ![](figs/linear-models/unnamed-chunk-17-1.png)<!-- -->
@@ -592,8 +589,7 @@ assuredly the case here.
 
 ``` r
 Data %>%
-  ggplot(.,aes(fdi)) + geom_density() +
-  theme_steve(style='generic')
+  ggplot(.,aes(fdi)) + geom_density()
 ```
 
 ![](figs/linear-models/unnamed-chunk-18-1.png)<!-- -->
