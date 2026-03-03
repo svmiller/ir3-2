@@ -37,9 +37,9 @@ output:
 library(tidyverse)
 #> ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
 #> ✔ dplyr     1.1.4     ✔ readr     2.1.4
-#> ✔ forcats   1.0.0     ✔ stringr   1.5.0
-#> ✔ ggplot2   4.0.0     ✔ tibble    3.3.0
-#> ✔ lubridate 1.9.4     ✔ tidyr     1.3.0
+#> ✔ forcats   1.0.1     ✔ stringr   1.6.0
+#> ✔ ggplot2   4.0.0     ✔ tibble    3.3.1
+#> ✔ lubridate 1.9.2     ✔ tidyr     1.3.0
 #> ✔ purrr     1.1.0     
 #> ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 #> ✖ dplyr::filter() masks stats::filter()
@@ -351,10 +351,39 @@ distribution.
 
 ## Choose Your Own Adventure with the *t*-test
 
-I have three articles on the course description for which you need to do
-an article summary. I also have three data sets in `{stevedata}` that
-are either the data sets themselves or allow for reasonable
-approximations of what the authors are doing.
+I used to ask students to do an article summary as one of their
+assessments before learning that 1) this is more trouble than it’s worth
+when it just creates extra work for me to ask you to do something that I
+think you should be doing anyway and 2) [it’s *really* frustrating to be
+asked to grade chatbot output with a straight
+face](https://svmiller.com/blog/2025/09/assorted-opinionated-takes-on-chatbot-use-by-students/).
+In past versions of the course, this part of the lab script could be
+fairly light on details. Now, I feel I have to explain myself a bit more
+for the “choose your own adventure” part of this particular script.
+
+I had previously asked students to read one of three articles for an
+article summary that they would’ve already done by this part of the
+class, ideally. One of those articles is Appell and Loyle’s (2012)
+analysis on the economic benefits of post-conflict justice institutions.
+I actually feature these in [a blog post
+here](https://svmiller.com/blog/2024/01/linear-model-diagnostics-by-ir-example/).
+Another is related to what we did above with the Chi-squared test.
+[Valentino et
+al. (2010)](https://www.journals.uchicago.edu/doi/abs/10.1017/S0022381609990831)
+conduct an analysis in the democratic peace tradition that looks at how
+democracies minimize the costs of war through various means. I have a
+data set to approximate their analysis as
+[`states_war`](https://svmiller.com/stevedata/reference/states_war.html)
+in `{stevedata}` and feature these data in the last lab script for the
+master’s students. Still another is [Leblang’s
+(1996)](https://journals.sagepub.com/doi/10.1177/106591299604900102)
+analysis on the link between property right and modernization staples of
+economic growth and democracy. I have these as
+[`PRDEG`]((https://svmiller.com/stevedata/reference/PRDEG.html)) in
+`{stevedata}`. We can do an analysis on any one of the those three
+topics: 1) post-conflict justice institutions and foreign direct
+investment, 2) democracy and performance in war, or 3) democracy and
+economic growth. Which of these strikes your fancy?
 
 ``` r
 EBJ        # reduced form of Appell and Loyle (2012)

@@ -82,7 +82,7 @@ Cmd-Enter or Ctrl-Enter on your keyboard.
 
 ``` r
 if_not_install(c("tidyverse","stevedata","stevemisc", 
-                 "stevethemes", "stevetemplates"))
+                 "stevethemes", "stevetemplates", "modelsummary"))
 ```
 
 In my case: this did nothing. Ideally in your case it did nothing too.
@@ -101,9 +101,9 @@ very top of your script.
 library(tidyverse)
 #> ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
 #> ✔ dplyr     1.1.4     ✔ readr     2.1.4
-#> ✔ forcats   1.0.0     ✔ stringr   1.5.0
-#> ✔ ggplot2   4.0.0     ✔ tibble    3.3.0
-#> ✔ lubridate 1.9.4     ✔ tidyr     1.3.0
+#> ✔ forcats   1.0.1     ✔ stringr   1.6.0
+#> ✔ ggplot2   4.0.0     ✔ tibble    3.3.1
+#> ✔ lubridate 1.9.2     ✔ tidyr     1.3.0
 #> ✔ purrr     1.1.0     
 #> ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 #> ✖ dplyr::filter() masks stats::filter()
@@ -439,7 +439,7 @@ Still, here’s if I wanted everything except the two-character ISO code.
 I’m more of a three-character guy myself.
 
 ``` r
-Data %>% select(-iso2c) # grab everything, but drop the public variable.
+Data %>% select(-iso2c) # grab everything, but drop the iso2c variable.
 #> # A tibble: 28 × 11
 #>    country  iso3c  year    wp  gini fdipgdp exppgdp  reer taxrevpgdp     gdp
 #>    <chr>    <chr> <dbl> <dbl> <dbl>   <dbl>   <dbl> <dbl>      <dbl>   <dbl>

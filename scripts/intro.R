@@ -83,7 +83,7 @@ if_not_install <- function(packages) {
 #' or Ctrl-Enter on your keyboard.
 
 if_not_install(c("tidyverse","stevedata","stevemisc", 
-                 "stevethemes", "stevetemplates"))
+                 "stevethemes", "stevetemplates", "modelsummary"))
 
 #' In my case: this did nothing. Ideally in your case it did nothing too. That would
 #' be because you already have these packages installed. If you don't have one or
@@ -326,7 +326,7 @@ Data %>% select(everything())  # grab everything
 #' if I wanted everything  except the two-character ISO code. I'm more of a 
 #' three-character guy myself.
 #' 
-Data %>% select(-iso2c) # grab everything, but drop the public variable.
+Data %>% select(-iso2c) # grab everything, but drop the iso2c variable.
 
 #' Here's a more typical case. Assume you're working with a large data object and you 
 #' just want a handful of things. In this case, we have these variables,
