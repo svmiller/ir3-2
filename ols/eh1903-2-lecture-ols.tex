@@ -398,8 +398,10 @@ Fortunately, regression can do that for us (under ideal conditions).
 Does this look familiar?
 
 \[
-y = mx + b
+y = kx + m
 \]
+
+(Vi har \(y = mx + b\) på USA\ldots)
 \end{frame}
 
 \begin{frame}{Demystifying Regression}
@@ -409,10 +411,11 @@ That was the slope-intercept equation.
 \begin{itemize}
 \tightlist
 \item
-  \emph{b} is the intercept: the observed \emph{y} when \emph{x} = 0.
+  \(m\) (eller \(b\) på USA) is the intercept: the observed \(y\) when
+  \(x\) = 0.
 \item
-  \emph{m} is the familiar ``rise over run'', measuring the amount of
-  change in \emph{y} for a unit change in \emph{x}.
+  \(k\) (eller \(m\) på USA) is the familiar ``rise over run'',
+  measuring the amount of change in \(y\) for a unit change in \(x\).
 \end{itemize}
 \end{frame}
 
@@ -432,8 +435,8 @@ regression line.
 y = a + b(x)
 \]
 
-The \emph{b} is the \textbf{regression coefficient} that communicates
-the change in \emph{y} for each unit change in \emph{x}.
+The \(b\) is the \textbf{regression coefficient} that communicates the
+change in \(y\) for each unit change in \(x\).
 
 \begin{itemize}
 \tightlist
@@ -748,7 +751,7 @@ Our plan of attack:
 \end{enumerate}
 \end{frame}
 
-\begin{frame}[fragile]{The DV and IV are Both Log-Transformed}
+\begin{frame}{The DV and IV are Both Log-Transformed}
 \phantomsection\label{the-dv-and-iv-are-both-log-transformed}
 \emph{Air transport passengers}: a 1\% increase in IV coincides with
 estimated .283\% increase in DV.
@@ -756,8 +759,8 @@ estimated .283\% increase in DV.
 \begin{itemize}
 \tightlist
 \item
-  Alternatively, less helpfully: a unit increase log(x) increases log(y)
-  by an estimated .283.
+  Alternatively, less helpfully: a unit increase \(log(x)\) increases
+  \(log(y)\) by an estimated .283.
 \end{itemize}
 
 \emph{GDP per capita}: a 1\% change in GDP per capita -\textgreater{}
@@ -766,8 +769,8 @@ estimated .283\% increase in DV.
 \begin{itemize}
 \tightlist
 \item
-  Alternatively, with more precision: \texttt{(1.01\^{}(.763)-1)*100} =
-  .762\% change in tourism arrivals for 1\% increase in GDP per capita.
+  Alternatively, with more precision: \((1.01^{.763}-1)*100 = .762\)\%
+  change in tourism arrivals for 1\% increase in GDP per capita.
 \end{itemize}
 
 \textbf{Be mindful of the percentages!}

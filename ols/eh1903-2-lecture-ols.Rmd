@@ -139,15 +139,17 @@ Fortunately, regression can do that for us (under ideal conditions).
 Does this look familiar?
 
 $$
-y = mx + b
+y = kx + m
 $$
+
+(Vi har $y = mx + b$ på USA...)
 
 ### Demystifying Regression
 
 That was the slope-intercept equation.
 
-- *b* is the intercept: the observed *y* when *x* = 0.
-- *m* is the familiar "rise over run", measuring the amount of change in *y* for a unit change in *x*.
+- $m$ (eller $b$ på USA) is the intercept: the observed $y$ when $x$ = 0.
+- $k$ (eller $m$ på USA) is the familiar "rise over run", measuring the amount of change in $y$ for a unit change in $x$.
 
 ### Demystifying Regression
 
@@ -159,7 +161,7 @@ $$
 y = a + b(x)
 $$
 
-The *b* is the **regression coefficient** that communicates the change in *y* for each unit change in *x*.
+The $b$ is the **regression coefficient** that communicates the change in $y$ for each unit change in $x$.
 
 - However, this is a deterministic function. We live in a stochastic world.
 
@@ -376,11 +378,11 @@ Our plan of attack:
 
  *Air transport passengers*: a 1% increase in IV coincides with estimated .283% increase in DV.
  
- - Alternatively, less helpfully: a unit increase log(x) increases log(y) by an estimated .283.
+ - Alternatively, less helpfully: a unit increase $log(x)$ increases $log(y)$ by an estimated .283.
  
  *GDP per capita*: a 1% change in GDP per capita -> .763% change in tourism arrivals.
  
- - Alternatively, with more precision: `(1.01^(.763)-1)*100` = .762% change in tourism arrivals for 1% increase in GDP per capita.
+ - Alternatively, with more precision: $(1.01^{.763}-1)*100 = .762$% change in tourism arrivals for 1% increase in GDP per capita.
  
 **Be mindful of the percentages!**
  
@@ -461,7 +463,7 @@ broom::augment(M2) %>%
   ggplot(.,aes(.fitted, .resid)) +
   geom_point() +
   theme_steve() +
-  geom_hline(yintercept = 0) +
+  geom_hline(yintercept = 0, linetype = 'dashed') +
   geom_smooth(method = "loess") +
   labs(x = "Fitted Values", y = "Residuals",
        title = "A Fitted-Residual Plot of Our Full Model",
