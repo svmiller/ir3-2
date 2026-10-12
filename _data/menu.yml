@@ -55,6 +55,6 @@
     - subtitle: "Problem Set 4"
       subhref: "/problem-sets/4/eh1903-2-ps4.pdf"
 
-- title: "Athena"
-  href: "https://athena.itslearning.com/"
-  icons: "fas fa-leaf"
+- title: "Canvas"
+  href: "https://canvas.su.se"
+  icons: "fas fa-spinner"
