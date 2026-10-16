@@ -277,14 +277,14 @@ Data
 #' horizontal line at the mean of per capita income to gather more 
 #' information about our data.
 
-mean_gdppc <- mean(Data$gdppc)
-mean_demest <- mean(Data$demest)
+avggdpc <- mean(Data$gdppc)
+avgdemest <- mean(Data$demest)
 
 ggplot(Data, aes(demest, gdppc)) +
   geom_point() +
   geom_smooth(method ='lm') +
-  geom_vline(xintercept = mean_demest, linetype = 'dashed') +
-  geom_hline(yintercept = mean_gdppc, linetype = 'dashed') +
+  geom_vline(xintercept = avgdemest, linetype = 'dashed') +
+  geom_hline(yintercept = avggdpc, linetype = 'dashed') +
   scale_y_continuous(labels = scales::dollar_format())
 
 #' This is effectively breaking our bivariate data into quadrants. The 

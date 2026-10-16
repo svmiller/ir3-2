@@ -31,15 +31,14 @@ output:
 library(tidyverse)
 #> ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
 #> ✔ dplyr     1.1.4     ✔ readr     2.1.4
-#> ✔ forcats   1.0.0     ✔ stringr   1.5.0
-#> ✔ ggplot2   4.0.0     ✔ tibble    3.3.0
-#> ✔ lubridate 1.9.4     ✔ tidyr     1.3.0
+#> ✔ forcats   1.0.1     ✔ stringr   1.6.0
+#> ✔ ggplot2   4.0.0     ✔ tibble    3.3.1
+#> ✔ lubridate 1.9.2     ✔ tidyr     1.3.0
 #> ✔ purrr     1.1.0     
 #> ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 #> ✖ dplyr::filter() masks stats::filter()
 #> ✖ dplyr::lag()    masks stats::lag()
 #> ℹ Use the conflicted package (<http://conflicted.r-lib.org/>) to force all conflicts to become errors
-library(stevethemes)
 library(stevemisc)
 #> 
 #> Attaching package: 'stevemisc'
@@ -51,6 +50,9 @@ library(stevemisc)
 #> The following object is masked from 'package:dplyr':
 #> 
 #>     tbl_df
+library(stevethemes) # Optional; gonna use it anyway
+
+theme_set(theme_steve(style = 'generic'))
 ```
 
 ## Load the data
@@ -270,6 +272,17 @@ exp(0.025871)-1       # relative change
 #> [1] 2.5871
 ```
 
+Here’s where the territory coefficient’s larger value misleads a bit.
+
+``` r
+exp(1.624430)-1       # relative change
+#> [1] 4.075525
+(exp(1.624430)-1)*100 # percentage change
+#> [1] 407.5525
+1.624430*100          # percentage change approximation
+#> [1] 162.443
+```
+
 If this is a bit much for you at this level, that’s cool too. You can
 just note what’s significant and in what direction and say something
 like “a one-unit change in the percentage of the territory that is
@@ -294,7 +307,7 @@ linear model diagnostic. It’s where you should start.
 plot(M1, which = 1)
 ```
 
-![](figs/linear-models-again/unnamed-chunk-10-1.png)<!-- -->
+![](figs/linear-models-again/unnamed-chunk-11-1.png)<!-- -->
 
 Oh boy… that’s not good. Let’s pretty it up bit, just for presentation
 and added exposure to the `augment()` function in `{broom}`.
@@ -303,13 +316,12 @@ and added exposure to the `augment()` function in `{broom}`.
 broom::augment(M1) %>%
   ggplot(.,aes(.fitted, .resid)) +
   geom_point(pch = 21) +
-  theme_steve(style='generic') +
   geom_hline(yintercept = 0, linetype="dashed", color="red") +
   geom_smooth(method = "loess")
 #> `geom_smooth()` using formula = 'y ~ x'
 ```
 
-![](figs/linear-models-again/unnamed-chunk-11-1.png)<!-- -->
+![](figs/linear-models-again/unnamed-chunk-12-1.png)<!-- -->
 
 Remember what you should want to see in a fitted-residual plot. Know
 this isn’t it. That said, here’s what you can discern this is telling
@@ -323,12 +335,11 @@ residual then falls on a line like this. Let’s see this for ourselves.
 
 ``` r
 Data %>% ggplot(.,aes(log_radius_area)) + 
-  geom_histogram() +
-  theme_steve(style='generic')
+  geom_histogram() 
 #> `stat_bin()` using `bins = 30`. Pick better value `binwidth`.
 ```
 
-![](figs/linear-models-again/unnamed-chunk-12-1.png)<!-- -->
+![](figs/linear-models-again/unnamed-chunk-13-1.png)<!-- -->
 
 ``` r
 
@@ -388,15 +399,14 @@ third is that we 100% won’t know where until we looked at something a
 bit more informative. `linloess_plot()` in `{stevemisc}` will do this.
 
 ``` r
-linloess_plot(M1, pch=21) +
-  theme_steve(style='generic')
+linloess_plot(M1, pch=21)
 #> Warning: attributes are not identical across measure variables; they will be
 #> dropped
 #> `geom_smooth()` using formula = 'y ~ x'
 #> `geom_smooth()` using formula = 'y ~ x'
 ```
 
-![](figs/linear-models-again/unnamed-chunk-13-1.png)<!-- -->
+![](figs/linear-models-again/unnamed-chunk-14-1.png)<!-- -->
 
 Binary IVs will never be the issue here. It’s the “vital border”
 variable that looks like it has some weirdness. Based on what I remember
@@ -447,14 +457,14 @@ reasonably fit the data.
 plot(M1, which=2)
 ```
 
-![](figs/linear-models-again/unnamed-chunk-15-1.png)<!-- -->
+![](figs/linear-models-again/unnamed-chunk-16-1.png)<!-- -->
 
 ``` r
 
-rd_plot(M1) + theme_steve(style='generic')
+rd_plot(M1) 
 ```
 
-![](figs/linear-models-again/unnamed-chunk-15-2.png)<!-- -->
+![](figs/linear-models-again/unnamed-chunk-16-2.png)<!-- -->
 
 Again, a plot like this is wanting to alert us to the “hurdle” component
 of the DV. Rather than have normally distributed residuals, or something

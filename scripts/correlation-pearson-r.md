@@ -33,11 +33,11 @@ output:
 ``` r
 library(tidyverse)
 #> ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-#> ✔ dplyr     1.1.4     ✔ readr     2.1.4
-#> ✔ forcats   1.0.0     ✔ stringr   1.5.0
-#> ✔ ggplot2   4.0.0     ✔ tibble    3.3.0
-#> ✔ lubridate 1.9.4     ✔ tidyr     1.3.0
-#> ✔ purrr     1.1.0     
+#> ✔ dplyr     1.2.0     ✔ readr     2.2.0
+#> ✔ forcats   1.0.1     ✔ stringr   1.6.0
+#> ✔ ggplot2   4.0.2     ✔ tibble    3.3.1
+#> ✔ lubridate 1.9.5     ✔ tidyr     1.3.2
+#> ✔ purrr     1.2.1     
 #> ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 #> ✖ dplyr::filter() masks stats::filter()
 #> ✖ dplyr::lag()    masks stats::lag()
@@ -529,14 +529,14 @@ democracy and a horizontal line at the mean of per capita income to
 gather more information about our data.
 
 ``` r
-mean_gdppc <- mean(Data$gdppc)
-mean_demest <- mean(Data$demest)
+avggdpc <- mean(Data$gdppc)
+avgdemest <- mean(Data$demest)
 
 ggplot(Data, aes(demest, gdppc)) +
   geom_point() +
   geom_smooth(method ='lm') +
-  geom_vline(xintercept = mean_demest, linetype = 'dashed') +
-  geom_hline(yintercept = mean_gdppc, linetype = 'dashed') +
+  geom_vline(xintercept = avgdemest, linetype = 'dashed') +
+  geom_hline(yintercept = avggdpc, linetype = 'dashed') +
   scale_y_continuous(labels = scales::dollar_format())
 #> `geom_smooth()` using formula = 'y ~ x'
 ```

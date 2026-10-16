@@ -155,6 +155,12 @@ exp(0.025871)-1       # relative change
 (exp(0.025871)-1)*100 # percentage change
 0.025871*100          # percentage change approximation
 
+#' Here's where the territory coefficient's larger value misleads a bit.
+
+exp(1.624430)-1       # relative change
+(exp(1.624430)-1)*100 # percentage change
+1.624430*100          # percentage change approximation
+
 #' If this is a bit much for you at this level, that's cool too. You can just note
 #' what's significant and in what direction and say something like "a one-unit
 #' change in the percentage of the territory that is covered in mountains coincides
