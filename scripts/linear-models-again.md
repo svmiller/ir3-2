@@ -30,11 +30,11 @@ output:
 ``` r
 library(tidyverse)
 #> ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-#> ✔ dplyr     1.1.4     ✔ readr     2.1.4
+#> ✔ dplyr     1.2.0     ✔ readr     2.2.0
 #> ✔ forcats   1.0.1     ✔ stringr   1.6.0
-#> ✔ ggplot2   4.0.0     ✔ tibble    3.3.1
-#> ✔ lubridate 1.9.2     ✔ tidyr     1.3.0
-#> ✔ purrr     1.1.0     
+#> ✔ ggplot2   4.0.2     ✔ tibble    3.3.1
+#> ✔ lubridate 1.9.5     ✔ tidyr     1.3.2
+#> ✔ purrr     1.2.1     
 #> ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 #> ✖ dplyr::filter() masks stats::filter()
 #> ✖ dplyr::lag()    masks stats::lag()
@@ -64,7 +64,7 @@ repeating myself because repetition will certainly help the student’s
 learning, but I hope any terseness (for the moment) is met with some
 understanding since it’s a fair bit of work to create new lessons on the
 fly. No matter, I hope students have learned by now how to read data
-from the internet. I’ve uploaded the data for this session to Athena (in
+from the internet. I’ve uploaded the data for this session to Canvas (in
 both forms) and to my website. You have two options here if you’re going
 the route of my website. One is the Stata file and the other is the R
 serialized data frame (`.rds`). Let’s go with the R serialized data
@@ -74,7 +74,7 @@ frame for this session. If you go this route, you have to include
 ``` r
 Braith <- readRDS(url("https://svmiller.com/extdata/braithwaite2006gsmd.rds"))
 # Braith <- haven::read_dta("https://svmiller.com/extdata/braithwaite2006gsmd.dta")
-# ^ also works. You can also download a copy of the data from Athena.
+# ^ also works. You can also download a copy of the data from Canvas.
 ```
 
 This part won’t be super fun, but this is the price of doing business in

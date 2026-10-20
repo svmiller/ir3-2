@@ -51,7 +51,7 @@ theme_set(theme_steve(style = 'generic'))
 #'
 #' ## Load and prepare the data 
 #'
-#' On Athena, I uploaded the data as an Excel file. You can download that data
+#' On Canvas, I uploaded the data as an Excel file. You can download that data
 #' to your working directory and load into your session as follows. Here, I have
 #' to impress upon you that we have only so much time together so I have to 
 #' assume some preliminary knowledge with file structures.

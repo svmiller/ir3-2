@@ -46,7 +46,7 @@ theme_set(theme_steve(style = 'generic'))
 #' but I hope any terseness (for the moment) is met with some understanding since
 #' it's a fair bit of work to create new lessons on the fly. No matter, I hope
 #' students have learned by now how to read data from the internet. I've uploaded
-#' the data for this session to Athena (in both forms) and to my website. You
+#' the data for this session to Canvas (in both forms) and to my website. You
 #' have two options here if you're going the route of my website. One is the
 #' Stata file and the other is the R serialized data frame (`.rds`). Let's go with
 #' the R serialized data frame for this session. If you go this route, you have
@@ -54,7 +54,7 @@ theme_set(theme_steve(style = 'generic'))
 #' 
 Braith <- readRDS(url("https://svmiller.com/extdata/braithwaite2006gsmd.rds"))
 # Braith <- haven::read_dta("https://svmiller.com/extdata/braithwaite2006gsmd.dta")
-# ^ also works. You can also download a copy of the data from Athena.
+# ^ also works. You can also download a copy of the data from Canvas.
 
 #' This part won't be super fun, but this is the price of doing business in this
 #' world. Ideally, you read the article in question to get an idea of what Alex
