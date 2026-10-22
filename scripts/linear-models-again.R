@@ -240,9 +240,9 @@ Data %>% count(log_radius_area)
 #' with incident data, 149 have just one incident. It cannot spread outside
 #' whatever default circle gets drawn under those circumstances.
 #' 
-#' From the raw data, we can see that the default radius that gets drawn is 5.
-#' The area calculated from that radius (`πr^2`) would equal about 78.54. Log-transformed,
-#' that's about 4.36. 
+#' From the raw data, we can see that the default radius that gets drawn is 5, 
+#' and the area calculated from that radius (`πr^2`) would equal about 78.54. 
+#' Log-transformed, that's about 4.36. 
 
 Braith %>% 
   select(dispnum, log_radius_area, radius) %>% 
