@@ -231,19 +231,20 @@ here](https://svmiller.com/blog/2023/01/what-log-variables-do-for-your-ols-model
 For example:
 
 1.  Toggling a dispute from over some other issue to the allocation of
-    territory multiplies the geographic spread (as measured in the
-    radius from the center of the dispute to its furthest incident) by
-    `exp(1.624)` (about 5.075). This is the **multiplicative change**.
+    territory multiplies the geographic spread (as measured by the area
+    defined by the radius from the center of the dispute to its furthest
+    incident) by `exp(1.624)` (about 5.075). This is the
+    **multiplicative change**.
 2.  Toggling a dispute from over some other issue to the allocation of
-    territory increases the geographic spread (as measured in the radius
-    from the center of the dispute to its furthest incident) to 4.07
-    times its previous value (whatever that is for illustration’s sake).
-    This is the **relative change**.
+    territory increases the geographic spread (as measured by the area
+    defined by the radius from the center of the dispute to its furthest
+    incident) to 4.07 times its previous value (whatever that is for
+    illustration’s sake). This is the **relative change**.
 3.  Toggling a dispute from over some other issue to the allocation of
     territory results in a `(exp(1.624) - 1)*100` (about 407.33) percent
     increase in the geographic spread of the dispute (as measured by the
-    radius from the center of the dispute to its furthest incident).
-    This is the **percentage change**.
+    area defined by the radius from the center of the dispute to its
+    furthest incident). This is the **percentage change**.
 
 Since the coefficient isn’t close to 0, I would advise against using the
 rule of thumb of multiplying the coefficient by 100. You could, however,
@@ -302,15 +303,17 @@ exp(1.624430)-1       # relative change
 If the follow-up question is “when can I do the percentage change
 approximation”, check whether the coefficient is less than .1 in its
 absolute value. Then, the percentage change approximation performs well.
-If you know what it actually is, you can just do that as well. If this
-is a bit much for you at this level, that’s cool too. You can just note
-what’s significant and in what direction and say something like “a
-one-unit change in the percentage of the territory that is covered in
-mountains coincides with an estimated change of .025 in the logged value
-of the radius between the center of the dispute to the furthest
-incident.” I’d be remiss, though, if I didn’t give you things to
-consider. Economists certainly are accustomed to this line of thinking
-given the type of indicators they model.
+If you know what it actually is, you can just do that as well. Why
+wouldn’t you? The approximation is just quicker and more convenient,
+albeit at expense of precision. If this is a bit much for you at this
+level, that’s cool too. You can just note what’s significant and in what
+direction and say something like “a one-unit change in the percentage of
+the territory that is covered in mountains coincides with an estimated
+change of .025 in the logged value of the area defined by the radius
+between the center of the dispute to the furthest incident.” I’d be
+remiss, though, if I didn’t give you things to consider. Economists
+certainly are accustomed to this line of thinking given the type of
+indicators they model.
 
 We should also make an obligatory reference to the stuff included at the
 bottom of the output. Namely, the adjusted R-squared suggests the model
@@ -386,19 +389,18 @@ process that determines that big bar you see and then a separate one
 determining the variation in the flatter distribution to the right of
 it. Braithwaite’s third footnote is pointing to his 2005 data article in
 *International Interactions* that might provide more context for why
-this value of 4.363605 occurs so much in his data. My best guess, absent
-knowing more about this particular article and the data, is there is a
-kind of default circle (with a default radius) that Braithwaite draws
-for any particular incident. If there is only one incident, then there
-is just the singular circle, no incident for which there is an expanded
-circle, and this value will repeat. I totally understand students cannot
-know these data as well as I know them, but, for context, the data Alex
-is using (MID 3.02 or MID 3.10) has 304 (MID 3.02) or 305 (MID 3.10)
-total disputes/confrontations (ignoring whatever missingness for nine
-cases that resulted in an exclusion from the data). Of those
-disputes/confrontations with incident data, 149 have just one incident.
-It cannot spread outside whatever default circle gets drawn under those
-circumstances.
+this value of 4.363605 occurs so much in his data. This tells you there
+there is a kind of default circle (with a default radius) that
+Braithwaite draws for any particular incident. If there is only one
+incident, then there is just the singular circle, no incident for which
+there is an expanded circle, and this value will repeat. I totally
+understand students cannot know these data as well as I know them, but,
+for context, the data Alex is using (MID 3.02 or MID 3.10) has 304 (MID
+3.02) or 305 (MID 3.10) total disputes/confrontations (ignoring whatever
+missingness for nine cases that resulted in an exclusion from the data).
+Of those disputes/confrontations with incident data, 149 have just one
+incident. It cannot spread outside whatever default circle gets drawn
+under those circumstances.
 
 From the raw data, we can see that the default radius that gets drawn is
 5, and the area calculated from that radius (`πr^2`) would equal about
