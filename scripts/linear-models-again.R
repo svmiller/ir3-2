@@ -127,11 +127,16 @@ summary(M1 <- lm(log_radius_area ~ territory + host_resource + host_mt +
 #' 
 #' 1. Toggling a dispute from over some other issue to the allocation of territory
 #' multiplies the geographic spread (as measured in the radius from the center of
-#' the dispute to its furthest incident) by `exp(1.624)` (about 5.075).
+#' the dispute to its furthest incident) by `exp(1.624)` (about 5.075). This is
+#' the **multiplicative change**.
 #' 2. Toggling a dispute from over some other issue to the allocation of territory
+#' increases the geographic spread (as measured in the radius from the center of 
+#' the dispute to its furthest incident) to 4.07 times its previous value 
+#' (whatever that is for illustration's sake). This is the **relative change**.
+#' 3. Toggling a dispute from over some other issue to the allocation of territory
 #' results in a `(exp(1.624) - 1)*100` (about 407.33) percent increase in the 
 #' geographic spread of the dispute (as measured by the radius from the center of
-#' the dispute to its furthest incident).
+#' the dispute to its furthest incident). This is the **percentage change**.
 #' 
 #' Since the coefficient isn't close to 0, I would advise against using the rule
 #' of thumb of multiplying the coefficient by 100. You could, however, do that
@@ -144,22 +149,33 @@ summary(M1 <- lm(log_radius_area ~ territory + host_resource + host_mt +
 #' Thus, you can communicate the relative change, percentage change, and percentage 
 #' change approximations by the following ways:
 #' 
+exp(-0.012035)         # multiplicative change
 exp(-0.012035)-1       # relative change
 (exp(-0.012035)-1)*100 # percentage change
 -0.012035*100          # percentage change approximation
 
 #' You can do something similar for the mountainous terrain variable, even as
-#' this has a different effect than the one hypothesized by Alex.
-
+#' this has a different effect than the one hypothesized by Alex. The scale is
+#' identical to the forest variable. It ranges from a conceptual 0 to 100 where
+#' 0 means the country/area of the dispute is 0% mountainous while 100% means
+#' the area is 100% mountainous.
+#' 
+exp(0.025871)         # multiplicative change
 exp(0.025871)-1       # relative change
 (exp(0.025871)-1)*100 # percentage change
 0.025871*100          # percentage change approximation
 
-#' Here's where the territory coefficient's larger value misleads a bit.
-
+#' Here's where the territory coefficient's larger value misleads a fair bit
+#' about what its effect is.
+exp(1.624430)         # multiplicative change
 exp(1.624430)-1       # relative change
 (exp(1.624430)-1)*100 # percentage change
 1.624430*100          # percentage change approximation
+
+#' If the follow-up question is "when can I do the percentage change approximation",
+#' check whether the coefficient is less than .1 in its absolute value. Then,
+#' the percentage change approximation performs well. If you know what it actually
+#' is, you can just do that as well.
 
 #' If this is a bit much for you at this level, that's cool too. You can just note
 #' what's significant and in what direction and say something like "a one-unit
@@ -188,7 +204,7 @@ plot(M1, which = 1)
 broom::augment(M1) %>%
   ggplot(.,aes(.fitted, .resid)) +
   geom_point(pch = 21) +
-  geom_hline(yintercept = 0, linetype="dashed", color="red") +
+  geom_hline(yintercept = 0, linetype="dashed", color="#cc0000") +
   geom_smooth(method = "loess")
 
 #' Remember what you should want to see in a fitted-residual plot. Know this
@@ -204,7 +220,7 @@ broom::augment(M1) %>%
 Data %>% ggplot(.,aes(log_radius_area)) + 
   geom_histogram() 
 
-Data %>% arrange(log_radius_area)
+Data %>% count(log_radius_area)
 
 #' When you see something like this, it's suggesting you have some kind of
 #' "hurdle" component to the data-generating process. There is a separate process
@@ -215,14 +231,44 @@ Data %>% arrange(log_radius_area)
 #' in his data. My best guess, absent knowing more about this particular article
 #' and the data, is there is a kind of default circle (with a default radius) 
 #' that Braithwaite draws for any particular incident. If there is only one 
-#' incident (for example, as there routinely is in CoW-MID data), then there is
-#' just the singular circle, no incident for which there is an expanded circle,
-#' and this value will just repeat. It seems to suggest a kind of data-generating
-#' process in which there are confrontations/disputes that have more than one
-#' incident (or not). Contingent on having more than one incident, there is a 
-#' spread that's now possible. Basically: there is a mixture of two data-generating
-#' processes resulting in the line you see and, contingent on not being on the 
-#' line, some kind of spread. I do not at all expect you to know exactly what to 
+#' incident, then there is just the singular circle, no incident for which there
+#' is an expanded circle, and this value will repeat. I totally understand
+#' students cannot know these data as well as I know them, but, for context, the
+#' data Alex is using (MID 3.02 or MID 3.10) has 304 (MID 3.02) or 305 (MID 3.10) 
+#' total disputes/confrontations (ignoring whatever missingness for nine
+#' cases that resulted in an exclusion from the data). Of those disputes/confrontations
+#' with incident data, 149 have just one incident. It cannot spread outside
+#' whatever default circle gets drawn under those circumstances.
+#' 
+#' From the raw data, we can see that the default radius that gets drawn is 5.
+#' The area calculated from that radius (`πr^2`) would equal about 78.54. Log-transformed,
+#' that's about 4.36. 
+
+Braith %>% 
+  select(dispnum, log_radius_area, radius) %>% 
+  arrange(radius) 
+
+pi*(5^2)
+log(pi*(5^2))
+
+#' It's for sure the case that default radius is 5 for the single incident 
+#' disputes. It has to be, and it will also include a few dozen cases that 
+#' never broke that containment. It's a bit less obvious where the
+#' two other radii next to it come from.
+#' 
+Braith %>% 
+  select(dispnum, log_radius_area, radius) %>% 
+  arrange(radius) %>% count(radius)
+
+#' 5.39 is plausible if that particular confrontation broke outside the default
+#' circle. However, 3.83 couldn't be plausible under those circumstances.
+#' 
+#' No matter, the data here suggest a kind of data-generating process in which 
+#' there are confrontations/disputes that have more than one incident (or not). 
+#' Contingent on having more than one incident, there is a spread that's now 
+#' possible. Basically: there is a mixture of two data-generating processes 
+#' resulting in the line you see and, contingent on not being on the line, 
+#' some kind of spread. I do not at all expect you to know exactly what to 
 #' do under these circumstances. I myself am only guessing that's what is happening
 #' here. That said, here's about what I'd expect you to say: "the fitted-residual 
 #' plot suggests a clear discrete pattern in the DV and the histogram suggests 
@@ -240,14 +286,27 @@ Data %>% arrange(log_radius_area)
 #' third is that we 100% won't know where until we looked at something a bit
 #' more informative. `linloess_plot()` in `{stevemisc}` will do this.
 
-linloess_plot(M1, pch=21)
+linloess_plot(M1, pch=21, se = FALSE)
 
 #' Binary IVs will never be the issue here. It's the "vital border" variable that
 #' looks like it has some weirdness. Based on what I remember of Starr (2002) and
 #' how Alex describes this on p. 514, it would suggest that the 0s are probably
-#' a distinct phenomenon that should be focused on in some detail. Beyond that,
-#' it really seems like the fitted-residual plot's LOESS smoother is really just
-#' drawing attention to the "hurdle" component of the DV.
+#' a distinct phenomenon that should be focused on in some detail. I'll confess
+#' that a resort to Starr (2002) for these data add to my confusion. The "vital
+#' border" should have a minimum of 1.097 and a maximum of 2.462. It's plausible
+#' that neither entry made it into a data set on disputes, but almost all
+#' of the observations here are below what is the apparent minimum. 36% of
+#' the data are that 0 value which shouldn't exist at all given the construction
+#' of the measure. My initial hunch is that this measure is one of the composite
+#' measures of "vital borders" (likely salience, given the descriptive statistics
+#' given in Starr [2002], but that would account only for the low 1s and not
+#' the values above 1.2). However, I truly don't expect you all to know that.
+#' For this purpose, it's sufficient to say there is a clear heaping on 0 and
+#' no space between 0 and 1 the same way there is a space between 1 and 2. These
+#' become two measures and not one, the same way the dependent variable is a 
+#' mixture of two data-generating processes. Beyond that, it really seems like 
+#' the fitted-residual plot's LOESS smoother is really just drawing attention 
+#' to the "hurdle" component of the DV.
 #' 
 #' The third thing you can tell from the fitted-residual plot is that the variance
 #' of the residuals are clearly fanning out as the fitted values increase. That's
