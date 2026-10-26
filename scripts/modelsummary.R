@@ -61,9 +61,7 @@ WVS <- readRDS("~/Koofr/teaching/eh1903-ir3/2/data/wvs-swe-6/wv6-sweden-v2020111
 #' are communicating. You have to read the codebook, whatever the codebook is.
 
 WVS %>%
-  select(
-    #importance of democracy, justifiability of divorce
-    V140, V205, 
+  select(V140, V205, #importance of democracy, justifiability of divorce, and...
     # age, sex, scale of incomes,
     V242, V240, V239, 
     # how often you pray, age completed education
@@ -179,7 +177,7 @@ Data %>%
   select(impdem) %>%
   na.omit %>%
   ggplot(.,aes(factor(impdem))) +
-  geom_bar(fill="#9bb2ce", alpha=.8, color='black') +
+  geom_bar(fill="#9bb2ce", alpha=.8, color='#000000') +
   geom_text(aes(label = after_stat(count)), stat = "count", vjust = -0.5)  +
   labs(caption = "Data: World Values Survey in Sweden (2011, Wave 6)",
        x = "Values of the Importance of Democracy",
@@ -193,7 +191,7 @@ Data %>%
   select(justdiv) %>%
   na.omit %>%
   ggplot(.,aes(factor(justdiv))) +
-  geom_bar(fill="#9bb2ce", alpha=.8, color='black') +
+  geom_bar(fill="#9bb2ce", alpha=.8, color='#000000') +
   geom_text(aes(label = after_stat(count)), stat = "count", vjust = -0.5)  +
   labs(caption = "Data: World Values Survey in Sweden (2011, Wave 6)",
        x = "Values of the Justifiability of Divorce",
