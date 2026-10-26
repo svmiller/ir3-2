@@ -259,7 +259,7 @@ Data %>%
 Data %>%
   ggplot(.,aes(.fitted, .resid)) +
   geom_point(pch = 21) +
-  geom_hline(yintercept = 0, linetype="dashed", color="red") +
+  geom_hline(yintercept = 0, linetype="dashed", color="#cc0000") +
   geom_smooth(method = "loess")
 
 #' Wooooof, that should not look like that. What you want to see is basically
@@ -272,7 +272,7 @@ M4 <- lm(y ~ x, A)
 broom::augment(M4) %>%
   ggplot(.,aes(.fitted, .resid)) +
   geom_point(pch = 21) +
-  geom_hline(yintercept = 0, linetype="dashed", color="red") +
+  geom_hline(yintercept = 0, linetype="dashed", color="#cc0000") +
   geom_smooth(method = "loess")
 
 #' 
@@ -383,7 +383,7 @@ plot(M2, which=2)
 
 Data %>%
   ggplot(.,aes(.resid)) +
-  stat_function(fun = dnorm, color="blue",
+  stat_function(fun = dnorm, color="#0000cc",
                 args = list(mean = 0, 
                             sd = sd(Data$.resid, na.rm=T)),
                 linetype="dashed", linewidth=1.1) +

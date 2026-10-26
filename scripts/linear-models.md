@@ -29,11 +29,11 @@ output:
 ``` r
 library(tidyverse)
 #> ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-#> ✔ dplyr     1.1.4     ✔ readr     2.1.4
-#> ✔ forcats   1.0.0     ✔ stringr   1.5.0
-#> ✔ ggplot2   4.0.0     ✔ tibble    3.3.0
-#> ✔ lubridate 1.9.4     ✔ tidyr     1.3.0
-#> ✔ purrr     1.1.0     
+#> ✔ dplyr     1.2.0     ✔ readr     2.2.0
+#> ✔ forcats   1.0.1     ✔ stringr   1.6.0
+#> ✔ ggplot2   4.0.2     ✔ tibble    3.3.1
+#> ✔ lubridate 1.9.5     ✔ tidyr     1.3.2
+#> ✔ purrr     1.2.1     
 #> ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 #> ✖ dplyr::filter() masks stats::filter()
 #> ✖ dplyr::lag()    masks stats::lag()
@@ -378,7 +378,7 @@ Now, let’s get to the heart of the matter.
 Data %>%
   ggplot(.,aes(.fitted, .resid)) +
   geom_point(pch = 21) +
-  geom_hline(yintercept = 0, linetype="dashed", color="red") +
+  geom_hline(yintercept = 0, linetype="dashed", color="#cc0000") +
   geom_smooth(method = "loess")
 #> `geom_smooth()` using formula = 'y ~ x'
 ```
@@ -397,7 +397,7 @@ M4 <- lm(y ~ x, A)
 broom::augment(M4) %>%
   ggplot(.,aes(.fitted, .resid)) +
   geom_point(pch = 21) +
-  geom_hline(yintercept = 0, linetype="dashed", color="red") +
+  geom_hline(yintercept = 0, linetype="dashed", color="#cc0000") +
   geom_smooth(method = "loess")
 #> `geom_smooth()` using formula = 'y ~ x'
 ```
@@ -510,7 +510,7 @@ shapiro.test(resid(M2))
 #> W = 0.65383, p-value = 1.219e-13
 ks.test(resid(M2), y=pnorm)
 #> 
-#>  One-sample Kolmogorov-Smirnov test
+#>  Exact one-sample Kolmogorov-Smirnov test
 #> 
 #> data:  resid(M2)
 #> D = 0.65263, p-value < 2.2e-16
@@ -556,7 +556,7 @@ what they look like here.
 ``` r
 Data %>%
   ggplot(.,aes(.resid)) +
-  stat_function(fun = dnorm, color="blue",
+  stat_function(fun = dnorm, color="#0000cc",
                 args = list(mean = 0, 
                             sd = sd(Data$.resid, na.rm=T)),
                 linetype="dashed", linewidth=1.1) +

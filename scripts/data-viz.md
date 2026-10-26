@@ -42,11 +42,11 @@ If it’s not installed, install it.
 ``` r
 library(tidyverse)
 #> ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-#> ✔ dplyr     1.1.4     ✔ readr     2.1.4
-#> ✔ forcats   1.0.0     ✔ stringr   1.5.0
-#> ✔ ggplot2   4.0.0     ✔ tibble    3.3.0
-#> ✔ lubridate 1.9.4     ✔ tidyr     1.3.0
-#> ✔ purrr     1.1.0     
+#> ✔ dplyr     1.2.0     ✔ readr     2.2.0
+#> ✔ forcats   1.0.1     ✔ stringr   1.6.0
+#> ✔ ggplot2   4.0.2     ✔ tibble    3.3.1
+#> ✔ lubridate 1.9.5     ✔ tidyr     1.3.2
+#> ✔ purrr     1.2.1     
 #> ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 #> ✖ dplyr::filter() masks stats::filter()
 #> ✖ dplyr::lag()    masks stats::lag()
@@ -66,18 +66,18 @@ tibble(x = rnorm(100),
 
 Example
 #> # A tibble: 100 × 2
-#>         x       y
-#>     <dbl>   <dbl>
-#>  1 -0.379 -0.341 
-#>  2  0.277  0.764 
-#>  3 -1.33  -1.42  
-#>  4 -0.490  0.0465
-#>  5  1.59   0.856 
-#>  6 -1.05  -2.56  
-#>  7  0.135 -0.274 
-#>  8 -2.01  -2.53  
-#>  9 -0.279 -0.213 
-#> 10 -1.78  -2.24  
+#>          x       y
+#>      <dbl>   <dbl>
+#>  1  0.0385 -0.206 
+#>  2  0.213   0.325 
+#>  3  0.390  -0.409 
+#>  4  2.48    0.107 
+#>  5 -1.48    0.750 
+#>  6 -0.603   0.183 
+#>  7  1.20    0.0941
+#>  8 -1.12   -3.06  
+#>  9  0.703   0.357 
+#> 10  1.75    3.13  
 #> # ℹ 90 more rows
 ```
 
@@ -299,7 +299,7 @@ steves_clothes %>% # start with the data, and...
   arrange(-n) %>% # arrange highest to lowest
   mutate(origin = fct_inorder(origin)) %>% # make a factor with that exact order
   ggplot(.,aes(origin, n)) + # notice we now have a y-axis
-  geom_bar(stat='identity', fill=g_c("su_water"), alpha=.8, color='black') +
+  geom_bar(stat='identity', fill=g_c("su_water"), alpha=.8, color='#000000') +
   # ^ stat='identity' is a fancy way of saying "I calculated this for you".
   # Also: let's make this look a little cuter. alpha = .8 gives a little transparency
   # color = 'black' adds a black border and the fill argument uses the g_c() 
@@ -522,7 +522,7 @@ Data %>%
   # I'll leave it to you to play with what's happening here.
   geom_histogram(bins = 50,
                  alpha = 0.8,
-                 color = 'black',
+                 color = '#000000',
                  fill = "#619cff") +
   scale_y_continuous(labels = scales::comma_format()) +
   scale_x_continuous(labels = scales::dollar_format(),

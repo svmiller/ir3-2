@@ -205,7 +205,7 @@ steves_clothes %>% # start with the data, and...
   arrange(-n) %>% # arrange highest to lowest
   mutate(origin = fct_inorder(origin)) %>% # make a factor with that exact order
   ggplot(.,aes(origin, n)) + # notice we now have a y-axis
-  geom_bar(stat='identity', fill=g_c("su_water"), alpha=.8, color='black') +
+  geom_bar(stat='identity', fill=g_c("su_water"), alpha=.8, color='#000000') +
   # ^ stat='identity' is a fancy way of saying "I calculated this for you".
   # Also: let's make this look a little cuter. alpha = .8 gives a little transparency
   # color = 'black' adds a black border and the fill argument uses the g_c() 
@@ -353,7 +353,7 @@ Data %>%
   # I'll leave it to you to play with what's happening here.
   geom_histogram(bins = 50,
                  alpha = 0.8,
-                 color = 'black',
+                 color = '#000000',
                  fill = "#619cff") +
   scale_y_continuous(labels = scales::comma_format()) +
   scale_x_continuous(labels = scales::dollar_format(),
