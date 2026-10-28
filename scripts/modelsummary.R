@@ -261,11 +261,49 @@ modelsummary(list("Bivariate Regression" = M1,
 #' variable is displayed first here) and if you don't specify it, it gets 
 #' dropped from the summary (i.e. check for typos!).
 #' 
-#' Finally, it's worth clarifying that `modelsummary()` returns almost all goodness
-#' of fit statistic for the model (contingent on the model type) and there are
-#' often *lots* of these. You don't need all of them. In the simple linear
-#' model, you really just want information about the number of observations at
-#' a minimum, and maybe one or both of the R-squares. 
+#' Finally, it's worth clarifying that `modelsummary()` returns almost all 
+#' goodness of fit statistic for the model (contingent on the model type) and 
+#' there are often *lots* of these. You don't need all of them. In the simple 
+#' linear model, you really just want information about the number of 
+#' observations at a minimum, and maybe one or both of the R-squares. Generally:
+#' if you include it, you better be prepared to explain it. If you're not 
+#' prepared to explain the Akaike Information Criterion, the Bayesian Information
+#' Criterion, or the log-likelihood of the model, don't include them.[^expl]
+#' 
+#' [^expl]: The likelihood of the model is a measure of how probable the observed
+#' data are under a model's estimated parameters. It reflects how closely the
+#' observed outcomes fall around the fitted values, given the estimated residual
+#' variance. The log likelihood is just a logarithmic transformation of that 
+#' likelihood. You can extract it with `logLik(M2)`, or calculate it yourself 
+#' with `(nobs(M2)/2)*(log(2*pi) + 1 + log(sum(residuals(M2)^2)/nobs(M2)))` for
+#' the second model. `sum(residuals(M2)^2)`, for context, would be the residual
+#' sum of squares (RSS) and would need that for calculating the model's total 
+#' R-square. You need the log-likelihood to calculate the Akaike Information 
+#' Criterion (AIC) and the Bayesian Information Criterion (BIC) work kind of in 
+#' the same way the adjusted R-square works. It's a measure of model fit against 
+#' model complexity. You calculate AIC with `-2*logLik(M2) + 2*attr(logLik(M2), "df")`
+#' and BIC with `-2*logLik(M2) + log(nobs(M2))*attr(logLik(M2), "df")`. That
+#' `attr()` function is extracting the number of parameters in the model. The BIC
+#' is generally more punitive for extra model parameters than AIC. 
+#' Alternatively, you can do `AIC(M2)` and `BIC(M2)`. I don't prioritize teaching
+#' these because the purpose of the log-likelihood, the AIC, and the BIC are 
+#' mostly for model comparison. In our case, we'd use them to compare `M1` and
+#' `M2` to ask whether the extra model parameters better fit the data. Lower
+#' values relative to other models are better. In our case, `M2` is better than
+#' `M1` because those values are lower for `M2` than `M1`. `M2` is more
+#' complex than `M1`, but better fits the data. Adjusted R-square agrees. 
+#' However, the social sciences don't much weight in those measures because 
+#' model complexity follows the assumed data-generating process. It's a 
+#' theoretical or argumentative modeling approach, and not an iterative one. If 
+#' `M1` is the wrong model that follows the wrong data-generating process, it 
+#' doesn't matter what the AIC or the BIC are saying. It's just not the correct 
+#' data-generating process. I think these measures are relics of another time 
+#' when researchers were interested in better fitting the data than they were 
+#' interested in capturing (theoretical, but unknown) data-generating processes. 
+#' There's still value in fitting the data, I think, but less value in fitting 
+#' them relative to other models in this way.
+#' 
+#' 
 #' 
 #' Use the `gof_map` argument to specify what you want. If you don't know what
 #' they're called, use `broom::glance()` to see what they're called internally.
