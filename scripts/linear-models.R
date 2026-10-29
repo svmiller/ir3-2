@@ -292,7 +292,7 @@ plot(M4, which = 1) # ideal case
 #' variable. Do note this tells you nothing about binary IVs, but binary IVs 
 #' aren’t the  problem here.
 
-linloess_plot(M2, pch=21) 
+linloess_plot(M2, pch=21, se = FALSE) 
 
 #' ^ A couple of things stand out here to me: 1) the model is so offended
 #' by the presence of the exchange rate variable that it's making anything else
@@ -389,6 +389,8 @@ Data %>%
                 linetype="dashed", linewidth=1.1) +
   geom_density(linewidth = 1.1) 
 
+#' Alternatively, I wrote this function you can use for convenience.
+#' 
 rd_plot(M2)
 #' ^ wooof. Kill this with fire.
 #'

@@ -185,7 +185,7 @@ than 0.
 Oh, btw, if you want to calculate that p-value yourself, here it is.
 
 ``` r
-pt(2.37, df=93, lower.tail = F)*2
+pt(2.37, df=93, lower.tail = FALSE)*2
 #> [1] 0.01985368
 ```
 
@@ -431,7 +431,7 @@ tells you nothing about binary IVs, but binary IVs aren’t the problem
 here.
 
 ``` r
-linloess_plot(M2, pch=21) 
+linloess_plot(M2, pch=21, se = FALSE) 
 #> `geom_smooth()` using formula = 'y ~ x'
 #> `geom_smooth()` using formula = 'y ~ x'
 ```
@@ -565,12 +565,13 @@ Data %>%
 
 ![](figs/linear-models/unnamed-chunk-17-1.png)<!-- -->
 
-``` r
+Alternatively, I wrote this function you can use for convenience.
 
+``` r
 rd_plot(M2)
 ```
 
-![](figs/linear-models/unnamed-chunk-17-2.png)<!-- -->
+![](figs/linear-models/unnamed-chunk-18-1.png)<!-- -->
 
 ^ wooof. Kill this with fire.
 
@@ -592,7 +593,7 @@ Data %>%
   ggplot(.,aes(fdi)) + geom_density()
 ```
 
-![](figs/linear-models/unnamed-chunk-18-1.png)<!-- -->
+![](figs/linear-models/unnamed-chunk-19-1.png)<!-- -->
 
 ^ it’s one thing for there to be this kind of tail. It’s another for it
 to be driven by so few observations. It’s possible you may want to
