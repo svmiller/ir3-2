@@ -1075,24 +1075,39 @@ document. For you Mac users, this should be Cmd instead of Ctrl.
     number of parameters in the model. Alternatively, you can do
     `AIC(M2)` and `BIC(M2)`. I don’t prioritize teaching these because
     the purpose of the log-likelihood, the AIC, and the BIC are mostly
-    for model comparison. In our case, we’d use them to compare `M1` and
-    `M2` to ask whether the extra model parameters better fit the data.
-    Lower values relative to other models are better for AIC and BIC.
-    Higher values are better for log-likelihood. In our case, `M2` is
-    better than `M1` because the AIC/BIC are lower for `M2` than `M1`
-    and the log-likelihood is higher. `M2` is more complex than `M1`,
-    but better fits the data. Adjusted R-square also agrees. However,
+    for model comparison. The log-likelihood is best used for comparing
+    different models with the same data and covariates, like you can see
+    me doing [here in the Poisson
+    case](https://svmiller.com/blog/2023/12/count-models-poisson-negative-binomial/).  
+    Further, the AIC and the BIC (which come from the log-likelihood)
+    are prone to favor the model with more predictors (though the
+    penalty term for extra parameters is stronger in the BIC case than
+    the AIC). Toward that end, invoking them in this case is already
+    going to be misspent energy. Perhaps the pedagogical purpose here
+    could be comparing M1 to M2 to see if the additional parameters are
+    worth including. However, adjusted R-square is already telling you
+    that. That said, if we wanted to do this (even if it’s not the real
+    purpose of these statistics), we’d do so looking to see if the AIC
+    and the BIC are lower for M2 than M1, but the log-likelihood is
+    higher for M2 than M1. In our case, M2 is better than M1 because the
+    AIC/BIC are lower for M2 than M1 and the log-likelihood is higher
+    for M2 than M1. M2 is more complex than M1, but better fits the
+    data. Again, adjusted R-square is already telling you that. However,
     the social sciences don’t much weight in those measures because
     model complexity follows the assumed data-generating process. It’s a
     theoretical or argumentative modeling approach, and not an iterative
-    one. If `M1` is the wrong model that follows the wrong
+    or empirical one. If M1 is the wrong model that follows the wrong
     data-generating process, it doesn’t matter what the AIC or the BIC
-    are saying. It’s just not the correct data-generating process. I
-    think these measures are relics of another time when researchers
-    were interested in better fitting the data than they were interested
-    in capturing (theoretical, but unknown) data-generating processes.
-    There’s still value in fitting the data, I think, but less value in
-    fitting them relative to other models in this way and caring about
-    what these particular statistics are communicating. You will see the
-    BIC invoked in the time-series context with respect to forecasting,
-    but that’s an advanced exercise.
+    are saying. It’s just not the correct model for the true
+    data-generating process. If, for some odd reason, M2 better fit the
+    data than M1 but M1 reflected the true data-generating process, AIC
+    and BIC are only incidentally better but misleading as to what is
+    “true”. I think these measures are relics of another time when
+    researchers were interested in better fitting the data than they
+    were interested in capturing (theoretical, but unknown)
+    data-generating processes. There’s still value in fitting the data,
+    I think, but less value in fitting them relative to other models in
+    this way and caring about what these particular statistics are
+    communicating. You will see the BIC invoked in the time-series
+    context with respect to forecasting, but that’s an advanced
+    exercise.

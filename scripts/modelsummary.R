@@ -270,48 +270,6 @@ modelsummary(list("Bivariate Regression" = M1,
 #' prepared to explain the Akaike Information Criterion, the Bayesian Information
 #' Criterion, or the log-likelihood of the model, don't include them.[^expl]
 #' 
-#' [^expl]: The likelihood of the model is a measure of how probable the observed
-#' data are under a model's estimated parameters. It reflects how closely the
-#' observed outcomes fall around the fitted values, given the estimated residual
-#' variance. The log-likelihood is just a logarithmic transformation of that 
-#' likelihood. You can extract it with `logLik(M2)`, or calculate it yourself 
-#' with `(nobs(M2)/2)*(log(2*pi) + 1 + log(sum(residuals(M2)^2)/nobs(M2)))` for
-#' the second model. `sum(residuals(M2)^2)`, for context, would be the residual
-#' sum of squares (RSS) and you would need that for calculating the model's total 
-#' R-square. You need the log-likelihood to calculate the Akaike Information 
-#' Criterion (AIC) and the Bayesian Information Criterion (BIC). Both work kind 
-#' of in the same way the adjusted R-square works in that they are a measure of 
-#' model fit against model complexity. You calculate AIC with 
-#' `-2*logLik(M2) + 2*attr(logLik(M2), "df")` and BIC with 
-#' `-2*logLik(M2) + log(nobs(M2))*attr(logLik(M2), "df")`. That `attr()` 
-#' function, used in this way, is extracting the number of parameters in the 
-#' model. The BIC is generally more punitive for extra model parameters than AIC
-#' because of that logarithmic transformation of the number of observations
-#' multiplied against the number of parameters in the model. Alternatively, 
-#' you can do `AIC(M2)` and `BIC(M2)`. I don't prioritize teaching these 
-#' because the purpose of the log-likelihood, the AIC, and the BIC are 
-#' mostly for model comparison. In our case, we'd use them to compare `M1` and
-#' `M2` to ask whether the extra model parameters better fit the data. Lower
-#' values relative to other models are better for AIC and BIC. Higher values
-#' are better for log-likelihood. In our case, `M2` is better than
-#' `M1` because the AIC/BIC are lower for `M2` than `M1` and the log-likelihood
-#' is higher. `M2` is more complex than `M1`, but better fits the data. Adjusted 
-#' R-square also agrees. However, the social sciences don't much weight in 
-#' those measures because model complexity follows the assumed data-generating 
-#' process. It's a theoretical or argumentative modeling approach, and not an 
-#' iterative one. If `M1` is the wrong model that follows the wrong 
-#' data-generating process, it doesn't matter what the AIC or the BIC are saying. 
-#' It's just not the correct data-generating process. I think these measures are 
-#' relics of another time when researchers were interested in better fitting the 
-#' data than they were interested in capturing (theoretical, but unknown) 
-#' data-generating processes. There's still value in fitting the data, I think, 
-#' but less value in fitting them relative to other models in this way and caring
-#' about what these particular statistics are communicating. You will see the BIC
-#' invoked in the time-series context with respect to forecasting, but that's
-#' an advanced exercise.
-#' 
-#' 
-#' 
 #' Use the `gof_map` argument to specify what you want. If you don't know what
 #' they're called, use `broom::glance()` to see what they're called internally.
 broom::glance(M2)
@@ -348,3 +306,55 @@ modelsummary(list("Bivariate Regression" = M1,
 #' Dope, let's put it in our Word document. In RStudio, click on that viewer of
 #' the table. Then: Ctrl-A, Ctrl-C, Ctrl-V into your Word document. For you
 #' Mac users, this should be Cmd instead of Ctrl.
+#' 
+#' [^expl]: The likelihood of the model is a measure of how probable the observed
+#' data are under a model's estimated parameters. It reflects how closely the
+#' observed outcomes fall around the fitted values, given the estimated residual
+#' variance. The log-likelihood is just a logarithmic transformation of that 
+#' likelihood. You can extract it with `logLik(M2)`, or calculate it yourself 
+#' with `(nobs(M2)/2)*(log(2*pi) + 1 + log(sum(residuals(M2)^2)/nobs(M2)))` for
+#' the second model. `sum(residuals(M2)^2)`, for context, would be the residual
+#' sum of squares (RSS) and you would need that for calculating the model's total 
+#' R-square. You need the log-likelihood to calculate the Akaike Information 
+#' Criterion (AIC) and the Bayesian Information Criterion (BIC). Both work kind 
+#' of in the same way the adjusted R-square works in that they are a measure of 
+#' model fit against model complexity. You calculate AIC with 
+#' `-2*logLik(M2) + 2*attr(logLik(M2), "df")` and BIC with 
+#' `-2*logLik(M2) + log(nobs(M2))*attr(logLik(M2), "df")`. That `attr()` 
+#' function, used in this way, is extracting the number of parameters in the 
+#' model. The BIC is generally more punitive for extra model parameters than AIC
+#' because of that logarithmic transformation of the number of observations
+#' multiplied against the number of parameters in the model. Alternatively, 
+#' you can do `AIC(M2)` and `BIC(M2)`. I don't prioritize teaching these 
+#' because the purpose of the log-likelihood, the AIC, and the BIC are 
+#' mostly for model comparison. The log-likelihood is best used for comparing
+#' different models with the same data and covariates, like you can see me
+#' doing [here in the Poisson case](https://svmiller.com/blog/2023/12/count-models-poisson-negative-binomial/).  
+#' Further, the AIC and the BIC (which come from the log-likelihood) are prone
+#' to favor the model with more predictors (though the penalty term for extra
+#' parameters is stronger in the BIC case than the AIC). Toward that end, invoking
+#' them in this case is already going to be misspent energy. Perhaps the pedagogical
+#' purpose here could be comparing M1 to M2 to see if the additional parameters
+#' are worth including. However, adjusted R-square is already telling you that.
+#' That said, if we wanted to do this (even if it's not the real purpose of these
+#' statistics), we'd do so looking to see if the AIC and the BIC are lower for M2
+#' than M1, but the log-likelihood is higher for M2 than M1. In our case, M2 is 
+#' better than M1 because the AIC/BIC are lower for M2 than M1 and the 
+#' log-likelihood is higher for M2 than M1. M2 is more complex than M1, but 
+#' better fits the data. Again, adjusted R-square is already telling you that. 
+#' However, the social sciences don't much weight in those measures because 
+#' model complexity follows the assumed data-generating process. It's a 
+#' theoretical or argumentative modeling approach, and not an iterative or
+#' empirical one. If M1 is the wrong model that follows the wrong 
+#' data-generating process, it doesn't matter what the AIC or the BIC are saying. 
+#' It's just not the correct model for the true data-generating process. If, for
+#' some odd reason, M2 better fit the data than M1 but M1 reflected the true
+#' data-generating process, AIC and BIC are only incidentally better but 
+#' misleading as to what is "true". I think these measures are relics of 
+#' another time when researchers were interested in better fitting the 
+#' data than they were interested in capturing (theoretical, but unknown) 
+#' data-generating processes. There's still value in fitting the data, I think, 
+#' but less value in fitting them relative to other models in this way and caring
+#' about what these particular statistics are communicating. You will see the BIC
+#' invoked in the time-series context with respect to forecasting, but that's
+#' an advanced exercise.
