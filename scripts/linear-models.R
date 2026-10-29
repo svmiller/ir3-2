@@ -290,9 +290,14 @@ plot(M4, which = 1) # ideal case
 #' variable, draws a rise-over-run line of best fit and the LOESS smoother with
 #' respect to either the residuals (default) or the raw values of the dependent
 #' variable. Do note this tells you nothing about binary IVs, but binary IVs 
-#' aren’t the  problem here.
+#' aren’t the  problem here. It's why you can (and probably should) set 
+#' `no_dummies` to `TRUE`. Alternatively, `se = FALSE` suppresses the error bounds
+#' of the smoother in the case that they're so large they make things less
+#' visible. Further, you can adjust the `span` argument if there are *really*
+#' extreme outliers. The default is .75. Higher values (1 - 2 should be fine) will
+#' dampen the effect of extreme observations.
 
-linloess_plot(M2, pch=21, se = FALSE) 
+linloess_plot(M2, pch=21, se = FALSE, span = 1, no_dummies = TRUE) 
 
 #' ^ A couple of things stand out here to me: 1) the model is so offended
 #' by the presence of the exchange rate variable that it's making anything else
