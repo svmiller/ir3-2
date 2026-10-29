@@ -28,6 +28,7 @@ header-includes:
 - \usepackage{pdflscape}
 - \usepackage{tabu}
 - \usepackage{threeparttable}
+#- \setlength{\tblrcaptionwidth}{\textwidth}
 #- \usepackage{kotex}
 ---
 
@@ -168,18 +169,32 @@ The $b$ is the **regression coefficient** that communicates the change in $y$ fo
 
 ### A Full Statement of the Regression Formula
 
-If you've followed that, we're just going to add two more things:
+If you've followed that, we're going to stylize a few extra things. Here...
 
 
 $$
-\hat{y} = \hat{a} + \hat{b}(x) + e
+y = \alpha + \beta(x) + \epsilon
 $$
 
-...where:
+...is the theoretical model of what's "true", and...
 
-- $\hat{y}$, $\hat{a}$ and $\hat{b}$ are estimates of *y*, *a*, and *b* over the data.
-- *e* is the error term.
-	- It contains random sampling error, prediction error, and predictors not included in the model.
+$$
+\hat{y} = \hat{a} + \hat{b}(x)
+$$
+...is what we can estimate of the above with the data we have.
+
+### A Full Statement of the Regression Formula
+
+$\epsilon$ is an error term, representing background noise.
+
+- It contains measurement error, predictors not included in the model, and inherent randomness in *y*.
+- **OBS!** We assume it's true, it exists, and just "is what it is."
+
+$\hat{y}$, $\hat{a}$, and $\hat{b}$ are estimates ("hats") of *y*, *a*, and *b* over the data.
+
+- They're what we estimate from the data we have.
+- We do not estimate the error term directly as part of the fitted regression equation.
+    - We do obtain estimates of $\epsilon$ (as "residuals", *e*) only after fitting the data.
 
 We can further extend this out by including more *x* variables into our equation.
 
@@ -289,7 +304,7 @@ Data %>%
     labs(title = "Faceted Scatterplots of Bivariate Relationships",
        x = "Values of the Independent Variable(s)", 
        y = "Values of the Logged International Tourism Arrivals",
-       subtitle = "All relationships are positive. The, the relative price correlation is a bit surprising (prima facie). In all cases, the line drawn is the OLS line for a simple bivariate model.",
+       subtitle = "All relationships are positive. The relative price correlation is a bit surprising (prima facie). In all cases, the line drawn is the OLS line for a simple bivariate model.",
        caption = "Data: World Bank Data repository, through various other places.")
   
 ```
@@ -376,34 +391,56 @@ Our plan of attack:
 
 ### The DV and IV are Both Log-Transformed
 
- *Air transport passengers*: a 1% increase in IV coincides with estimated .283% increase in DV.
+\small
+
+ *Air transport passengers*: 
  
- - Alternatively, less helpfully: a unit increase $log(x)$ increases $log(y)$ by an estimated .283.
+ - **Tired**: one unit increase in `log(x)` increases `log(y)` by an estimated .283.
+ - **Multiplicative**: multiplying `x` by $e$ (change of 1 on log scale) results in an `exp(.283)` multiplicative change in `y` (a 1.327-fold value, or 32.7% increase).
+    - Alternatively: a change of 1% in `x` multiplies expected `y` by `1.01^.283` (~1.00282).
+- **Relative**:  a change of 1% in `x` results in a relative change of `1.01^(.283) - 1` in `y` (~.00282).
+- **Percentage**: a change of 1% in `x` results in a percentage change of `(1.01^(.283) - 1)*100` in `y` (.282%).
+- **Approximation**: a change of 1% in `x` results in a **[regression coefficient]**% change in `y`.
  
- *GDP per capita*: a 1% change in GDP per capita -> .763% change in tourism arrivals.
+ <!-- a 1% increase in IV coincides with estimated .283% increase in DV. -->
+
+ <!-- - Alternatively, less helpfully: a unit increase $log(x)$ increases $log(y)$ by an estimated .283. -->
+
+ <!-- *GDP per capita*: a 1% change in GDP per capita -> .763% change in tourism arrivals. -->
+
+ <!-- - Alternatively, with more precision: $(1.01^{.763}-1)*100 = .762$% change in tourism arrivals for 1% increase in GDP per capita. -->
  
- - Alternatively, with more precision: $(1.01^{.763}-1)*100 = .762$% change in tourism arrivals for 1% increase in GDP per capita.
- 
-**Be mindful of the percentages!**
- 
- - "one percent change in *x* -> estimated (regression coefficient)% change in *y*"
+**Be mindful of the language differing units from percentages!**
+
+\normalsize
  
 ### The DV is Log-Transformed, but the IVs are Not
 
-*Relative price* (Full): a change from 0 to 1 in relative price -> est. -1.56% decrease in tourism arrivals.
+\small
 
-- Be mindful: 0 = conceptual extreme; 1 = same price level as the U.S.
-    
-*Political stability*: a change from 0 to 1 in political stability -> -.631% change in tourism arrivals.
+*Relative price* (Full): (0 = conceptual extreme; 1 = same price level as U.S.)
 
-- Alternatively: `exp(-.631)` = .532. A one-unit change in stability multiplies expected tourism arrivals by .532.
-- This interpretation works the same way for relative price because it's not log-transformed.
+- **Tired**: one-unit increase in `x` decreases `log(y)` by an estimated -1.565.
+- **Multiplicative** one-unit increase in `x` multiplies expected `y` by `exp(-1.565)` (~.209).
+- **Relative**: one-unit increase in `x` changes expected `y` by `exp(-1.565) - 1` (~.791) its previous value.
+- **Percentage**: one-unit increase in `x` results in a  `(exp(-1.565) - 1)*100` ~79.1% decrease in `y`.
 
-*FCAS*: Being a FCAS (e.g. Sudan) versus not being one (e.g. Sweden) decreases est. international tourism arrivals by est. 1.36%.
+
+<!-- - More precision: $100*(e^{-1.565} - 1) \approx 78.9$% decrease. -->
+<!-- - Be mindful: 0 = conceptual extreme; 1 = same price level as the U.S. -->
+
+<!-- *Political stability*: a change from 0 to 1 in political stability -> -63.1% change in tourism arrivals. -->
+
+<!-- - Alternatively: `exp(-.631)` = .532. A one-unit change in stability multiplies expected tourism arrivals by .532. -->
+<!-- - This interpretation works the same way for relative price because it's not log-transformed. -->
+
+<!-- *FCAS*: Being a FCAS (e.g. Sudan) versus not being one (e.g. Sweden) decreases logged international tourism arrivals by est. 1.36. -->
 
 \bigskip
 
-**Here: unit changes in x -> (regression coefficient)% changes in y**
+**For small coefficient sizes (generally less than |.1|), you can approximate this by multiplying the coefficient by 100 to communicate percentage changes.**
+
+\normalsize
 
 ## The Intercept and Goodness of Fit Notes
 ### Dont' Read Much into the Intercept
@@ -473,8 +510,15 @@ broom::augment(M2) %>%
 ###
 
 ```{r}
+lll <- c("fcas" = "Fragile/Conflict-Affected State",
+         "l1_ln_airtranspc" = "Air Transport Passengers (Logged)",
+         "l1_ln_gdppc" = "GDP per Capita (Logged)",
+         "l1_pvest" = "Political Stability",
+         "l1_relprice" = "Relative Price")
+
 linloess_plot(M2, pch = 21) +
   theme_steve() +
+  facet_wrap(~var, scale="free_x", labeller = labeller(var = lll)) +
   labs(x = "Values of the IVs", y = "Residuals",
        title = "A Fitted-Residual Plot Won't Tell You Where Non-Linearity Is; This Plot Can Help",
        subtitle = "At most, I see some issues in the air passengers variable. Tail observations will do what they do.")
@@ -483,7 +527,7 @@ linloess_plot(M2, pch = 21) +
 ###
 
 ```{r}
-rd_plot(M2) +
+rd_plot(M2, linewidth = 1.1) +
   theme_steve() +
   labs(title = "A Residual Density Plot Can Assess Whether Your Residuals Approximate a Normal Distribution",
        subtitle = "In practice, this is the least important of OLS' major assumptions. It doesn't hurt to look, though.",

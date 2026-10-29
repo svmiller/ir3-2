@@ -338,7 +338,7 @@ Relations}
 \section{Introduction}\label{introduction}
 
 \begin{frame}{Goal(s) for Today}
-\phantomsection\label{goals-for-today}
+\protect\phantomsection\label{goals-for-today}
 \begin{enumerate}
 \tightlist
 \item
@@ -349,13 +349,13 @@ Relations}
 \end{frame}
 
 \begin{frame}{Elsewhere on My Blog}
-\phantomsection\label{elsewhere-on-my-blog}
-\includegraphics[width=0.8\linewidth,height=\textheight,keepaspectratio]{mr-jim.png}
+\protect\phantomsection\label{elsewhere-on-my-blog}
+\includegraphics[width=0.8\linewidth,height=\textheight,keepaspectratio]{eh1903-2-lecture-ols_files/mr-jim.png}
 \end{frame}
 
 \begin{frame}{Elsewhere on My Blog}
-\phantomsection\label{elsewhere-on-my-blog-1}
-\includegraphics[width=0.8\linewidth,height=\textheight,keepaspectratio]{log-log-log.png}
+\protect\phantomsection\label{elsewhere-on-my-blog-1}
+\includegraphics[width=0.8\linewidth,height=\textheight,keepaspectratio]{eh1903-2-lecture-ols_files/log-log-log.png}
 \end{frame}
 
 \section{The Linear Model and OLS}\label{the-linear-model-and-ols}
@@ -364,7 +364,7 @@ Relations}
 Quickness}\label{demystifying-with-the-quickness}
 
 \begin{frame}{Correlation to Linear Regression}
-\phantomsection\label{correlation-to-linear-regression}
+\protect\phantomsection\label{correlation-to-linear-regression}
 Correlation has a lot of nice properties.
 
 \begin{itemize}
@@ -394,7 +394,7 @@ Fortunately, regression can do that for us (under ideal conditions).
 \end{frame}
 
 \begin{frame}{Demystifying Regression}
-\phantomsection\label{demystifying-regression}
+\protect\phantomsection\label{demystifying-regression}
 Does this look familiar?
 
 \[
@@ -405,7 +405,7 @@ y = kx + m
 \end{frame}
 
 \begin{frame}{Demystifying Regression}
-\phantomsection\label{demystifying-regression-1}
+\protect\phantomsection\label{demystifying-regression-1}
 That was the slope-intercept equation.
 
 \begin{itemize}
@@ -420,7 +420,7 @@ That was the slope-intercept equation.
 \end{frame}
 
 \begin{frame}{Demystifying Regression}
-\phantomsection\label{demystifying-regression-2}
+\protect\phantomsection\label{demystifying-regression-2}
 The slope-intercept equation is, in essence, the representation of a
 regression line.
 
@@ -447,28 +447,51 @@ change in \(y\) for each unit change in \(x\).
 \end{frame}
 
 \begin{frame}{A Full Statement of the Regression Formula}
-\phantomsection\label{a-full-statement-of-the-regression-formula}
-If you've followed that, we're just going to add two more things:
+\protect\phantomsection\label{a-full-statement-of-the-regression-formula}
+If you've followed that, we're going to stylize a few extra things.
+Here\ldots{}
 
 \[
-\hat{y} = \hat{a} + \hat{b}(x) + e
+y = \alpha + \beta(x) + \epsilon
 \]
 
-\ldots where:
+\ldots is the theoretical model of what's ``true'', and\ldots{}
+
+\[
+\hat{y} = \hat{a} + \hat{b}(x)
+\] \ldots is what we can estimate of the above with the data we have.
+\end{frame}
+
+\begin{frame}{A Full Statement of the Regression Formula}
+\protect\phantomsection\label{a-full-statement-of-the-regression-formula-1}
+\(\epsilon\) is an error term, representing background noise.
 
 \begin{itemize}
 \tightlist
 \item
-  \(\hat{y}\), \(\hat{a}\) and \(\hat{b}\) are estimates of \emph{y},
-  \emph{a}, and \emph{b} over the data.
+  It contains measurement error, predictors not included in the model,
+  and inherent randomness in \emph{y}.
 \item
-  \emph{e} is the error term.
+  \textbf{OBS!} We assume it's true, it exists, and just ``is what it
+  is.''
+\end{itemize}
+
+\(\hat{y}\), \(\hat{a}\), and \(\hat{b}\) are estimates (``hats'') of
+\emph{y}, \emph{a}, and \emph{b} over the data.
+
+\begin{itemize}
+\tightlist
+\item
+  They're what we estimate from the data we have.
+\item
+  We do not estimate the error term directly as part of the fitted
+  regression equation.
 
   \begin{itemize}
   \tightlist
   \item
-    It contains random sampling error, prediction error, and predictors
-    not included in the model.
+    We do obtain estimates of \(\epsilon\) (as ``residuals'', \emph{e})
+    only after fitting the data.
   \end{itemize}
 \end{itemize}
 
@@ -484,7 +507,7 @@ our equation.
 \end{frame}
 
 \begin{frame}{Getting a Regression Coefficient}
-\phantomsection\label{getting-a-regression-coefficient}
+\protect\phantomsection\label{getting-a-regression-coefficient}
 How do we get a regression coefficient for more complicated data?
 
 \begin{itemize}
@@ -515,17 +538,17 @@ differences (\((y_i - \hat{y})^2\)).
 Tourism}\label{an-applied-example-the-correlates-of-tourism}
 
 \begin{frame}{An Applied Example: The Correlates of Tourism}
-\phantomsection\label{an-applied-example-the-correlates-of-tourism-1}
+\protect\phantomsection\label{an-applied-example-the-correlates-of-tourism-1}
 \begin{figure}
 \centering
-\includegraphics[width=0.8\linewidth,height=\textheight,keepaspectratio]{ci-hotel.jpg}
+\includegraphics[width=0.8\linewidth,height=\textheight,keepaspectratio,alt={I'll be honest that a trip to the Canaries sounds mighty nice in February\ldots{}}]{eh1903-2-lecture-ols_files/ci-hotel.jpg}
 \caption{I'll be honest that a trip to the Canaries sounds mighty nice
 in February\ldots{}}
 \end{figure}
 \end{frame}
 
 \begin{frame}{An Applied Example: The Correlates of Tourism}
-\phantomsection\label{an-applied-example-the-correlates-of-tourism-2}
+\protect\phantomsection\label{an-applied-example-the-correlates-of-tourism-2}
 Academic interest in the international relations/IPE of tourism may owe
 to H.P. Gray (1966).
 
@@ -568,7 +591,7 @@ questions of development and peace.
 \end{frame}
 
 \begin{frame}[fragile]{A Simple Exercise}
-\phantomsection\label{a-simple-exercise}
+\protect\phantomsection\label{a-simple-exercise}
 I gathered data from the World Bank's repository for a simple
 cross-sectional exercise.
 
@@ -610,7 +633,7 @@ reference earlier.
 \end{frame}
 
 \begin{frame}{The Model(s)}
-\phantomsection\label{the-models}
+\protect\phantomsection\label{the-models}
 We'll run two linear models.
 
 \begin{enumerate}
@@ -623,17 +646,17 @@ We'll run two linear models.
 \end{frame}
 
 \begin{frame}{}
-\phantomsection\label{section}
-\pandocbounded{\includegraphics[keepaspectratio]{figs/unnamed-chunk-1.pdf}}
+\protect\phantomsection\label{section}
+\pandocbounded{\includegraphics[keepaspectratio]{eh1903-2-lecture-ols_files/figs/unnamed-chunk-1.pdf}}
 \end{frame}
 
 \begin{frame}{}
-\phantomsection\label{section-1}
-\pandocbounded{\includegraphics[keepaspectratio]{figs/unnamed-chunk-2.pdf}}
+\protect\phantomsection\label{section-1}
+\pandocbounded{\includegraphics[keepaspectratio]{eh1903-2-lecture-ols_files/figs/unnamed-chunk-2.pdf}}
 \end{frame}
 
 \begin{frame}{}
-\phantomsection\label{section-2}
+\protect\phantomsection\label{section-2}
 \begin{table}
 \centering\centering
 \caption{\label{tab:unnamed-chunk-3}Cross-National Correlates of (Logged) International Tourism Arrivals}
@@ -667,15 +690,15 @@ F & 4.026 & 48.172\\
 \end{frame}
 
 \begin{frame}{}
-\phantomsection\label{section-3}
-\includegraphics[width=0.8\linewidth,height=\textheight,keepaspectratio]{dawson_crying.jpg}
+\protect\phantomsection\label{section-3}
+\includegraphics[width=0.8\linewidth,height=\textheight,keepaspectratio]{eh1903-2-lecture-ols_files/dawson_crying.jpg}
 \end{frame}
 
 \subsection{How to Interpret Regression
 Output}\label{how-to-interpret-regression-output}
 
 \begin{frame}{How to Interpret a Regression Table Like This}
-\phantomsection\label{how-to-interpret-a-regression-table-like-this}
+\protect\phantomsection\label{how-to-interpret-a-regression-table-like-this}
 \begin{enumerate}
 \tightlist
 \item
@@ -688,7 +711,7 @@ Output}\label{how-to-interpret-regression-output}
 \end{frame}
 
 \begin{frame}{}
-\phantomsection\label{section-4}
+\protect\phantomsection\label{section-4}
 \begin{table}
 \centering\centering
 \caption{\label{tab:unnamed-chunk-4}Cross-National Correlates of (Logged) International Tourism Arrivals}
@@ -722,7 +745,7 @@ Output}\label{how-to-interpret-regression-output}
 \end{frame}
 
 \begin{frame}{Being More Careful with Our Takeaways}
-\phantomsection\label{being-more-careful-with-our-takeaways}
+\protect\phantomsection\label{being-more-careful-with-our-takeaways}
 ``Number goes (up/down); other number goes (up/down); has (no) stars''
 is fine when you're getting started.
 
@@ -751,77 +774,85 @@ Our plan of attack:
 \end{enumerate}
 \end{frame}
 
-\begin{frame}{The DV and IV are Both Log-Transformed}
-\phantomsection\label{the-dv-and-iv-are-both-log-transformed}
-\emph{Air transport passengers}: a 1\% increase in IV coincides with
-estimated .283\% increase in DV.
+\begin{frame}[fragile]{The DV and IV are Both Log-Transformed}
+\protect\phantomsection\label{the-dv-and-iv-are-both-log-transformed}
+\small
+
+\emph{Air transport passengers}:
 
 \begin{itemize}
 \tightlist
 \item
-  Alternatively, less helpfully: a unit increase \(log(x)\) increases
-  \(log(y)\) by an estimated .283.
-\end{itemize}
-
-\emph{GDP per capita}: a 1\% change in GDP per capita -\textgreater{}
-.763\% change in tourism arrivals.
-
-\begin{itemize}
-\tightlist
+  \textbf{Tired}: one unit increase in \texttt{log(x)} increases
+  \texttt{log(y)} by an estimated .283.
 \item
-  Alternatively, with more precision: \((1.01^{.763}-1)*100 = .762\)\%
-  change in tourism arrivals for 1\% increase in GDP per capita.
-\end{itemize}
+  \textbf{Multiplicative}: multiplying \texttt{x} by \(e\) (change of 1
+  on log scale) results in an \texttt{exp(.283)} multiplicative change
+  in \texttt{y} (a 1.327-fold value, or 32.7\% increase).
 
-\textbf{Be mindful of the percentages!}
-
-\begin{itemize}
-\tightlist
+  \begin{itemize}
+  \tightlist
+  \item
+    Alternatively: a change of 1\% in \texttt{x} multiplies expected
+    \texttt{y} by \texttt{1.01\^{}.283} (\textasciitilde1.00282).
+  \end{itemize}
 \item
-  ``one percent change in \emph{x} -\textgreater{} estimated (regression
-  coefficient)\% change in \emph{y}''
+  \textbf{Relative}: a change of 1\% in \texttt{x} results in a relative
+  change of \texttt{1.01\^{}(.283)\ -\ 1} in \texttt{y}
+  (\textasciitilde.00282).
+\item
+  \textbf{Percentage}: a change of 1\% in \texttt{x} results in a
+  percentage change of \texttt{(1.01\^{}(.283)\ -\ 1)*100} in \texttt{y}
+  (.282\%).
+\item
+  \textbf{Approximation}: a change of 1\% in \texttt{x} results in a
+  \textbf{{[}regression coefficient{]}}\% change in \texttt{y}.
 \end{itemize}
+
+\textbf{Be mindful of the language differing units from percentages!}
+
+\normalsize
 \end{frame}
 
 \begin{frame}[fragile]{The DV is Log-Transformed, but the IVs are Not}
-\phantomsection\label{the-dv-is-log-transformed-but-the-ivs-are-not}
-\emph{Relative price} (Full): a change from 0 to 1 in relative price
--\textgreater{} est. -1.56\% decrease in tourism arrivals.
+\protect\phantomsection\label{the-dv-is-log-transformed-but-the-ivs-are-not}
+\small
+
+\emph{Relative price} (Full): (0 = conceptual extreme; 1 = same price
+level as U.S.)
 
 \begin{itemize}
 \tightlist
 \item
-  Be mindful: 0 = conceptual extreme; 1 = same price level as the U.S.
-\end{itemize}
-
-\emph{Political stability}: a change from 0 to 1 in political stability
--\textgreater{} -.631\% change in tourism arrivals.
-
-\begin{itemize}
-\tightlist
+  \textbf{Tired}: one-unit increase in \texttt{x} decreases
+  \texttt{log(y)} by an estimated -1.565.
 \item
-  Alternatively: \texttt{exp(-.631)} = .532. A one-unit change in
-  stability multiplies expected tourism arrivals by .532.
+  \textbf{Multiplicative} one-unit increase in \texttt{x} multiplies
+  expected \texttt{y} by \texttt{exp(-1.565)} (\textasciitilde.209).
 \item
-  This interpretation works the same way for relative price because it's
-  not log-transformed.
+  \textbf{Relative}: one-unit increase in \texttt{x} changes expected
+  \texttt{y} by \texttt{exp(-1.565)\ -\ 1} (\textasciitilde.791) its
+  previous value.
+\item
+  \textbf{Percentage}: one-unit increase in \texttt{x} results in a
+  \texttt{(exp(-1.565)\ -\ 1)*100} \textasciitilde79.1\% decrease in
+  \texttt{y}.
 \end{itemize}
-
-\emph{FCAS}: Being a FCAS (e.g.~Sudan) versus not being one
-(e.g.~Sweden) decreases est. international tourism arrivals by est.
-1.36\%.
 
 \bigskip
 
-\textbf{Here: unit changes in x -\textgreater{} (regression
-coefficient)\% changes in y}
+\textbf{For small coefficient sizes (generally less than
+\textbar.1\textbar), you can approximate this by multiplying the
+coefficient by 100 to communicate percentage changes.}
+
+\normalsize
 \end{frame}
 
 \subsection{The Intercept and Goodness of Fit
 Notes}\label{the-intercept-and-goodness-of-fit-notes}
 
 \begin{frame}{Dont' Read Much into the Intercept}
-\phantomsection\label{dont-read-much-into-the-intercept}
+\protect\phantomsection\label{dont-read-much-into-the-intercept}
 Don't bother interpreting the intercept.
 
 \begin{itemize}
@@ -846,7 +877,7 @@ stage.
 \end{frame}
 
 \begin{frame}{The Goodness of Fit Statistics}
-\phantomsection\label{the-goodness-of-fit-statistics}
+\protect\phantomsection\label{the-goodness-of-fit-statistics}
 \textbf{R-square}: proportion of variation in \emph{y} accounted for in
 the model.
 
@@ -883,7 +914,7 @@ parameters.
 Diagnostics}\label{assumptions-and-diagnostics}
 
 \begin{frame}[fragile]{Assumptions and Diagnostics}
-\phantomsection\label{assumptions-and-diagnostics-1}
+\protect\phantomsection\label{assumptions-and-diagnostics-1}
 There are \emph{myriad} assumptions of OLS. The ones we impress on you:
 
 \begin{itemize}
@@ -914,7 +945,7 @@ Let me bore you with \texttt{L} and \texttt{N} at this round.
 \end{frame}
 
 \begin{frame}[fragile]{Diagnostics You Should Run}
-\phantomsection\label{diagnostics-you-should-run}
+\protect\phantomsection\label{diagnostics-you-should-run}
 \begin{enumerate}
 \tightlist
 \item
@@ -939,24 +970,24 @@ Let me bore you with \texttt{L} and \texttt{N} at this round.
 \end{frame}
 
 \begin{frame}{}
-\phantomsection\label{section-5}
-\pandocbounded{\includegraphics[keepaspectratio]{figs/unnamed-chunk-5.pdf}}
+\protect\phantomsection\label{section-5}
+\pandocbounded{\includegraphics[keepaspectratio]{eh1903-2-lecture-ols_files/figs/unnamed-chunk-5.pdf}}
 \end{frame}
 
 \begin{frame}{}
-\phantomsection\label{section-6}
-\pandocbounded{\includegraphics[keepaspectratio]{figs/unnamed-chunk-6.pdf}}
+\protect\phantomsection\label{section-6}
+\pandocbounded{\includegraphics[keepaspectratio]{eh1903-2-lecture-ols_files/figs/unnamed-chunk-6.pdf}}
 \end{frame}
 
 \begin{frame}{}
-\phantomsection\label{section-7}
-\pandocbounded{\includegraphics[keepaspectratio]{figs/unnamed-chunk-7.pdf}}
+\protect\phantomsection\label{section-7}
+\pandocbounded{\includegraphics[keepaspectratio]{eh1903-2-lecture-ols_files/figs/unnamed-chunk-7.pdf}}
 \end{frame}
 
 \section{Conclusion}\label{conclusion}
 
 \begin{frame}{Conclusion}
-\phantomsection\label{conclusion-1}
+\protect\phantomsection\label{conclusion-1}
 There's \emph{a lot} I crammed into this lecture, but:
 
 \begin{itemize}
