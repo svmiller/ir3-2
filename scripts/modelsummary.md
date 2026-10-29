@@ -1055,7 +1055,7 @@ document. For you Mac users, this should be Cmd instead of Ctrl.
 [^1]: The likelihood of the model is a measure of how probable the
     observed data are under a model’s estimated parameters. It reflects
     how closely the observed outcomes fall around the fitted values,
-    given the estimated residual variance. The log likelihood is just a
+    given the estimated residual variance. The log-likelihood is just a
     logarithmic transformation of that likelihood. You can extract it
     with `logLik(M2)`, or calculate it yourself with
     `(nobs(M2)/2)*(log(2*pi) + 1 + log(sum(residuals(M2)^2)/nobs(M2)))`
@@ -1078,9 +1078,9 @@ document. For you Mac users, this should be Cmd instead of Ctrl.
     for model comparison. In our case, we’d use them to compare `M1` and
     `M2` to ask whether the extra model parameters better fit the data.
     Lower values relative to other models are better for AIC and BIC.
-    Higher values are better for log likelihood. In our case, `M2` is
+    Higher values are better for log-likelihood. In our case, `M2` is
     better than `M1` because the AIC/BIC are lower for `M2` than `M1`
-    and the log likelihood is higher. `M2` is more complex than `M1`,
+    and the log-likelihood is higher. `M2` is more complex than `M1`,
     but better fits the data. Adjusted R-square also agrees. However,
     the social sciences don’t much weight in those measures because
     model complexity follows the assumed data-generating process. It’s a
