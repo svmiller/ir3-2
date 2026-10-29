@@ -277,31 +277,36 @@ modelsummary(list("Bivariate Regression" = M1,
 #' likelihood. You can extract it with `logLik(M2)`, or calculate it yourself 
 #' with `(nobs(M2)/2)*(log(2*pi) + 1 + log(sum(residuals(M2)^2)/nobs(M2)))` for
 #' the second model. `sum(residuals(M2)^2)`, for context, would be the residual
-#' sum of squares (RSS) and would need that for calculating the model's total 
+#' sum of squares (RSS) and you would need that for calculating the model's total 
 #' R-square. You need the log-likelihood to calculate the Akaike Information 
-#' Criterion (AIC) and the Bayesian Information Criterion (BIC) work kind of in 
-#' the same way the adjusted R-square works. It's a measure of model fit against 
-#' model complexity. You calculate AIC with `-2*logLik(M2) + 2*attr(logLik(M2), "df")`
-#' and BIC with `-2*logLik(M2) + log(nobs(M2))*attr(logLik(M2), "df")`. That
-#' `attr()` function is extracting the number of parameters in the model. The BIC
-#' is generally more punitive for extra model parameters than AIC. 
-#' Alternatively, you can do `AIC(M2)` and `BIC(M2)`. I don't prioritize teaching
-#' these because the purpose of the log-likelihood, the AIC, and the BIC are 
+#' Criterion (AIC) and the Bayesian Information Criterion (BIC). Both work kind 
+#' of in the same way the adjusted R-square works in that they are a measure of 
+#' model fit against model complexity. You calculate AIC with 
+#' `-2*logLik(M2) + 2*attr(logLik(M2), "df")` and BIC with 
+#' `-2*logLik(M2) + log(nobs(M2))*attr(logLik(M2), "df")`. That `attr()` 
+#' function, used in this way, is extracting the number of parameters in the 
+#' model. The BIC is generally more punitive for extra model parameters than AIC
+#' because of that logarithmic transformation of the number of observations
+#' multiplied against the number of parameters in the model. Alternatively, 
+#' you can do `AIC(M2)` and `BIC(M2)`. I don't prioritize teaching these 
+#' because the purpose of the log-likelihood, the AIC, and the BIC are 
 #' mostly for model comparison. In our case, we'd use them to compare `M1` and
 #' `M2` to ask whether the extra model parameters better fit the data. Lower
-#' values relative to other models are better. In our case, `M2` is better than
-#' `M1` because those values are lower for `M2` than `M1`. `M2` is more
-#' complex than `M1`, but better fits the data. Adjusted R-square agrees. 
-#' However, the social sciences don't much weight in those measures because 
-#' model complexity follows the assumed data-generating process. It's a 
-#' theoretical or argumentative modeling approach, and not an iterative one. If 
-#' `M1` is the wrong model that follows the wrong data-generating process, it 
-#' doesn't matter what the AIC or the BIC are saying. It's just not the correct 
-#' data-generating process. I think these measures are relics of another time 
-#' when researchers were interested in better fitting the data than they were 
-#' interested in capturing (theoretical, but unknown) data-generating processes. 
-#' There's still value in fitting the data, I think, but less value in fitting 
-#' them relative to other models in this way.
+#' values relative to other models are better for AIC and BIC. Higher values
+#' are better for log likelihood. In our case, `M2` is better than
+#' `M1` because the AIC/BIC are lower for `M2` than `M1` and the log likelihood
+#' is higher. `M2` is more complex than `M1`, but better fits the data. Adjusted 
+#' R-square also agrees. However, the social sciences don't much weight in 
+#' those measures because model complexity follows the assumed data-generating 
+#' process. It's a theoretical or argumentative modeling approach, and not an 
+#' iterative one. If `M1` is the wrong model that follows the wrong 
+#' data-generating process, it doesn't matter what the AIC or the BIC are saying. 
+#' It's just not the correct data-generating process. I think these measures are 
+#' relics of another time when researchers were interested in better fitting the 
+#' data than they were interested in capturing (theoretical, but unknown) 
+#' data-generating processes. There's still value in fitting the data, I think, 
+#' but less value in fitting them relative to other models in this way and caring
+#' about what these particular statistics are communicating.
 #' 
 #' 
 #' 

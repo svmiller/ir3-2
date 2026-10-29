@@ -231,7 +231,8 @@ Data %>% summarize(cor = cor(gdppc, demest, use='complete.obs'))
 #'    against 0.
 #'    
 #' So where does that leave us with the Pearson's r we got? You might see a table,
-#' [like this one](https://ir3-2.svmiller.com/images/pearson-r-table.png) or [this one](https://ir3-2.svmiller.com/images/pearson-r-table-2.png),
+#' [like this one](https://ir3-2.svmiller.com/images/pearson-r-table.png) or 
+#' [this one](https://ir3-2.svmiller.com/images/pearson-r-table-2.png),
 #' that proposes a way of summarizing Pearson's r with some combination of an
 #' adverb and adjective. I will only caution this is a useful framework for 
 #' students and beginners, but it is not a rule. It's not even worth recommending,

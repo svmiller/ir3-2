@@ -127,7 +127,7 @@ summary(M1)
 #' 
 #' Oh, btw, if you want to calculate that p-value yourself, here it is.
 
-pt(2.37, df=93, lower.tail = F)*2
+pt(2.37, df=93, lower.tail = FALSE)*2
 
 #' ^ let R's default summary() method do it for you.
 #' 
