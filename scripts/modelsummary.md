@@ -1093,4 +1093,6 @@ document. For you Mac users, this should be Cmd instead of Ctrl.
     in capturing (theoretical, but unknown) data-generating processes.
     There’s still value in fitting the data, I think, but less value in
     fitting them relative to other models in this way and caring about
-    what these particular statistics are communicating.
+    what these particular statistics are communicating. You will see the
+    BIC invoked in the time-series context with respect to forecasting,
+    but that’s an advanced exercise.
